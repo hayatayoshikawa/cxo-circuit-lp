@@ -1,0 +1,1252 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>株式会社プレイバッカーズ — 眠れる地域資源を、再生する。</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;900&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ─── RESET & BASE ─── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --lime: #C7F046;
+  --blue: #3D6CF5;
+  --navy: #0A1628;
+  --text: #0A1628;
+  --muted: #4B5565;
+  --bg-white: #ffffff;
+  --bg-blue: #f3f6ff;
+  --bg-green: #edf8ee;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  color: var(--text);
+  background: var(--bg-white);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── SCROLL REVEAL ─── */
+.rv { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s ease; }
+.rv.in { opacity: 1; transform: none; }
+.d1 { transition-delay: .1s; }
+.d2 { transition-delay: .2s; }
+.d3 { transition-delay: .3s; }
+.d4 { transition-delay: .4s; }
+.d5 { transition-delay: .5s; }
+.d6 { transition-delay: .6s; }
+
+/* ─── NAV ─── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 52px;
+  height: 68px;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(10,22,40,0.07);
+}
+
+.nav-logo {
+  font-family: 'Archivo', sans-serif;
+  font-weight: 900;
+  font-size: 17px;
+  letter-spacing: 0.12em;
+  color: var(--navy);
+  text-decoration: none;
+}
+
+.nav-logo span {
+  color: var(--blue);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--navy);
+  text-decoration: none;
+  letter-spacing: 0.03em;
+  opacity: 0.75;
+  transition: opacity .2s;
+}
+
+.nav-links a:hover { opacity: 1; }
+
+.nav-cta {
+  background: var(--blue);
+  color: #fff;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background .22s, transform .22s;
+}
+
+.nav-cta:hover { background: #2855DF; transform: translateY(-1px); }
+
+/* ─── LP SECTIONS ─── */
+.lp-sec {
+  padding: 100px 52px;
+}
+
+.lp-ct {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.sec-label {
+  font-family: 'Archivo', sans-serif;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: var(--blue);
+  margin-bottom: 18px;
+  text-transform: uppercase;
+}
+
+.sec-h2 {
+  font-size: clamp(24px, 2.6vw, 38px);
+  font-weight: 700;
+  line-height: 1.5;
+  word-break: keep-all;
+  color: var(--navy);
+  margin-bottom: 52px;
+}
+
+/* ─── HERO ─── */
+#hero {
+  height: 100vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(118deg,
+    #ffffff 0%,
+    #f3f6ff 38%,
+    #edf8ee 72%,
+    #e6f5e1 100%
+  );
+}
+
+.hero-mask {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg,
+    rgba(255,255,255,0.45) 0%,
+    rgba(255,255,255,0.20) 28%,
+    transparent 50%
+  );
+  z-index: 8;
+  pointer-events: none;
+}
+
+.hero-text {
+  position: relative;
+  z-index: 10;
+  padding: 64px 0 0 76px;
+  max-width: 540px;
+}
+
+.service-label {
+  font-family: 'Archivo', sans-serif;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--blue);
+  letter-spacing: 0.12em;
+  margin-bottom: 22px;
+  text-transform: uppercase;
+}
+
+.hero-h1 {
+  font-size: clamp(32px, 3.4vw, 48px);
+  font-weight: 700;
+  line-height: 1.5;
+  word-break: keep-all;
+  margin-bottom: 22px;
+  color: var(--navy);
+  text-shadow: 0 0 28px rgba(255,255,255,0.9), 0 0 12px rgba(255,255,255,0.7);
+}
+
+.hero-body {
+  font-size: 14.5px;
+  line-height: 1.95;
+  color: var(--muted);
+  font-weight: 300;
+  margin-bottom: 40px;
+  text-shadow: 0 0 16px rgba(255,255,255,0.85);
+}
+
+.hero-ctas {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+
+.cta-primary {
+  background: var(--blue);
+  color: #fff;
+  border: none;
+  padding: 12px 26px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: background .22s, box-shadow .22s, transform .22s;
+}
+
+.cta-primary:hover {
+  background: #2855DF;
+  box-shadow: 0 6px 22px rgba(61,108,245,0.30);
+  transform: translateY(-2px);
+}
+
+.cta-secondary {
+  background: transparent;
+  color: var(--navy);
+  border: 1.5px solid rgba(10,22,40,0.22);
+  padding: 11px 22px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: 'Noto Sans JP', sans-serif;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: border-color .2s;
+}
+
+.cta-secondary:hover { border-color: var(--navy); }
+
+/* ─── WAVE CANVAS ─── */
+#wc {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+}
+
+/* ─── SECTION BACKGROUNDS ─── */
+#strengths { background: var(--bg-white); }
+#services  { background: var(--bg-blue); }
+#works     { background: var(--bg-white); }
+#members   { background: var(--bg-green); }
+#about     { background: var(--bg-white); }
+#contact   { background: var(--navy); }
+
+/* ─── STRENGTHS ─── */
+.strengths-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.strengths-visual {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.strength-card {
+  background: #fff;
+  border: 1px solid rgba(10,22,40,0.08);
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 4px 24px rgba(10,22,40,0.05);
+  transition: transform .25s, box-shadow .25s;
+}
+
+.strength-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(10,22,40,0.10);
+}
+
+.strength-card:last-child {
+  margin-left: 48px;
+}
+
+.strength-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  margin-bottom: 14px;
+}
+
+.strength-icon.blue  { background: rgba(61,108,245,0.10); }
+.strength-icon.green { background: rgba(199,240,70,0.20); }
+
+.strength-card-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 8px;
+  word-break: keep-all;
+}
+
+.strength-card-body {
+  font-size: 13.5px;
+  line-height: 1.85;
+  color: var(--muted);
+  font-weight: 300;
+}
+
+.strengths-copy h3 {
+  font-size: clamp(20px, 2vw, 30px);
+  font-weight: 700;
+  line-height: 1.55;
+  word-break: keep-all;
+  color: var(--navy);
+  margin-bottom: 24px;
+}
+
+.strengths-copy p {
+  font-size: 14.5px;
+  line-height: 1.95;
+  color: var(--muted);
+  font-weight: 300;
+  margin-bottom: 16px;
+}
+
+/* ─── SERVICES ─── */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.services-grid .svc-card:nth-child(4),
+.services-grid .svc-card:nth-child(5) {
+  grid-column: auto;
+}
+
+/* bottom 2 cards centered */
+.services-bottom {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  max-width: 720px;
+  margin: 20px auto 0;
+}
+
+.svc-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 32px 28px;
+  border: 1px solid rgba(10,22,40,0.07);
+  transition: transform .25s, box-shadow .25s;
+}
+
+.svc-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(10,22,40,0.10);
+}
+
+.svc-num {
+  font-family: 'Archivo', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.10em;
+  color: var(--blue);
+  margin-bottom: 14px;
+  display: block;
+}
+
+.svc-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 10px;
+  word-break: keep-all;
+}
+
+.svc-body {
+  font-size: 13.5px;
+  line-height: 1.85;
+  color: var(--muted);
+  font-weight: 300;
+}
+
+.svc-tag {
+  display: inline-block;
+  margin-top: 14px;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: rgba(61,108,245,0.10);
+  color: var(--blue);
+}
+
+/* ─── WORKS ─── */
+.works-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.work-card {
+  background: #fff;
+  border: 1px solid rgba(10,22,40,0.08);
+  border-radius: 14px;
+  overflow: hidden;
+  transition: transform .25s, box-shadow .25s;
+}
+
+.work-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(10,22,40,0.10);
+}
+
+.work-img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  display: block;
+}
+
+.work-body {
+  padding: 20px 22px 22px;
+}
+
+.work-category {
+  font-family: 'Archivo', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 8px;
+}
+
+.work-title {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.5;
+  word-break: keep-all;
+}
+
+/* ─── MEMBERS ─── */
+.members-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.member-card {
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(10,22,40,0.07);
+  transition: transform .25s, box-shadow .25s;
+}
+
+.member-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(10,22,40,0.10);
+}
+
+.member-card.featured {
+  grid-column: span 2;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.member-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+  background: linear-gradient(135deg, #edf0f7 0%, #d8e4f0 100%);
+}
+
+.member-card.featured .member-img {
+  height: 100%;
+  min-height: 220px;
+}
+
+.member-info {
+  padding: 22px;
+}
+
+.member-role {
+  font-family: 'Archivo', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 6px;
+}
+
+.member-name {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 4px;
+  word-break: keep-all;
+}
+
+.member-name-en {
+  font-family: 'Archivo', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  opacity: 0.6;
+  margin-bottom: 12px;
+}
+
+.member-desc {
+  font-size: 12.5px;
+  line-height: 1.8;
+  color: var(--muted);
+  font-weight: 300;
+}
+
+/* ─── ABOUT ─── */
+.about-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+
+.about-copy p {
+  font-size: 14.5px;
+  line-height: 1.95;
+  color: var(--muted);
+  font-weight: 300;
+  margin-bottom: 28px;
+}
+
+.about-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.about-table tr {
+  border-bottom: 1px solid rgba(10,22,40,0.08);
+}
+
+.about-table td {
+  padding: 18px 0;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.about-table td:first-child {
+  font-weight: 500;
+  color: var(--navy);
+  width: 130px;
+  font-size: 12.5px;
+  letter-spacing: 0.03em;
+}
+
+.about-table td:last-child {
+  color: var(--muted);
+  font-weight: 300;
+}
+
+/* ─── CONTACT ─── */
+#contact .sec-label { color: var(--lime); }
+#contact .sec-h2 { color: #fff; }
+
+.cta-lead {
+  font-size: 15px;
+  line-height: 1.9;
+  color: rgba(255,255,255,0.65);
+  font-weight: 300;
+  margin-bottom: 52px;
+  word-break: keep-all;
+}
+
+.cta-form {
+  max-width: 640px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-field label {
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.55);
+  letter-spacing: 0.04em;
+}
+
+.form-field input,
+.form-field select,
+.form-field textarea {
+  background: rgba(255,255,255,0.08);
+  border: 1.5px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-size: 14px;
+  font-family: 'Noto Sans JP', sans-serif;
+  color: #fff;
+  outline: none;
+  transition: border-color .2s, background .2s;
+}
+
+.form-field input::placeholder,
+.form-field textarea::placeholder { color: rgba(255,255,255,0.3); }
+
+.form-field select option { background: var(--navy); color: #fff; }
+
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus {
+  border-color: var(--lime);
+  background: rgba(255,255,255,0.12);
+}
+
+.form-field textarea { resize: vertical; min-height: 100px; }
+
+.form-submit {
+  background: var(--lime);
+  color: var(--navy);
+  border: none;
+  padding: 15px 40px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 700;
+  cursor: pointer;
+  align-self: flex-start;
+  transition: opacity .2s, transform .2s;
+}
+
+.form-submit:hover { opacity: 0.85; transform: translateY(-2px); }
+
+/* ─── FOOTER ─── */
+footer {
+  background: var(--navy);
+  border-top: 1px solid rgba(255,255,255,0.07);
+  padding: 48px 52px;
+}
+
+.footer-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footer-logo {
+  font-family: 'Archivo', sans-serif;
+  font-weight: 900;
+  font-size: 15px;
+  letter-spacing: 0.12em;
+  color: #fff;
+}
+
+.footer-logo span { color: var(--lime); }
+
+.footer-copy {
+  font-size: 12px;
+  color: rgba(255,255,255,0.35);
+  margin-top: 6px;
+}
+
+.footer-links {
+  display: flex;
+  gap: 28px;
+  list-style: none;
+}
+
+.footer-links a {
+  font-size: 12.5px;
+  color: rgba(255,255,255,0.45);
+  text-decoration: none;
+  transition: color .2s;
+}
+
+.footer-links a:hover { color: rgba(255,255,255,0.9); }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 900px) {
+  nav { padding: 0 24px; }
+  .nav-links { display: none; }
+  .lp-sec { padding: 72px 24px; }
+  .hero-text { padding: 64px 0 0 24px; }
+  .strengths-inner { grid-template-columns: 1fr; gap: 48px; }
+  .strength-card:last-child { margin-left: 0; }
+  .services-grid { grid-template-columns: 1fr 1fr; }
+  .services-bottom { max-width: 100%; }
+  .works-list { grid-template-columns: 1fr 1fr; }
+  .members-grid { grid-template-columns: 1fr 1fr; }
+  .member-card.featured { grid-column: span 2; }
+  .about-inner { grid-template-columns: 1fr; gap: 48px; }
+  .footer-inner { flex-direction: column; gap: 24px; text-align: center; }
+}
+
+@media (max-width: 600px) {
+  .services-grid { grid-template-columns: 1fr; }
+  .services-bottom { grid-template-columns: 1fr; }
+  .works-list { grid-template-columns: 1fr; }
+  .members-grid { grid-template-columns: 1fr; }
+  .member-card.featured { grid-column: span 1; display: block; }
+  .form-row { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ─── NAV ─── -->
+<nav>
+  <a href="#" class="nav-logo">PLAY<span>BACKERS</span></a>
+  <ul class="nav-links">
+    <li><a href="#strengths">強み</a></li>
+    <li><a href="#services">事業内容</a></li>
+    <li><a href="#works">実績</a></li>
+    <li><a href="#members">メンバー</a></li>
+    <li><a href="#about">会社概要</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">無料相談</a>
+</nav>
+
+<!-- ─── §1 HERO ─── -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <canvas id="wc"></canvas>
+  <div class="hero-mask"></div>
+
+  <div class="hero-text">
+    <p class="service-label rv d1">PLAYBACKERS / 地方創生スタートアップ</p>
+    <h1 class="hero-h1 rv d2">眠れる地域資源を、<br>再生する。</h1>
+    <p class="hero-body rv d3">現地に深く入り込む「人間力」と、AI・テクノロジーの力を掛け合わせ、<br>ローカルに眠る可能性に満ちた地域資源を再生する。<br>地方創生のプロ集団です。</p>
+    <div class="hero-ctas rv d4">
+      <a href="#contact" class="cta-primary">30分無料相談 →</a>
+      <a href="#services" class="cta-secondary">事業内容を見る</a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── §2 強み ─── -->
+<section id="strengths" class="lp-sec">
+  <div class="lp-ct">
+    <div class="strengths-inner">
+      <div class="strengths-visual">
+        <div class="strength-card rv d1">
+          <div class="strength-icon blue">🤝</div>
+          <p class="strength-card-title">人間力（オフライン）</p>
+          <p class="strength-card-body">現地に深く入り込み、地域の方々との信頼関係を丁寧に構築します。<br>足で稼ぐ泥くさい活動こそが、再生の起点です。</p>
+        </div>
+        <div class="strength-card rv d2">
+          <div class="strength-icon green">⚡</div>
+          <p class="strength-card-title">AI・テクノロジー（オンライン）</p>
+          <p class="strength-card-body">人間力を最大化するデジタル活用で、<br>全国の地域課題に対応できる体制を整えています。</p>
+        </div>
+      </div>
+
+      <div class="strengths-copy">
+        <p class="sec-label rv">OUR STRENGTH</p>
+        <h3 class="rv d1">人間力とテクノロジーを<br>掛け合わせた、新しい<wbr>地方創生のかたち</h3>
+        <p class="rv d2">プレイバッカーズは、千葉・内房の完全会員制キャンプ場「フォレストパーティー峰山」の再生を皮切りに、各地の遊休不動産・眠れる事業を蘇らせてきました。</p>
+        <p class="rv d3">テクノロジーで業務を効率化しながらも、現場の人間関係を大切にする二刀流のアプローチが私たちの強みです。</p>
+        <a href="#contact" class="cta-primary rv d4" style="display:inline-flex; margin-top: 8px;">詳しく相談する →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── §3 事業内容 ─── -->
+<section id="services" class="lp-sec">
+  <div class="lp-ct">
+    <p class="sec-label rv">SERVICES</p>
+    <h2 class="sec-h2 rv d1">地域に眠る資源を、<br>多角的な事業で再生する</h2>
+
+    <div class="services-grid">
+      <div class="svc-card rv d1">
+        <span class="svc-num">SERVICE 01</span>
+        <p class="svc-title">不動産再生</p>
+        <p class="svc-body">空き家・廃旅館・廃キャンプ場など、遊休不動産の活用と再生を手がけます。宅建業免許取得予定（2026年）。</p>
+        <span class="svc-tag">不動産 / 遊休物件</span>
+      </div>
+
+      <div class="svc-card rv d2">
+        <span class="svc-num">SERVICE 02</span>
+        <p class="svc-title">事業再生・コンサル</p>
+        <p class="svc-body">眠れる技術・商品・事業を掘り起こし、新たな価値を引き出すコンサルティングを提供します。</p>
+        <span class="svc-tag">事業承継 / 経営支援</span>
+      </div>
+
+      <div class="svc-card rv d3">
+        <span class="svc-num">SERVICE 03</span>
+        <p class="svc-title">フォレストパーティー<wbr>峰山</p>
+        <p class="svc-body">千葉・内房の完全会員制キャンプ場。廃キャンプ場を再生した自社ショーケース事業です。</p>
+        <span class="svc-tag">千葉 / 会員制</span>
+      </div>
+    </div>
+
+    <div class="services-bottom">
+      <div class="svc-card rv d2">
+        <span class="svc-num">SERVICE 04</span>
+        <p class="svc-title">循環学校（君津市受託）</p>
+        <p class="svc-body">「清和の暮らしとシゴトづくり実践事業」として、地域活性化プログラムを企画・運営しています。</p>
+        <span class="svc-tag">君津市 / 地域活性化</span>
+      </div>
+
+      <div class="svc-card rv d3">
+        <span class="svc-num">SERVICE 05</span>
+        <p class="svc-title">CARONY</p>
+        <p class="svc-body">「動く、もう一部屋。」をコンセプトにしたトレーラーハウス事業。移動できる暮らしの新しい選択肢を提案します。</p>
+        <span class="svc-tag">トレーラーハウス / 新規</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── §4 実績 ─── -->
+<section id="works" class="lp-sec">
+  <div class="lp-ct">
+    <p class="sec-label rv">WORKS</p>
+    <h2 class="sec-h2 rv d1">地域とともに築いてきた、<br>6つの実績</h2>
+
+    <div class="works-list">
+      <div class="work-card rv d1">
+        <img class="work-img" src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&w=800&q=80" alt="金物製作会社">
+        <div class="work-body">
+          <p class="work-category">新規プロダクト開発</p>
+          <p class="work-title">金物製作会社の新規プロダクト<wbr>立ち上げ支援</p>
+        </div>
+      </div>
+
+      <div class="work-card rv d2">
+        <img class="work-img" src="https://images.unsplash.com/photo-1500595046743-cd271d694d30?auto=format&fit=crop&w=800&q=80" alt="牧場 事業承継">
+        <div class="work-body">
+          <p class="work-category">事業承継</p>
+          <p class="work-title">牧場の事業承継支援</p>
+        </div>
+      </div>
+
+      <div class="work-card rv d3">
+        <img class="work-img" src="https://images.unsplash.com/photo-1515187029135-18ee286d815b?auto=format&fit=crop&w=800&q=80" alt="ローカルビジネスプログラム">
+        <div class="work-body">
+          <p class="work-category">地域活性化</p>
+          <p class="work-title">ローカルビジネスプログラムの<wbr>企画・運営</p>
+        </div>
+      </div>
+
+      <div class="work-card rv d2">
+        <img class="work-img" src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=80" alt="空き家相談窓口">
+        <div class="work-body">
+          <p class="work-category">不動産相談</p>
+          <p class="work-title">空き家相談窓口の運営</p>
+        </div>
+      </div>
+
+      <div class="work-card rv d3">
+        <img class="work-img" src="https://images.unsplash.com/photo-1537225228614-56cc3556d7ed?auto=format&fit=crop&w=800&q=80" alt="フォレストパーティー峰山">
+        <div class="work-body">
+          <p class="work-category">不動産再生</p>
+          <p class="work-title">廃キャンプ場再生事業<br>フォレストパーティー峰山</p>
+        </div>
+      </div>
+
+      <div class="work-card rv d4">
+        <img class="work-img" src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=800&q=80" alt="アウトドア製品">
+        <div class="work-body">
+          <p class="work-category">製品企画</p>
+          <p class="work-title">アウトドア製品の企画・販売</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── §5 メンバー ─── -->
+<section id="members" class="lp-sec">
+  <div class="lp-ct">
+    <p class="sec-label rv">MEMBERS</p>
+    <h2 class="sec-h2 rv d1">地域と向き合う、<br>少数精鋭のチーム</h2>
+
+    <div class="members-grid">
+      <!-- 代表（フィーチャー） -->
+      <div class="member-card featured rv d1">
+        <div class="member-img" style="background: linear-gradient(135deg, #c8d8f0 0%, #a8c0e8 100%); display:flex; align-items:center; justify-content:center; font-size:64px;">
+          🌿
+        </div>
+        <div class="member-info">
+          <p class="member-role">代表取締役</p>
+          <p class="member-name">吉川 隼大</p>
+          <p class="member-name-en">Hayata Yoshikawa</p>
+          <p class="member-desc">事業統括・地域連携・ソフト面を担当。眠れる地域資源を人間力と<wbr>テクノロジーで再生することに情熱を注ぐ。</p>
+        </div>
+      </div>
+
+      <div class="member-card rv d2">
+        <div class="member-img" style="background: linear-gradient(135deg, #d0e8d8 0%, #b0d4bc 100%); display:flex; align-items:center; justify-content:center; font-size:48px;">
+          📊
+        </div>
+        <div class="member-info">
+          <p class="member-role">事業計画・案件獲得</p>
+          <p class="member-name">野村 昌広</p>
+          <p class="member-name-en">Masahiro Nomura</p>
+          <p class="member-desc">事業計画の立案とPB案件の<wbr>営業開拓を担当。</p>
+        </div>
+      </div>
+
+      <div class="member-card rv d3">
+        <div class="member-img" style="background: linear-gradient(135deg, #f0e0d0 0%, #e8c8b0 100%); display:flex; align-items:center; justify-content:center; font-size:48px;">
+          🎨
+        </div>
+        <div class="member-info">
+          <p class="member-role">デザイン・広報・バックオフィス</p>
+          <p class="member-name">宮川 桃乃</p>
+          <p class="member-name-en">Momono Miyakawa</p>
+          <p class="member-desc">撮影・HP・SNS・経理労務・<wbr>契約を一手に担う。</p>
+        </div>
+      </div>
+
+      <div class="member-card rv d4">
+        <div class="member-img" style="background: linear-gradient(135deg, #e0d0f0 0%, #c8b0e8 100%); display:flex; align-items:center; justify-content:center; font-size:48px;">
+          🏠
+        </div>
+        <div class="member-info">
+          <p class="member-role">不動産事業・バックオフィス</p>
+          <p class="member-name">嶋岡 静香</p>
+          <p class="member-name-en">Shizuka Shimaoka</p>
+          <p class="member-desc">不動産事業・契約書・重説・<wbr>バックオフィス全般を担当。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── §6 会社概要 ─── -->
+<section id="about" class="lp-sec">
+  <div class="lp-ct">
+    <div class="about-inner">
+      <div class="about-copy">
+        <p class="sec-label rv">ABOUT US</p>
+        <h2 class="sec-h2 rv d1" style="margin-bottom: 24px;">「眠れる地域資源を、<br>再生する」ために。</h2>
+        <p class="rv d2">株式会社プレイバッカーズは2025年に設立された地方創生スタートアップです。千葉県木更津市を拠点に、全国の遊休不動産・眠れる事業の再生に取り組んでいます。</p>
+        <p class="rv d3">ビジョンは「地域に最も頼りにされるパートナーになる」こと。正社員1名と業務委託メンバーによる少数精鋭体制で、地域の方々と深く向き合い続けています。</p>
+        <a href="#contact" class="cta-primary rv d4" style="display:inline-flex; margin-top: 12px;">相談してみる →</a>
+      </div>
+
+      <div class="rv d2">
+        <table class="about-table">
+          <tr>
+            <td>社名</td>
+            <td>株式会社プレイバッカーズ</td>
+          </tr>
+          <tr>
+            <td>代表取締役</td>
+            <td>吉川 隼大</td>
+          </tr>
+          <tr>
+            <td>設立</td>
+            <td>2025年</td>
+          </tr>
+          <tr>
+            <td>所在地</td>
+            <td>千葉県木更津市</td>
+          </tr>
+          <tr>
+            <td>資本金</td>
+            <td>300万円</td>
+          </tr>
+          <tr>
+            <td>事業内容</td>
+            <td>不動産再生・事業再生コンサル・<br>地域活性化プログラムの企画・運営</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── §7 お問い合わせ ─── -->
+<section id="contact" class="lp-sec">
+  <div class="lp-ct">
+    <p class="sec-label rv">CONTACT</p>
+    <h2 class="sec-h2 rv d1">まずは30分、<br>お気軽にご相談ください。</h2>
+    <p class="cta-lead rv d2">空き家・廃旅館・遊休不動産の活用、事業承継・廃業のご相談、<br>地方創生プロジェクトへの参画など、お気軽にお問い合わせください。</p>
+
+    <form class="cta-form rv d3" onsubmit="return false">
+      <div class="form-row">
+        <div class="form-field">
+          <label for="name">お名前</label>
+          <input type="text" id="name" placeholder="山田 太郎">
+        </div>
+        <div class="form-field">
+          <label for="email">メールアドレス</label>
+          <input type="email" id="email" placeholder="taro@example.com">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-field">
+          <label for="company">会社名・屋号</label>
+          <input type="text" id="company" placeholder="株式会社〇〇（任意）">
+        </div>
+        <div class="form-field">
+          <label for="category">ご相談の種類</label>
+          <select id="category">
+            <option value="">選択してください</option>
+            <option value="real-estate">遊休不動産・空き家の活用</option>
+            <option value="business">事業承継・事業再生</option>
+            <option value="local">地域活性化プログラム</option>
+            <option value="other">その他</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-field">
+        <label for="message">ご相談内容</label>
+        <textarea id="message" placeholder="物件の場所・現状・お悩みなど、お気軽にお書きください。"></textarea>
+      </div>
+
+      <button type="submit" class="form-submit">30分無料相談を申し込む</button>
+    </form>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <p class="footer-logo">PLAY<span>BACKERS</span></p>
+      <p class="footer-copy">&copy; 2025 株式会社プレイバッカーズ All rights reserved.</p>
+    </div>
+    <ul class="footer-links">
+      <li><a href="#strengths">強み</a></li>
+      <li><a href="#services">事業内容</a></li>
+      <li><a href="#works">実績</a></li>
+      <li><a href="#members">メンバー</a></li>
+      <li><a href="#about">会社概要</a></li>
+      <li><a href="#contact">お問い合わせ</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+/* ─── WAVE CANVAS ─── */
+(function () {
+  'use strict';
+
+  var canvas = document.getElementById('wc');
+  var ctx    = canvas.getContext('2d');
+  var DPR    = Math.min(window.devicePixelRatio || 1, 2);
+
+  var W = 0, H = 0;
+
+  function resize() {
+    W = canvas.offsetWidth;
+    H = canvas.offsetHeight;
+    canvas.width  = W * DPR;
+    canvas.height = H * DPR;
+  }
+
+  window.addEventListener('resize', resize);
+  resize();
+
+  var COLS   = 68;
+  var ROWS   = 40;
+  var MESH_W = 1600;
+  var MESH_D = 560;
+  var AMP    = 190;
+
+  var CAM_Y  = -45;
+  var CAM_Z  = -210;
+  var FOV    = 420;
+  var Z0     = 110;
+
+  var RAMP = [
+    [ 22,  58, 185],
+    [ 61, 108, 245],
+    [ 95, 170, 255],
+    [165, 228,  88],
+    [199, 240,  70],
+  ];
+
+  function sampleColor(n) {
+    var i  = Math.max(0, Math.min(0.9999, n)) * (RAMP.length - 1);
+    var lo = Math.floor(i);
+    var hi = lo + 1;
+    var f  = i - lo;
+    return RAMP[lo].map(function(v, k) { return Math.round(v + (RAMP[hi][k] - v) * f); });
+  }
+
+  function rgba(c, a) {
+    return 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',' + a.toFixed(3) + ')';
+  }
+
+  function project(x3, y3, z3) {
+    var dz = z3 - CAM_Z;
+    var sc = FOV / dz;
+    return {
+      sx: W * 0.62 + x3 * sc,
+      sy: H * 0.50 + (y3 - CAM_Y) * sc,
+      sc: sc,
+    };
+  }
+
+  var t = 0;
+
+  function draw() {
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    ctx.clearRect(0, 0, W, H);
+
+    var grid = [];
+    for (var r = 0; r < ROWS; r++) {
+      var row = [];
+      for (var c = 0; c < COLS; c++) {
+        var x3 = (c / (COLS - 1) - 0.5) * MESH_W;
+        var z3 = Z0 + (r / (ROWS - 1)) * MESH_D;
+
+        var wave =
+          Math.sin(x3 * 0.009 + t * 1.80) * AMP * 0.55 +
+          Math.sin(z3 * 0.010 - t * 1.40) * AMP * 0.30 +
+          Math.sin(x3 * 0.006 - z3 * 0.007 + t * 0.90) * AMP * 0.20;
+
+        var proj = project(x3, wave, z3);
+        var sx = proj.sx, sy = proj.sy, sc = proj.sc;
+
+        var normH     = Math.max(0, Math.min(1, (wave + AMP) / (AMP * 2)));
+        var depthFade = Math.pow(1 - (r / ROWS) * 0.78, 0.60);
+        var alpha     = (0.12 + normH * 0.88) * depthFade;
+        var dotR      = Math.max(0.5, sc * 2.2 * (0.35 + normH * 0.85));
+
+        row.push({ sx: sx, sy: sy, sc: sc, normH: normH, alpha: alpha, dotR: dotR });
+      }
+      grid.push(row);
+    }
+
+    for (var r2 = ROWS - 1; r2 >= 0; r2--) {
+      for (var c2 = 0; c2 < COLS - 1; c2++) {
+        var a = grid[r2][c2];
+        var b = grid[r2][c2 + 1];
+        var n  = (a.normH + b.normH) * 0.5;
+        var al = (a.alpha  + b.alpha)  * 0.5 * 0.55;
+        ctx.strokeStyle = rgba(sampleColor(n), al);
+        ctx.lineWidth   = Math.max(0.2, (a.sc + b.sc) * 0.5 * 1.05);
+        ctx.beginPath();
+        ctx.moveTo(a.sx, a.sy);
+        ctx.lineTo(b.sx, b.sy);
+        ctx.stroke();
+      }
+
+      if (r2 < ROWS - 1) {
+        for (var c3 = 0; c3 < COLS; c3++) {
+          var a2 = grid[r2][c3];
+          var b2 = grid[r2 + 1][c3];
+          var n2  = (a2.normH + b2.normH) * 0.5;
+          var al2 = (a2.alpha  + b2.alpha)  * 0.5 * 0.30;
+          ctx.strokeStyle = rgba(sampleColor(n2), al2);
+          ctx.lineWidth   = Math.max(0.15, (a2.sc + b2.sc) * 0.5 * 0.70);
+          ctx.beginPath();
+          ctx.moveTo(a2.sx, a2.sy);
+          ctx.lineTo(b2.sx, b2.sy);
+          ctx.stroke();
+        }
+      }
+
+      for (var c4 = 0; c4 < COLS; c4++) {
+        var p   = grid[r2][c4];
+        var col = sampleColor(p.normH);
+
+        ctx.fillStyle = rgba(col, p.alpha);
+        ctx.beginPath();
+        ctx.arc(p.sx, p.sy, p.dotR, 0, Math.PI * 2);
+        ctx.fill();
+
+        if (p.normH > 0.65 && p.alpha > 0.18) {
+          var g = (p.normH - 0.65) / 0.35;
+          ctx.fillStyle = rgba(col, p.alpha * g * 0.20);
+          ctx.beginPath();
+          ctx.arc(p.sx, p.sy, p.dotR * 5, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+    }
+
+    t += 0.007;
+    requestAnimationFrame(draw);
+  }
+
+  draw();
+}());
+
+/* ─── SCROLL REVEAL ─── */
+(function(){
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: .14, rootMargin: '0px 0px -6% 0px' });
+
+  document.querySelectorAll('.rv').forEach(function(el){ io.observe(el); });
+})();
+
+/* ─── NAV SCROLL EFFECT ─── */
+(function(){
+  var nav = document.querySelector('nav');
+  window.addEventListener('scroll', function(){
+    if (window.scrollY > 40) {
+      nav.style.boxShadow = '0 2px 20px rgba(10,22,40,0.10)';
+    } else {
+      nav.style.boxShadow = 'none';
+    }
+  });
+})();
+</script>
+</body>
+</html>
