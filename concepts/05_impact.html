@@ -110,22 +110,8 @@
       z-index: 1;
     }
 
-    /* ── 人物写真 ── */
-    .person {
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-38%);
-      height: 90%;
-      z-index: 8;
-      pointer-events: none;
-    }
-    .person img {
-      height: 100%;
-      width: auto;
-      filter: grayscale(1) contrast(1.8) brightness(1.1);
-      mix-blend-mode: screen;
-    }
+    /* ── 人物写真（非表示） ── */
+    .person { display: none; }
 
     /* ── 左：フィーチャーリスト ── */
     .feat-list {
