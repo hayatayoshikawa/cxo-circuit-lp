@@ -134,15 +134,14 @@
       );
     }
 
-    /* White vignette on text side for legibility */
+    /* 薄いホワイトベール：テキスト周辺だけ */
     .hero-mask {
       position: absolute;
       inset: 0;
       background: linear-gradient(90deg,
-        rgba(255, 255, 255, 0.80) 0%,
-        rgba(255, 255, 255, 0.55) 38%,
-        rgba(255, 255, 255, 0.10) 60%,
-        transparent 75%
+        rgba(255, 255, 255, 0.45) 0%,
+        rgba(255, 255, 255, 0.20) 28%,
+        transparent 50%
       );
       z-index: 8;
       pointer-events: none;
@@ -171,6 +170,7 @@
       word-break: keep-all;
       margin-bottom: 22px;
       color: var(--navy);
+      text-shadow: 0 0 28px rgba(255,255,255,0.9), 0 0 12px rgba(255,255,255,0.7);
     }
 
     .hero-body {
@@ -179,6 +179,7 @@
       color: #4B5565;
       font-weight: 300;
       margin-bottom: 40px;
+      text-shadow: 0 0 16px rgba(255,255,255,0.85);
     }
 
     .hero-ctas {
@@ -226,9 +227,9 @@
     /* ─── WAVE CANVAS ─── */
     #wc {
       position: absolute;
-      right: 0;
+      left: 0;
       top: 0;
-      width: 62%;
+      width: 100%;
       height: 100%;
       z-index: 5;
     }
@@ -292,17 +293,17 @@
   resize();
 
   /* ─── MESH CONFIG ─── */
-  const COLS   = 62;
-  const ROWS   = 38;
-  const MESH_W = 850;   // wide → extends beyond canvas edges at near side
-  const MESH_D = 520;   // depth
-  const AMP    = 170;   // large amplitude → fills canvas vertically
+  const COLS   = 68;
+  const ROWS   = 40;
+  const MESH_W = 1600;  // 2× wider → bleeds off all edges
+  const MESH_D = 560;   // depth
+  const AMP    = 190;   // tall amplitude
 
-  /* Camera: close + barely elevated → near-horizontal, wide perspective */
-  const CAM_Y  = -45;   // small elevation → symmetric peaks/troughs
-  const CAM_Z  = -210;  // close → dramatic foreshortening
+  /* Camera: close + barely elevated */
+  const CAM_Y  = -45;
+  const CAM_Z  = -210;
   const FOV    = 420;
-  const Z0     = 110;   // near edge z position
+  const Z0     = 110;
 
   /* ─── COLOR RAMP: dark blue → blue → sky → lime ─── */
   const RAMP = [
@@ -330,7 +331,7 @@
     const dz = z3 - CAM_Z;           // always positive
     const sc = FOV / dz;
     return {
-      sx: W * 0.50 + x3 * sc,
+      sx: W * 0.62 + x3 * sc,
       sy: H * 0.50 + (y3 - CAM_Y) * sc,
       sc,
     };
