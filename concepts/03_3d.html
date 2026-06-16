@@ -83,15 +83,139 @@ nav a:hover{color:var(--text)}
 .cb-white{width:150px;height:150px;left:330px;top:300px;--c1:#FFFFFF;--c2:#E2E8F2;--c3:#AEB8C9;--glow:rgba(180,195,220,.3);--rx:14deg;--ry:-20deg;--z:40px;--d:8.6s;--delay:-3s}
 .cb-mini{width:66px;height:66px;left:430px;top:180px;--c1:#9AB4FF;--c2:#5B7BE8;--c3:#33489C;--glow:rgba(91,123,232,.4);--rx:12deg;--ry:-14deg;--z:80px;--d:6.8s;--delay:-2.5s}
 
+/* ===== スクロールリビール ===== */
+.rv{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.rv.in{opacity:1;transform:none}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
+
+/* ===== セクション共通 ===== */
+.sec{padding:100px 44px}
+.sec.alt{background:var(--ink-2)}
+.ct{max-width:1100px;margin:0 auto}
+.sec-tag{font-family:var(--mono);font-size:11px;letter-spacing:.24em;color:var(--lime);margin-bottom:20px;display:flex;align-items:center;gap:12px}
+.sec-tag::before{content:"";width:30px;height:1px;background:var(--lime)}
+.sec h2{font-family:var(--jp);font-weight:900;font-size:clamp(28px,3.6vw,52px);line-height:1.36;word-break:keep-all;margin-bottom:0}
+.sec-body{font-size:16px;line-height:1.9;color:#C5CDDD;margin-top:20px}
+.divider{width:48px;height:2px;background:var(--lime);margin:28px 0}
+
+/* ===== §2 問いかけ ===== */
+.q-list{list-style:none;display:flex;flex-direction:column;gap:0;margin-top:52px;border-top:1px solid rgba(148,160,184,.2)}
+.q-list li{padding:28px 0;border-bottom:1px solid rgba(148,160,184,.2);display:flex;align-items:baseline;gap:20px;font-size:clamp(15px,1.8vw,19px);font-weight:500;word-break:keep-all;line-height:1.6}
+.q-list li .ql{font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--lime);min-width:44px}
+.q-list li:hover{color:var(--lime);transition:color .2s}
+
+/* ===== §3 できること ===== */
+.feat-g{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:52px}
+.feat-card{background:rgba(61,108,245,.07);border:1px solid rgba(61,108,245,.22);padding:48px 44px;transition:.2s}
+.feat-card:hover{background:rgba(61,108,245,.13);border-color:rgba(61,108,245,.5)}
+.feat-card .fc-num{font-family:var(--mono);font-size:11px;letter-spacing:.18em;color:var(--mute);margin-bottom:18px}
+.feat-card h3{font-family:var(--jp);font-weight:900;font-size:clamp(18px,2.2vw,26px);line-height:1.4;word-break:keep-all;margin-bottom:16px}
+.feat-card p{font-size:14px;line-height:1.9;color:#9AAAC0}
+.feat-card .fc-tag{display:inline-block;margin-top:22px;font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:var(--lime);border:1px solid var(--lime);padding:5px 12px;border-radius:3px}
+
+/* ===== §4 求人イメージ ===== */
+.pos-l{display:flex;flex-direction:column;gap:2px;margin-top:48px}
+.pos-card{background:rgba(255,255,255,.03);border:1px solid rgba(148,160,184,.14);padding:36px 40px;display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center;transition:.2s}
+.pos-card:hover{background:rgba(61,108,245,.08);border-color:rgba(61,108,245,.3)}
+.pos-card .pc-label{font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:var(--mute);margin-bottom:10px}
+.pos-card h3{font-family:var(--jp);font-weight:700;font-size:clamp(15px,1.7vw,19px);word-break:keep-all;line-height:1.5}
+.pos-card .pc-tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.pos-card .pc-tags span{font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:#8898B4;border:1px solid rgba(148,160,184,.25);padding:4px 10px;border-radius:2px}
+.pos-card .pc-sal{text-align:right;white-space:nowrap}
+.pos-card .pc-sal .sal-num{font-family:var(--arch);font-weight:800;font-size:clamp(22px,2.6vw,34px);color:var(--lime);line-height:1.1}
+.pos-card .pc-sal .sal-unit{font-family:var(--mono);font-size:10px;letter-spacing:.12em;color:var(--mute);margin-top:4px}
+.pos-note{margin-top:20px;font-size:12px;color:var(--mute);text-align:right}
+
+/* ===== §5 登録後の流れ ===== */
+.flow-g{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:52px}
+.flow-card{background:rgba(255,255,255,.03);border:1px solid rgba(148,160,184,.12);padding:40px 32px;position:relative}
+.flow-card:not(:last-child)::after{content:"→";position:absolute;right:-18px;top:50%;transform:translateY(-50%);color:var(--lime);font-family:var(--mono);font-size:18px;z-index:1}
+.flow-card .fc-step{font-family:var(--mono);font-size:10px;letter-spacing:.22em;color:var(--lime);margin-bottom:18px}
+.flow-card h3{font-family:var(--jp);font-weight:700;font-size:17px;word-break:keep-all;line-height:1.5;margin-bottom:12px}
+.flow-card p{font-size:13px;line-height:1.85;color:#8898B4}
+
+/* ===== §6 声 ===== */
+.v-g{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:52px}
+.voice-card{background:rgba(255,255,255,.04);border:1px solid rgba(148,160,184,.15);padding:48px 44px}
+.voice-card blockquote{font-size:clamp(15px,1.6vw,18px);line-height:1.9;font-weight:500;word-break:keep-all;position:relative;padding-left:20px}
+.voice-card blockquote::before{content:"";position:absolute;left:0;top:4px;bottom:4px;width:2px;background:var(--lime)}
+.voice-meta{margin-top:28px;display:flex;align-items:center;gap:14px}
+.voice-meta .vm-icon{width:42px;height:42px;border-radius:50%;background:rgba(61,108,245,.25);display:flex;align-items:center;justify-content:center;font-family:var(--arch);font-weight:800;font-size:14px;color:var(--lime)}
+.voice-meta .vm-info .name{font-weight:700;font-size:14px}
+.voice-meta .vm-info .role{font-size:12px;color:var(--mute);margin-top:3px}
+.voice-before-after{display:flex;align-items:center;gap:8px;margin-top:16px;font-size:12px;color:var(--mute)}
+.voice-before-after .arr{color:var(--lime);font-family:var(--mono)}
+
+/* ===== §7 FAQ ===== */
+.faq-l{margin-top:48px;display:flex;flex-direction:column;gap:2px}
+details.faq-item{background:rgba(255,255,255,.03);border:1px solid rgba(148,160,184,.14)}
+details.faq-item summary{padding:28px 36px;font-size:clamp(14px,1.5vw,17px);font-weight:700;word-break:keep-all;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:20px;user-select:none}
+details.faq-item summary::-webkit-details-marker{display:none}
+details.faq-item summary::after{content:"+";font-family:var(--mono);font-size:20px;color:var(--lime);flex-shrink:0;transition:.2s}
+details.faq-item[open] summary::after{content:"−"}
+details.faq-item[open] summary{color:var(--lime)}
+.faq-ans{padding:0 36px 28px;font-size:14px;line-height:1.9;color:#9AAAC0}
+
+/* ===== §8 最終CTA+フォーム ===== */
+.cta-sec{text-align:center}
+.cta-sec h2{margin-bottom:0}
+.form-wrap{margin-top:60px;background:rgba(255,255,255,.04);border:1px solid rgba(148,160,184,.18);padding:56px 64px;max-width:700px;margin-left:auto;margin-right:auto}
+.form-row{margin-bottom:20px;display:flex;flex-direction:column;gap:8px}
+.form-row label{font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--mute)}
+.form-row input,.form-row select,.form-row textarea{background:rgba(255,255,255,.06);border:1px solid rgba(148,160,184,.22);color:var(--text);font-family:var(--jp);font-size:14px;padding:14px 18px;border-radius:4px;outline:none;transition:.2s;width:100%}
+.form-row input:focus,.form-row select:focus,.form-row textarea:focus{border-color:var(--blue);background:rgba(61,108,245,.08)}
+.form-row textarea{resize:vertical;min-height:100px}
+.form-row select option{background:#0D1430;color:var(--text)}
+.check-row{display:flex;align-items:flex-start;gap:12px;margin:24px 0;font-size:13px;color:#9AAAC0;line-height:1.7}
+.check-row input[type=checkbox]{width:16px;height:16px;flex-shrink:0;margin-top:3px;accent-color:var(--lime)}
+.form-submit{width:100%;background:var(--lime);color:#0A1022;font-family:var(--jp);font-weight:700;font-size:15px;padding:18px 30px;border:none;border-radius:40px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:12px;transition:.2s;margin-top:8px}
+.form-submit:hover{background:#d8ff52;transform:translateY(-2px)}
+.form-submit .ar{width:26px;height:26px;border-radius:50%;background:#0A1022;display:flex;align-items:center;justify-content:center;font-size:13px}
+.form-note{margin-top:16px;font-size:12px;color:var(--mute);text-align:center}
+
+/* ===== §9 運営会社 ===== */
+.company-g{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;margin-top:52px}
+.company-info p{font-size:14px;line-height:1.95;color:#9AAAC0;margin-top:16px}
+.company-info .ci-name{font-family:var(--arch);font-weight:800;font-size:clamp(20px,2.4vw,28px);color:var(--text);margin-bottom:8px}
+.company-dl{display:grid;grid-template-columns:auto 1fr;gap:10px 24px;margin-top:28px;font-size:13px}
+.company-dl dt{color:var(--mute);font-family:var(--mono);font-size:11px;letter-spacing:.12em;align-self:baseline;padding-top:2px}
+.company-dl dd{color:#C5CDDD;line-height:1.7}
+.company-badge{background:rgba(61,108,245,.08);border:1px solid rgba(61,108,245,.22);padding:44px;display:flex;flex-direction:column;gap:20px}
+.company-badge .cb-tagline{font-size:clamp(16px,1.8vw,22px);font-weight:700;word-break:keep-all;line-height:1.6;color:var(--text)}
+.company-badge .cb-sub{font-size:13px;line-height:1.85;color:#8898B4}
+
+/* ===== footer ===== */
+footer{background:#060B18;padding:48px 44px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px}
+.ft-logo{display:flex;align-items:center;gap:10px;font-family:var(--arch);font-weight:800;font-size:17px;letter-spacing:.04em}
+.ft-logo .mk{width:18px;height:18px;border:2px solid rgba(243,246,252,.5);border-radius:50%;position:relative}
+.ft-logo .mk::after{content:"";position:absolute;inset:3px;border-radius:50%;background:var(--lime)}
+.ft-meta{font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:rgba(148,160,184,.6)}
+.ft-copy{font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:rgba(148,160,184,.4)}
+
 @media(max-width:980px){
   nav{display:none}
   .scene-in{right:-8%;top:42%;width:380px;height:380px;opacity:.85}
   .cb-blue{width:160px;height:160px}.cb-coral{width:120px;height:120px}.cb-white{width:100px;height:100px}
   header{padding:18px 22px}.hero-in,.meta{padding-left:22px}.meta{left:22px}
+  .sec{padding:72px 22px}
+  .feat-g{grid-template-columns:1fr}
+  .flow-g{grid-template-columns:1fr 1fr}
+  .flow-card:nth-child(2)::after{display:none}
+  .v-g{grid-template-columns:1fr}
+  .company-g{grid-template-columns:1fr}
+  .form-wrap{padding:36px 24px}
+  footer{flex-direction:column;align-items:flex-start;gap:12px}
+}
+@media(max-width:600px){
+  .flow-g{grid-template-columns:1fr}
+  .flow-card::after{display:none!important}
+  .pos-card{grid-template-columns:1fr}
+  .pos-card .pc-sal{text-align:left}
 }
 @media(prefers-reduced-motion:reduce){
   *{animation:none!important}
   .h1 .l>span{transform:none;opacity:1}.sub,.cta{opacity:1}
+  .rv{opacity:1;transform:none}
 }
 </style>
 </head>
@@ -128,7 +252,267 @@ nav a:hover{color:var(--text)}
 
   <div class="meta">N35.69 / E139.76 — OPERATED BY BEYONDGE</div>
   <div class="scrollcue">SCROLL<span class="bar"></span></div>
-</div>
+</div><!-- hero end -->
+
+<!-- §2 問いかけ -->
+<section class="sec alt" id="about">
+  <div class="ct">
+    <p class="sec-tag rv">THE QUESTION</p>
+    <h2 class="sec h2 rv d1" style="padding:0;word-break:keep-all;">いまの延長線上に、<br>「経営」はあるか。</h2>
+    <p class="sec-body rv d2">スキルはある。実績もある。でも、経営の席はいつも遠い。<br>そう感じているなら、あなたは正しい場所にいます。</p>
+    <ul class="q-list">
+      <li class="rv d1"><span class="ql">A /</span>社内の順番待ちに、限界を感じている</li>
+      <li class="rv d2"><span class="ql">B /</span>現職を続けながら経営に触れる機会を探している</li>
+      <li class="rv d3"><span class="ql">C /</span>CXO・事業責任者として、組織全体を動かしたい</li>
+      <li class="rv d1"><span class="ql">D /</span>経営層直結の非公開求人に、まだ出会えていない</li>
+    </ul>
+  </div>
+</section>
+
+<!-- §3 できること -->
+<section class="sec" id="positions">
+  <div class="ct">
+    <p class="sec-tag rv">WHAT WE DO</p>
+    <h2 class="rv d1" style="font-family:var(--arch);font-weight:900;font-size:clamp(32px,4.2vw,58px);letter-spacing:.04em;">TWO WAYS IN.</h2>
+    <p class="sec-body rv d2" style="max-width:580px;">経営ポジションへの入口は、ひとつではありません。<br>あなたの状況と志向に合わせて、最適なルートをご提案します。</p>
+    <div class="feat-g" style="margin-top:52px;">
+      <div class="feat-card rv d1">
+        <div class="fc-num">WAY 01</div>
+        <h3>経営ポジション直結の<br>求人紹介</h3>
+        <p>事業責任者・幹部候補・CXOクラスの非公開ポジションを、経営層との直接コネクションからご紹介。転職エージェントでは流通しない案件が中心です。</p>
+        <span class="fc-tag">EXECUTIVE PLACEMENT</span>
+      </div>
+      <div class="feat-card rv d2">
+        <div class="fc-num">WAY 02</div>
+        <h3>副業・顧問という<br>入口</h3>
+        <p>いきなり転職せずとも、週1〜2日の副業・顧問として経営チームに加わりながら、双方の相性を確かめるルートも用意しています。</p>
+        <span class="fc-tag">SIDE / ADVISOR</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- §4 求人イメージ -->
+<section class="sec alt">
+  <div class="ct">
+    <p class="sec-tag rv">POSITIONS</p>
+    <h2 class="rv d1" style="word-break:keep-all;">現在の求人イメージ</h2>
+    <p class="sec-body rv d2">掲載案件はすべて非公開求人の一例です。登録後、ご経歴に合わせた案件をご案内します。</p>
+    <div class="pos-l">
+      <div class="pos-card rv d1">
+        <div>
+          <div class="pc-label">SaaS / 事業責任者</div>
+          <h3>成長期SaaSスタートアップ<br>事業責任者（PMF後・シリーズB）</h3>
+          <div class="pc-tags"><span>東京・フルリモ可</span><span>正社員</span><span>SaaS</span></div>
+        </div>
+        <div class="pc-sal">
+          <div class="sal-num">1,200<span style="font-size:.55em;font-family:var(--jp);">万</span>〜</div>
+          <div class="sal-unit">1,800万円</div>
+        </div>
+      </div>
+      <div class="pos-card rv d2">
+        <div>
+          <div class="pc-label">製造業 / 次世代幹部候補</div>
+          <h3>老舗メーカー 次世代経営幹部候補<br>（創業家承継フェーズ）</h3>
+          <div class="pc-tags"><span>地方・転勤なし</span><span>正社員</span><span>製造業</span></div>
+        </div>
+        <div class="pc-sal">
+          <div class="sal-num">1,000<span style="font-size:.55em;font-family:var(--jp);">万</span>〜</div>
+          <div class="sal-unit">1,500万円</div>
+        </div>
+      </div>
+      <div class="pos-card rv d1">
+        <div>
+          <div class="pc-label">スタートアップ / CFO・COO候補</div>
+          <h3>IPO準備中スタートアップ<br>CFO・COO候補（上場後ポスト確約）</h3>
+          <div class="pc-tags"><span>東京</span><span>正社員</span><span>IPO準備</span></div>
+        </div>
+        <div class="pc-sal">
+          <div class="sal-num">2,000<span style="font-size:.55em;font-family:var(--jp);">万</span>〜</div>
+          <div class="sal-unit">3,000万円</div>
+        </div>
+      </div>
+      <div class="pos-card rv d2">
+        <div>
+          <div class="pc-label">副業・顧問 / 社外CxO</div>
+          <h3>地域企業グループ 社外CxO顧問<br>（戦略立案・組織改革・M&amp;A補佐）</h3>
+          <div class="pc-tags"><span>リモート中心</span><span>業務委託</span><span>月10〜20h</span></div>
+        </div>
+        <div class="pc-sal">
+          <div class="sal-num">50<span style="font-size:.55em;font-family:var(--jp);">万</span>〜</div>
+          <div class="sal-unit">100万円 / 月</div>
+        </div>
+      </div>
+    </div>
+    <p class="pos-note rv">※ 掲載案件は一例です。非公開求人のため詳細は登録後にご案内します。</p>
+  </div>
+</section>
+
+<!-- §5 登録後の流れ -->
+<section class="sec" id="flow">
+  <div class="ct">
+    <p class="sec-tag rv">HOW IT WORKS</p>
+    <h2 class="rv d1" style="word-break:keep-all;">登録後の流れ</h2>
+    <div class="flow-g">
+      <div class="flow-card rv d1">
+        <div class="fc-step">STEP 01</div>
+        <h3>フォームで登録<br>（1分）</h3>
+        <p>氏名・メール・希望区分を入力するだけ。履歴書の添付は不要です。</p>
+      </div>
+      <div class="flow-card rv d2">
+        <div class="fc-step">STEP 02</div>
+        <h3>ご希望に応じて<br>分岐</h3>
+        <p>転職希望・副業顧問希望・情報収集のみ、いずれでも対応します。担当者から3営業日以内にご連絡します。</p>
+      </div>
+      <div class="flow-card rv d1">
+        <div class="fc-step">STEP 03</div>
+        <h3>非公開求人の<br>ご紹介</h3>
+        <p>ご経歴・志向とマッチする求人・顧問案件をご提案。面談・エントリーは選択式です。</p>
+      </div>
+      <div class="flow-card rv d2">
+        <div class="fc-step">STEP 04</div>
+        <h3>参画・入社後の<br>フォロー</h3>
+        <p>ポジション着任後も経営チームとの橋渡しをサポート。長期的な関係を大切にします。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- §6 声 -->
+<section class="sec alt" id="voices">
+  <div class="ct">
+    <p class="sec-tag rv">VOICES</p>
+    <h2 class="rv d1" style="word-break:keep-all;">経営の席を掴んだ人たちの声</h2>
+    <div class="v-g">
+      <div class="voice-card rv d1">
+        <blockquote>「社内では上が詰まっていて、どれだけ成果を出しても経営に関われなかった。CXO CIRCUITで紹介された求人は、いきなり事業の意思決定の場でした。面談3回で内定をいただき、年収も大きく上がりました。」</blockquote>
+        <div class="voice-meta">
+          <div class="vm-icon">T.S</div>
+          <div class="vm-info">
+            <div class="name">T.S さん（40代）</div>
+            <div class="role">大手メーカー 事業部長 → SaaS事業責任者</div>
+          </div>
+        </div>
+        <div class="voice-before-after">
+          <span>前職年収 830万円</span><span class="arr">→</span><span style="color:var(--lime)">1,150万円</span>
+        </div>
+      </div>
+      <div class="voice-card rv d2">
+        <blockquote>「転職するつもりはなく、副業顧問として登録したのですが、紹介された企業の経営チームと話して考えが変わりました。まず顧問として3ヶ月間経営会議に参加し、そのまま COO 室長として参画することになりました。」</blockquote>
+        <div class="voice-meta">
+          <div class="vm-icon">K.M</div>
+          <div class="vm-info">
+            <div class="name">K.M さん（30代）</div>
+            <div class="role">戦略コンサル マネージャー → COO 室長</div>
+          </div>
+        </div>
+        <div class="voice-before-after">
+          <span>顧問契約（月60万円）から</span><span class="arr">→</span><span style="color:var(--lime)">正社員参画へ</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- §7 FAQ -->
+<section class="sec">
+  <div class="ct">
+    <p class="sec-tag rv">FAQ</p>
+    <h2 class="rv d1" style="word-break:keep-all;">よくある質問</h2>
+    <div class="faq-l" style="margin-top:48px;">
+      <details class="faq-item rv d1">
+        <summary>費用はかかりますか？</summary>
+        <div class="faq-ans">求職者・候補者の方への費用は一切かかりません。転職・顧問案件ともに完全無料でご利用いただけます。</div>
+      </details>
+      <details class="faq-item rv d2">
+        <summary>情報収集だけでも登録できますか？</summary>
+        <div class="faq-ans">もちろんです。「今すぐ転職する気はないが、どんな求人があるか知りたい」という段階でのご登録を歓迎しています。希望区分に「情報収集のみ」をお選びください。</div>
+      </details>
+      <details class="faq-item rv d1">
+        <summary>副業・顧問案件のみを希望することはできますか？</summary>
+        <div class="faq-ans">可能です。現職を続けながら副業・顧問案件のみをご希望の方にも、週1〜2日から始められる案件を多数ご用意しています。</div>
+      </details>
+      <details class="faq-item rv d2">
+        <summary>経歴が今の勤務先に知られることはありますか？</summary>
+        <div class="faq-ans">ありません。ご登録情報は厳重に管理し、ご本人の同意なく企業側・第三者に開示することは一切ありません。</div>
+      </details>
+      <details class="faq-item rv d1">
+        <summary>地方在住でも利用できますか？</summary>
+        <div class="faq-ans">利用できます。リモート対応の求人・顧問案件も多数あります。地域を問わずご登録ください。</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- §8 最終CTA+フォーム -->
+<section class="sec alt cta-sec" id="register">
+  <div class="ct">
+    <p class="sec-tag rv" style="justify-content:center;">REGISTER</p>
+    <h2 class="rv d1" style="word-break:keep-all;">あなたの経営キャリアを、<br>始めよう。</h2>
+    <p class="sec-body rv d2" style="max-width:480px;margin:20px auto 0;">登録は1分。費用は無料。まずはあなたの希望を聞かせてください。</p>
+    <div class="form-wrap rv d1">
+      <form>
+        <div class="form-row">
+          <label for="f-name">氏名</label>
+          <input type="text" id="f-name" name="name" placeholder="山田 太郎" autocomplete="name">
+        </div>
+        <div class="form-row">
+          <label for="f-email">メールアドレス</label>
+          <input type="email" id="f-email" name="email" placeholder="your@email.com" autocomplete="email">
+        </div>
+        <div class="form-row">
+          <label for="f-type">希望区分</label>
+          <select id="f-type" name="type">
+            <option value="" disabled selected>選択してください</option>
+            <option value="fulltime">転職（正社員）希望</option>
+            <option value="side">副業・顧問案件希望</option>
+            <option value="both">転職・副業どちらも検討</option>
+            <option value="info">情報収集のみ</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label for="f-comment">コメント（任意）</label>
+          <textarea id="f-comment" name="comment" placeholder="現在のご状況・ご希望など自由にお書きください"></textarea>
+        </div>
+        <div class="check-row">
+          <input type="checkbox" id="f-agree" name="agree">
+          <label for="f-agree">個人情報の取り扱いについて同意します。ご登録情報は本サービスの目的にのみ使用し、第三者への提供は行いません。</label>
+        </div>
+        <button type="submit" class="form-submit">無料で登録する <span class="ar">→</span></button>
+        <p class="form-note">登録後3営業日以内に担当者よりご連絡します。</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- §9 運営会社 -->
+<section class="sec">
+  <div class="ct">
+    <p class="sec-tag rv">COMPANY</p>
+    <h2 class="rv d1" style="word-break:keep-all;">運営会社</h2>
+    <div class="company-g">
+      <div class="company-info rv d1">
+        <div class="ci-name">Beyondge株式会社</div>
+        <p>「経営に挑む人材と、経営を必要とする組織をつなぐ」をミッションに掲げる人材・組織コンサルティング会社。経営者・CxOクラスの人材紹介と組織変革支援を手がけています。</p>
+        <dl class="company-dl">
+          <dt>所在地</dt><dd>東京都</dd>
+          <dt>サービス</dt><dd>経営人材紹介 / 組織コンサルティング / CxO顧問マッチング</dd>
+          <dt>備考</dt><dd>本サービスは有料職業紹介事業の範囲外における情報提供・マッチング支援です。</dd>
+        </dl>
+      </div>
+      <div class="company-badge rv d2">
+        <div class="cb-tagline">「経営の席は、待っていても<br>空かない。」</div>
+        <div class="cb-sub">自ら動いた人だけが、次のステージへ進める。CXO CIRCUITは、その一歩を支える場所です。経営に挑むすべての方を、本気でサポートします。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <a class="ft-logo" href="#"><span class="mk"></span>CXO CIRCUIT</a>
+  <div class="ft-meta">OPERATED BY BEYONDGE INC.</div>
+  <div class="ft-copy">&copy; 2026 Beyondge株式会社</div>
+</footer>
 
 <script>
 /* マウスパララックス（立体ブロックを傾ける） */
@@ -142,6 +526,15 @@ nav a:hover{color:var(--text)}
   (function loop(){ cx+=(tx-cx)*.06; cy+=(ty-cy)*.06;
     scene.style.transform='translateY(-50%) rotateY('+cx+'deg) rotateX('+cy+'deg)';
     requestAnimationFrame(loop); })();
+})();
+</script>
+<script>
+/* スクロールリビール */
+(function(){
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+  },{threshold:.14,rootMargin:'0px 0px -6% 0px'});
+  document.querySelectorAll('.rv').forEach(function(el){ io.observe(el); });
 })();
 </script>
 </body>

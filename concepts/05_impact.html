@@ -3,25 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CXO CIRCUIT — ⑤ インパクト版（えんじ）</title>
+  <title>CXO CIRCUIT — 経営に挑む、キャリアプラットフォーム</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&family=Zen+Kaku+Gothic+New:wght@900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&family=Zen+Kaku+Gothic+New:wght@900&family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
       --enja:  #8C1C35;
       --enja-d:#6E1429;
+      --ink:   #0A0507;
+      --ink2:  #130A0C;
+      --cream: #F5EEE6;
+      --cream2:#EDE5DB;
       --fg:    #FFFFFF;
+      --mute:  rgba(255,255,255,.55);
       --zen:   'Zen Kaku Gothic New', sans-serif;
       --arch:  'Archivo', sans-serif;
       --jp:    'Noto Sans JP', sans-serif;
     }
 
-    html, body { height: 100%; overflow: hidden; }
-    body { font-family: var(--jp); background: var(--enja); color: var(--fg); }
+    html, body { scroll-behavior: smooth; }
+    body { font-family: var(--jp); background: var(--ink); color: var(--fg); }
     a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
 
     /* ── NAV ── */
     nav {
@@ -89,7 +95,7 @@
       background: var(--enja);
     }
 
-    /* ── 速線レイヤー ── */
+    /* 速線レイヤー */
     .speed-layer {
       position: absolute;
       inset: 0;
@@ -105,7 +111,7 @@
       to   { stroke-dashoffset: 0; }
     }
 
-    /* ── 巨大テキスト ── */
+    /* 巨大テキスト */
     .big-text {
       position: absolute;
       left: -1vw;
@@ -114,7 +120,7 @@
       font-family: var(--zen);
       font-weight: 900;
       font-size: clamp(140px, 23vw, 360px);
-      line-height: .86;
+      line-height: 1.05;
       letter-spacing: -.02em;
       color: #fff;
       white-space: nowrap;
@@ -123,7 +129,7 @@
       z-index: 5;
     }
 
-    /* ── 右：情報カラム ── */
+    /* 右：情報カラム */
     .info-col {
       position: absolute;
       right: 4%;
@@ -135,8 +141,6 @@
       align-items: flex-end;
       gap: 0;
     }
-
-    /* 給与帯 */
     .salary {
       font-family: var(--arch);
       font-weight: 900;
@@ -155,19 +159,13 @@
       letter-spacing: .04em;
       margin-top: 2px;
     }
-
-    /* 区切り線 */
     .divider {
       width: 100%;
       height: 1px;
       background: rgba(255,255,255,.30);
       margin: 18px 0;
     }
-
-    /* 件数 */
-    .count-wrap {
-      text-align: right;
-    }
+    .count-wrap { text-align: right; }
     .count-num {
       font-family: var(--arch);
       font-weight: 900;
@@ -192,8 +190,6 @@
       opacity: .88;
       margin-top: 6px;
     }
-
-    /* CTA */
     .cta-btn {
       display: inline-flex;
       align-items: center;
@@ -209,8 +205,6 @@
       transition: opacity .2s, transform .2s;
     }
     .cta-btn:hover { opacity: .9; transform: translateY(-2px); }
-
-    /* ── 下部ラベル（小） ── */
     .foot-note {
       position: absolute;
       bottom: 5%;
@@ -224,14 +218,589 @@
       letter-spacing: .12em;
     }
 
+    /* ── § 2 問いかけ ── */
+    .sec-challenge {
+      background: var(--ink2);
+      padding: 120px 40px 130px;
+      position: relative;
+      overflow: hidden;
+    }
+    .sec-challenge::before {
+      content: '';
+      position: absolute;
+      right: -10%;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 55vw;
+      height: 55vw;
+      border-radius: 50%;
+      border: 1px solid rgba(140,28,53,.18);
+      pointer-events: none;
+    }
+    .sec-challenge::after {
+      content: '';
+      position: absolute;
+      right: -5%;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 38vw;
+      height: 38vw;
+      border-radius: 50%;
+      border: 1px solid rgba(140,28,53,.12);
+      pointer-events: none;
+    }
+    .challenge-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .challenge-h {
+      font-family: var(--zen);
+      font-weight: 900;
+      font-size: clamp(36px, 5.5vw, 80px);
+      line-height: 1.25;
+      letter-spacing: -.02em;
+      word-break: keep-all;
+      margin-bottom: 52px;
+    }
+    .challenge-h em {
+      font-style: normal;
+      color: var(--enja);
+    }
+    .challenge-cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px 80px;
+      max-width: 860px;
+    }
+    .challenge-item {}
+    .challenge-item p {
+      font-size: clamp(14px, 1.2vw, 17px);
+      line-height: 2;
+      color: rgba(255,255,255,.70);
+      font-weight: 300;
+    }
+    .challenge-item strong {
+      display: block;
+      font-family: var(--jp);
+      font-weight: 700;
+      font-size: clamp(15px, 1.3vw, 18px);
+      color: #fff;
+      margin-bottom: 10px;
+    }
+    .challenge-line {
+      display: block;
+      width: 32px;
+      height: 2px;
+      background: var(--enja);
+      margin-bottom: 16px;
+    }
+
+    /* ── § 3 できること ── */
+    .sec-service {
+      background: var(--cream);
+      color: #1A0A0E;
+      padding: 120px 40px;
+      position: relative;
+    }
+    .sec-service-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .sec-tag {
+      font-family: var(--arch);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .20em;
+      text-transform: uppercase;
+      color: var(--enja);
+      margin-bottom: 20px;
+    }
+    .sec-h {
+      font-family: var(--zen);
+      font-weight: 900;
+      font-size: clamp(32px, 4vw, 58px);
+      line-height: 1.3;
+      letter-spacing: -.02em;
+      word-break: keep-all;
+      color: #1A0A0E;
+      margin-bottom: 64px;
+    }
+    /* サービス 3項目：左大 + 右縦並び 非対称 */
+    .service-layout {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 0;
+      border-top: 1px solid rgba(26,10,14,.12);
+    }
+    .service-main {
+      padding: 56px 60px 56px 0;
+      border-right: 1px solid rgba(26,10,14,.12);
+    }
+    .service-main .svc-label {
+      font-family: var(--arch);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--enja);
+      opacity: .75;
+      margin-bottom: 18px;
+    }
+    .service-main h3 {
+      font-family: var(--zen);
+      font-weight: 900;
+      font-size: clamp(24px, 2.8vw, 40px);
+      line-height: 1.35;
+      letter-spacing: -.02em;
+      word-break: keep-all;
+      color: #1A0A0E;
+      margin-bottom: 20px;
+    }
+    .service-main p {
+      font-size: clamp(14px, 1.1vw, 16px);
+      line-height: 2;
+      color: #4A2E35;
+      font-weight: 300;
+    }
+    .service-sub {
+      display: flex;
+      flex-direction: column;
+    }
+    .service-sub-item {
+      padding: 36px 0 36px 52px;
+      border-bottom: 1px solid rgba(26,10,14,.10);
+      flex: 1;
+    }
+    .service-sub-item:last-child { border-bottom: none; }
+    .service-sub-item .svc-label {
+      font-family: var(--arch);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--enja);
+      opacity: .75;
+      margin-bottom: 12px;
+    }
+    .service-sub-item h3 {
+      font-family: var(--zen);
+      font-weight: 900;
+      font-size: clamp(16px, 1.6vw, 22px);
+      line-height: 1.4;
+      word-break: keep-all;
+      color: #1A0A0E;
+      margin-bottom: 10px;
+    }
+    .service-sub-item p {
+      font-size: 13.5px;
+      line-height: 1.9;
+      color: #5A3540;
+      font-weight: 300;
+    }
+
+    /* ── § 4 求人イメージ ── */
+    .sec-jobs {
+      background: var(--ink);
+      padding: 120px 40px;
+      position: relative;
+      overflow: hidden;
+    }
+    .sec-jobs-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .jobs-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 56px;
+    }
+    .jobs-head .sec-h { margin-bottom: 0; color: #fff; }
+    .jobs-note {
+      font-size: 12px;
+      color: var(--mute);
+      font-family: var(--jp);
+      padding-bottom: 6px;
+    }
+    .job-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .job-card {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 24px;
+      padding: 36px 40px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 4px;
+      transition: background .2s, border-color .2s;
+      cursor: default;
+    }
+    .job-card:hover {
+      background: rgba(140,28,53,.12);
+      border-color: rgba(140,28,53,.35);
+    }
+    .job-meta { display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap; }
+    .job-pos {
+      font-family: var(--jp);
+      font-weight: 700;
+      font-size: clamp(17px, 1.6vw, 22px);
+      color: #fff;
+    }
+    .job-industry {
+      font-size: 12.5px;
+      color: var(--mute);
+      font-weight: 400;
+    }
+    .job-salary {
+      font-family: var(--arch);
+      font-weight: 900;
+      font-size: clamp(18px, 1.8vw, 26px);
+      letter-spacing: -.01em;
+      color: #fff;
+      white-space: nowrap;
+      text-align: right;
+    }
+    .job-salary small {
+      font-family: var(--jp);
+      font-size: .50em;
+      font-weight: 400;
+      opacity: .65;
+      display: block;
+      text-align: right;
+      margin-top: 2px;
+    }
+    .jobs-cta {
+      margin-top: 48px;
+      text-align: center;
+    }
+    .jobs-cta a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--jp);
+      font-weight: 700;
+      font-size: 14px;
+      color: rgba(255,255,255,.70);
+      border-bottom: 1px solid rgba(255,255,255,.20);
+      padding-bottom: 4px;
+      transition: color .2s, border-color .2s;
+    }
+    .jobs-cta a:hover { color: #fff; border-color: rgba(255,255,255,.60); }
+
+    /* ── § 5 登録後の流れ ── */
+    .sec-flow {
+      background: var(--enja);
+      padding: 120px 40px;
+    }
+    .sec-flow-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .sec-flow .sec-tag { color: rgba(255,255,255,.60); }
+    .sec-flow .sec-h { color: #fff; }
+    .flow-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      position: relative;
+    }
+    .flow-steps::before {
+      content: '';
+      position: absolute;
+      top: 28px;
+      left: calc(12.5% + 20px);
+      right: calc(12.5% + 20px);
+      height: 1px;
+      background: rgba(255,255,255,.25);
+    }
+    .flow-step {
+      padding: 0 24px;
+      position: relative;
+    }
+    .step-dot {
+      width: 56px; height: 56px;
+      border: 2px solid rgba(255,255,255,.40);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 28px;
+      position: relative;
+      background: var(--enja);
+    }
+    .step-dot span {
+      font-family: var(--arch);
+      font-weight: 900;
+      font-size: 17px;
+      color: #fff;
+    }
+    .flow-step h4 {
+      font-family: var(--zen);
+      font-weight: 900;
+      font-size: clamp(15px, 1.4vw, 20px);
+      word-break: keep-all;
+      margin-bottom: 12px;
+    }
+    .flow-step p {
+      font-size: 13.5px;
+      line-height: 1.9;
+      color: rgba(255,255,255,.70);
+      font-weight: 300;
+    }
+
+    /* ── § 6 FAQ ── */
+    .sec-faq {
+      background: var(--cream2);
+      color: #1A0A0E;
+      padding: 120px 40px;
+    }
+    .sec-faq-inner {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    .sec-faq .sec-tag { margin-bottom: 20px; }
+    .sec-faq .sec-h { margin-bottom: 56px; }
+    .faq-list { display: flex; flex-direction: column; }
+    .faq-item {
+      border-top: 1px solid rgba(26,10,14,.12);
+      overflow: hidden;
+    }
+    .faq-item:last-child { border-bottom: 1px solid rgba(26,10,14,.12); }
+    .faq-q {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 28px 0;
+      cursor: pointer;
+      list-style: none;
+    }
+    .faq-q::-webkit-details-marker { display: none; }
+    .faq-q-text {
+      font-family: var(--jp);
+      font-weight: 700;
+      font-size: clamp(14px, 1.2vw, 17px);
+      word-break: keep-all;
+      color: #1A0A0E;
+    }
+    .faq-icon {
+      width: 28px; height: 28px;
+      border: 1.5px solid rgba(26,10,14,.25);
+      border-radius: 50%;
+      flex-shrink: 0;
+      position: relative;
+      transition: transform .3s, background .3s;
+    }
+    .faq-icon::before,
+    .faq-icon::after {
+      content: '';
+      position: absolute;
+      background: #1A0A0E;
+      border-radius: 2px;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .faq-icon::before { width: 10px; height: 1.5px; }
+    .faq-icon::after  { width: 1.5px; height: 10px; transition: opacity .3s; }
+    details[open] .faq-icon { background: var(--enja); border-color: var(--enja); }
+    details[open] .faq-icon::before { background: #fff; }
+    details[open] .faq-icon::after  { opacity: 0; }
+    .faq-a {
+      padding: 0 0 28px;
+      font-size: clamp(13.5px, 1.1vw, 15.5px);
+      line-height: 2;
+      color: #5A3540;
+      font-weight: 300;
+      max-width: 720px;
+    }
+
+    /* ── § 7 最終CTA + フォーム ── */
+    .sec-cta {
+      background: var(--ink2);
+      padding: 130px 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .sec-cta::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 680px; height: 400px;
+      background: radial-gradient(ellipse, rgba(140,28,53,.22) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .sec-cta-inner {
+      max-width: 640px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    .sec-cta .sec-h { color: #fff; margin-bottom: 16px; }
+    .sec-cta-sub {
+      font-size: clamp(14px, 1.2vw, 17px);
+      line-height: 1.9;
+      color: var(--mute);
+      margin-bottom: 56px;
+      font-weight: 300;
+    }
+    .form-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      text-align: left;
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .form-field label {
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: .06em;
+      color: rgba(255,255,255,.55);
+      font-family: var(--jp);
+    }
+    .form-field input,
+    .form-field select,
+    .form-field textarea {
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 6px;
+      padding: 12px 16px;
+      font-size: 14px;
+      font-family: var(--jp);
+      color: #fff;
+      outline: none;
+      transition: border-color .2s, background .2s;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+    .form-field input::placeholder,
+    .form-field textarea::placeholder { color: rgba(255,255,255,.25); }
+    .form-field input:focus,
+    .form-field select:focus,
+    .form-field textarea:focus {
+      border-color: rgba(140,28,53,.80);
+      background: rgba(140,28,53,.10);
+    }
+    .form-field select option { background: #1A0A0E; color: #fff; }
+    .form-field textarea { resize: vertical; min-height: 100px; }
+    .form-submit {
+      background: var(--enja);
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 16px;
+      font-size: 15px;
+      font-family: var(--jp);
+      font-weight: 700;
+      cursor: pointer;
+      transition: background .2s, transform .2s;
+      margin-top: 4px;
+    }
+    .form-submit:hover { background: var(--enja-d); transform: translateY(-2px); }
+    .form-note {
+      font-size: 11.5px;
+      color: rgba(255,255,255,.30);
+      text-align: center;
+      font-family: var(--jp);
+      margin-top: 14px;
+      line-height: 1.8;
+    }
+
+    /* ── § 8 運営会社 ── */
+    .sec-company {
+      background: #070305;
+      padding: 80px 40px 60px;
+      border-top: 1px solid rgba(255,255,255,.06);
+    }
+    .sec-company-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: start;
+      gap: 60px;
+    }
+    .company-brand {
+      font-family: var(--arch);
+      font-weight: 900;
+      font-size: 13.5px;
+      letter-spacing: .12em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .company-name {
+      font-family: var(--jp);
+      font-size: 12.5px;
+      color: rgba(255,255,255,.45);
+      font-weight: 400;
+      margin-bottom: 6px;
+    }
+    .company-addr {
+      font-size: 11.5px;
+      color: rgba(255,255,255,.30);
+      line-height: 1.9;
+    }
+    .company-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: flex-end;
+    }
+    .company-links a {
+      font-size: 12px;
+      color: rgba(255,255,255,.35);
+      transition: color .15s;
+    }
+    .company-links a:hover { color: rgba(255,255,255,.75); }
+    .copyright {
+      max-width: 1100px;
+      margin: 40px auto 0;
+      padding-top: 28px;
+      border-top: 1px solid rgba(255,255,255,.06);
+      font-size: 10.5px;
+      color: rgba(255,255,255,.20);
+      letter-spacing: .06em;
+      font-family: var(--arch);
+    }
+
+    /* ── レスポンシブ ── */
     @media (max-width: 900px) {
       .nav-links { display: none; }
       .info-col { right: 3%; }
+      .challenge-cols { grid-template-columns: 1fr; gap: 36px; }
+      .service-layout { grid-template-columns: 1fr; }
+      .service-main { padding: 40px 0 40px; border-right: none; border-bottom: 1px solid rgba(26,10,14,.12); }
+      .service-sub-item { padding: 32px 0; }
+      .flow-steps { grid-template-columns: 1fr 1fr; }
+      .flow-steps::before { display: none; }
+      .flow-step { padding: 0 0 48px; }
+      .jobs-head { flex-direction: column; align-items: flex-start; gap: 8px; }
+      .sec-company-inner { grid-template-columns: 1fr; }
+      .company-links { align-items: flex-start; }
+      .form-row { grid-template-columns: 1fr; }
     }
     @media (max-width: 640px) {
       nav { padding: 0 18px; }
       .big-text { font-size: 22vw; }
       .info-col { display: none; }
+      .sec-challenge, .sec-service, .sec-jobs, .sec-flow, .sec-faq, .sec-cta, .sec-company {
+        padding-left: 20px; padding-right: 20px;
+      }
+      .flow-steps { grid-template-columns: 1fr; }
+      .job-card { grid-template-columns: 1fr; gap: 10px; }
     }
   </style>
 </head>
@@ -240,17 +809,17 @@
 <nav>
   <a class="logo" href="#"><span class="logo-mark"></span>CXO CIRCUIT</a>
   <ul class="nav-links">
-    <li><a href="#">サービス</a></li>
-    <li><a href="#">求人</a></li>
-    <li><a href="#">ご利用の流れ</a></li>
-    <li><a href="#">運営会社</a></li>
+    <li><a href="#service">サービス</a></li>
+    <li><a href="#jobs">求人</a></li>
+    <li><a href="#flow">ご利用の流れ</a></li>
+    <li><a href="#company">運営会社</a></li>
   </ul>
-  <a class="nav-cta" href="#">無料で相談する</a>
+  <a class="nav-cta" href="#contact">無料で相談する</a>
 </nav>
 
-<section class="hero">
+<!-- § 1 ヒーロー -->
+<section class="hero" id="top">
 
-  <!-- 速線エフェクト -->
   <svg class="speed-layer" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice"
        xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <line x1="-200" y1="88"  x2="1800" y2="60"  stroke="white" stroke-width="1.5" opacity=".10" stroke-dasharray="2000" style="animation-delay:.05s"/>
@@ -265,10 +834,8 @@
     <line x1="-200" y1="810" x2="1800" y2="800" stroke="white" stroke-width="2"   opacity=".08" stroke-dasharray="2000" style="animation-delay:.09s"/>
   </svg>
 
-  <!-- 巨大テキスト -->
   <div class="big-text" aria-hidden="false">経営に、<br>挑め。</div>
 
-  <!-- 右：シンプル情報カラム -->
   <div class="info-col">
     <p class="salary">
       年収1,000万〜<br>3,000万円規模
@@ -279,12 +846,304 @@
       <span class="count-num">500<span class="count-unit">件超</span></span>
       <p class="count-label">経営層・幹部候補の<br>非公開ポジション掲載中</p>
     </div>
-    <a class="cta-btn" href="#">無料で相談する →</a>
+    <a class="cta-btn" href="#contact">無料で相談する →</a>
   </div>
 
   <p class="foot-note">OPERATED BY BEYONDGE 株式会社 — 登録・相談 完全無料</p>
 
 </section>
+
+<!-- § 2 問いかけ -->
+<section class="sec-challenge">
+  <div class="challenge-inner">
+    <h2 class="challenge-h">
+      管理職どまりで、<br>
+      終わりますか。<em>。</em>
+    </h2>
+    <div class="challenge-cols">
+      <div class="challenge-item">
+        <span class="challenge-line"></span>
+        <strong>経営ポジションの求人は、<br>表に出ない</strong>
+        <p>CFO・COO・事業本部長クラスの採用は、大半が非公開で進む。一般の転職媒体に掲載されることはほとんどない。</p>
+      </div>
+      <div class="challenge-item">
+        <span class="challenge-line"></span>
+        <strong>実力があっても、<br>入口を知らなければ届かない</strong>
+        <p>スキルや実績より、「どのルートでアプローチするか」が経営層転職の成否を分ける。それがCXO CIRCUITが存在する理由。</p>
+      </div>
+      <div class="challenge-item">
+        <span class="challenge-line"></span>
+        <strong>経営経験ゼロでも、<br>候補になれるポジションがある</strong>
+        <p>事業会社での深い実績と変革のポテンシャルがあれば、CFO・CTO・COO候補として評価される案件は確かに存在する。</p>
+      </div>
+      <div class="challenge-item">
+        <span class="challenge-line"></span>
+        <strong>相談は、完全無料。<br>動くかどうかはあなたが決める</strong>
+        <p>「まだ転職は決めていない」という段階でも構わない。情報収集から始めるのが、経営層キャリアの正しい入り方だと思っている。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- § 3 できること -->
+<section class="sec-service" id="service">
+  <div class="sec-service-inner">
+    <p class="sec-tag">SERVICE</p>
+    <h2 class="sec-h">CXO CIRCUITが<br>できること</h2>
+
+    <div class="service-layout">
+      <div class="service-main">
+        <p class="svc-label">Primary</p>
+        <h3>500件超の非公開求人を、<br>あなただけに開示する</h3>
+        <p>
+          CXO・CFO・COO・CTO・事業本部長など、経営層ポジションに特化した非公開求人データベースを保有。
+          一般媒体には掲載されない案件を、ご登録いただいた方のみにご紹介しています。
+          年収1,000万円〜3,000万円規模のポジションが中心です。
+        </p>
+      </div>
+      <div class="service-sub">
+        <div class="service-sub-item">
+          <p class="svc-label">Support</p>
+          <h3>経営人材専門の<br>コンサルタントが伴走</h3>
+          <p>
+            一般的な転職エージェントと異なり、経営人材の転職に特化したコンサルタントが担当。
+            求人紹介だけでなく、交渉・意思決定までフルサポートします。
+          </p>
+        </div>
+        <div class="service-sub-item">
+          <p class="svc-label">Strategy</p>
+          <h3>「次の10年」のキャリア設計を<br>一緒に考える</h3>
+          <p>
+            「CXOになるには何が足りないか」「どんな会社を選ぶべきか」。
+            転職に限らず、経営キャリア全体の戦略を壁打ちできる場として活用してください。
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- § 4 求人イメージ -->
+<section class="sec-jobs" id="jobs">
+  <div class="sec-jobs-inner">
+    <div class="jobs-head">
+      <div>
+        <p class="sec-tag" style="color:rgba(255,255,255,.45)">POSITIONS</p>
+        <h2 class="sec-h" style="color:#fff;margin-bottom:0">求人イメージ</h2>
+      </div>
+      <p class="jobs-note">※掲載はイメージです。実際の求人は登録後にご案内します</p>
+    </div>
+
+    <div class="job-cards">
+      <div class="job-card">
+        <div class="job-meta">
+          <span class="job-pos">CFO 候補</span>
+          <span class="job-industry">製造業（売上300億規模） ／ 非公開</span>
+        </div>
+        <div class="job-salary">
+          1,800万〜2,400万
+          <small>想定年収</small>
+        </div>
+      </div>
+      <div class="job-card">
+        <div class="job-meta">
+          <span class="job-pos">COO</span>
+          <span class="job-industry">ITスタートアップ（Series B）／ 東京</span>
+        </div>
+        <div class="job-salary">
+          1,200万〜1,800万
+          <small>想定年収＋ストックオプション</small>
+        </div>
+      </div>
+      <div class="job-card">
+        <div class="job-meta">
+          <span class="job-pos">事業本部長</span>
+          <span class="job-industry">消費財メーカー（上場）／ 非公開</span>
+        </div>
+        <div class="job-salary">
+          1,500万〜2,200万
+          <small>想定年収</small>
+        </div>
+      </div>
+      <div class="job-card">
+        <div class="job-meta">
+          <span class="job-pos">CTO</span>
+          <span class="job-industry">DXコンサルティングファーム ／ 非公開</span>
+        </div>
+        <div class="job-salary">
+          2,000万〜3,000万
+          <small>想定年収</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="jobs-cta">
+      <a href="#contact">すべての非公開求人を見る →</a>
+    </div>
+  </div>
+</section>
+
+<!-- § 5 登録後の流れ -->
+<section class="sec-flow" id="flow">
+  <div class="sec-flow-inner">
+    <p class="sec-tag">PROCESS</p>
+    <h2 class="sec-h" style="color:#fff">登録から内定まで、<br>4つのステップ</h2>
+
+    <div class="flow-steps">
+      <div class="flow-step">
+        <div class="step-dot"><span>1</span></div>
+        <h4>無料登録</h4>
+        <p>フォームからご登録。所要時間は2分以内。費用は一切かかりません。</p>
+      </div>
+      <div class="flow-step">
+        <div class="step-dot"><span>2</span></div>
+        <h4>初回ヒアリング</h4>
+        <p>専任コンサルタントがオンラインまたは対面で、経歴・希望・方向性をお伺いします。</p>
+      </div>
+      <div class="flow-step">
+        <div class="step-dot"><span>3</span></div>
+        <h4>非公開求人の開示</h4>
+        <p>あなたのプロフィールに合う非公開ポジションをご提案。すべて守秘義務のもとで進めます。</p>
+      </div>
+      <div class="flow-step">
+        <div class="step-dot"><span>4</span></div>
+        <h4>選考・条件交渉</h4>
+        <p>書類作成から面接対策、年収・役職交渉まで。内定後のオンボーディングもサポートします。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- § 6 FAQ -->
+<section class="sec-faq">
+  <div class="sec-faq-inner">
+    <p class="sec-tag">FAQ</p>
+    <h2 class="sec-h" style="color:#1A0A0E">よくある質問</h2>
+
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary class="faq-q">
+          <span class="faq-q-text">利用料金はかかりますか？</span>
+          <span class="faq-icon"></span>
+        </summary>
+        <p class="faq-a">
+          求職者の方への費用は一切かかりません。登録・相談・求人紹介・選考サポートすべて無料です。採用が成立した場合、採用企業からご紹介料をいただく成果報酬モデルです。
+        </p>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">
+          <span class="faq-q-text">現在の会社に知られる心配はありませんか？</span>
+          <span class="faq-icon"></span>
+        </summary>
+        <p class="faq-a">
+          ご登録いただいた情報は厳格に管理しており、企業への開示はご本人の同意なしには行いません。求人企業への推薦前に必ずご確認いただきます。
+        </p>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">
+          <span class="faq-q-text">経営経験がない場合でも登録できますか？</span>
+          <span class="faq-icon"></span>
+        </summary>
+        <p class="faq-a">
+          はい、ご登録いただけます。CFO・COO・CTO候補として事業会社での実績やスキルを評価する求人が多数あります。「経営層への第一歩」として転職を検討されている方も、まず相談ください。
+        </p>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">
+          <span class="faq-q-text">すぐに転職する気がなくても相談できますか？</span>
+          <span class="faq-icon"></span>
+        </summary>
+        <p class="faq-a">
+          もちろんです。「情報収集したい」「自分の市場価値を知りたい」という段階でのご相談を歓迎しています。経営キャリアは早めに準備を始めることが重要です。
+        </p>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">
+          <span class="faq-q-text">どのような業種・職種の求人がありますか？</span>
+          <span class="faq-icon"></span>
+        </summary>
+        <p class="faq-a">
+          業種は製造・IT・コンサル・金融・消費財・ヘルスケアなど幅広く対応。職種はCXO・CFO・COO・CTO・事業本部長・経営企画部長クラスが中心です。年収は1,000万〜3,000万円規模が主なレンジです。
+        </p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- § 7 最終CTA + フォーム -->
+<section class="sec-cta" id="contact">
+  <div class="sec-cta-inner">
+    <h2 class="sec-h">経営への第一歩を、今。</h2>
+    <p class="sec-cta-sub">
+      登録・相談は完全無料。<br>
+      まずは現状のキャリアをお聞かせください。
+    </p>
+
+    <form class="form-wrap" onsubmit="return false;">
+      <div class="form-row">
+        <div class="form-field">
+          <label>お名前</label>
+          <input type="text" placeholder="山田 太郎">
+        </div>
+        <div class="form-field">
+          <label>メールアドレス</label>
+          <input type="email" placeholder="taro@example.com">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-field">
+          <label>現在の年収（概算）</label>
+          <select>
+            <option value="" disabled selected>選択してください</option>
+            <option>600万円未満</option>
+            <option>600万〜800万円</option>
+            <option>800万〜1,000万円</option>
+            <option>1,000万〜1,500万円</option>
+            <option>1,500万〜2,000万円</option>
+            <option>2,000万円以上</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label>現在のポジション</label>
+          <input type="text" placeholder="例：部長 / シニアマネージャー">
+        </div>
+      </div>
+      <div class="form-field">
+        <label>ご相談内容（任意）</label>
+        <textarea placeholder="気になっていること、転職のタイムラインなど、自由にお書きください"></textarea>
+      </div>
+      <button type="submit" class="form-submit">無料で相談する →</button>
+      <p class="form-note">
+        ご登録いただいた情報は、プライバシーポリシーに基づき適切に管理します。<br>
+        第三者への無断提供は行いません。
+      </p>
+    </form>
+  </div>
+</section>
+
+<!-- § 8 運営会社 -->
+<footer class="sec-company" id="company">
+  <div class="sec-company-inner">
+    <div>
+      <div class="company-brand">
+        <span class="logo-mark" style="width:18px;height:18px;border-width:1.5px"></span>
+        CXO CIRCUIT
+      </div>
+      <p class="company-name">運営：Beyondge株式会社</p>
+      <p class="company-addr">
+        有料職業紹介事業許可番号 ██-ュ█████<br>
+        〒 ███-████ 東京都△△区△△ █-█-█
+      </p>
+    </div>
+    <div class="company-links">
+      <a href="#">サービスについて</a>
+      <a href="#">プライバシーポリシー</a>
+      <a href="#">利用規約</a>
+      <a href="#">お問い合わせ</a>
+    </div>
+  </div>
+  <p class="copyright">© 2025 Beyondge 株式会社 — CXO CIRCUIT. ALL RIGHTS RESERVED.</p>
+</footer>
 
 </body>
 </html>
