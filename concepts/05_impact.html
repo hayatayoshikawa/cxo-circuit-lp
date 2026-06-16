@@ -25,16 +25,37 @@
     }
 
     html, body { scroll-behavior: smooth; }
-    body { font-family: var(--jp); background: var(--ink); color: var(--fg); }
+    body { font-family: var(--jp); background: var(--ink); color: var(--fg); overflow-x: hidden; }
     a { text-decoration: none; color: inherit; }
     img { display: block; max-width: 100%; }
 
-    /* ── スクロールリビール ── */
-    .rv { opacity: 0; transform: translateY(28px); transition: opacity .75s ease, transform .75s ease; }
+    /* ── スクロール進捗バー ── */
+    .scroll-bar {
+      position: fixed;
+      top: 0; left: 0;
+      height: 3px;
+      background: var(--enja);
+      width: 0%;
+      z-index: 300;
+      transition: width .1s linear;
+    }
+
+    /* ── スクロールリビール（clip-path版） ── */
+    .rv {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity .7s cubic-bezier(.22,.9,.36,1), transform .7s cubic-bezier(.22,.9,.36,1);
+    }
     .rv.in { opacity: 1; transform: none; }
+    .rv-clip {
+      clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
+      transition: clip-path .8s cubic-bezier(.22,.9,.36,1);
+    }
+    .rv-clip.in { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
     .d1 { transition-delay: .10s; }
     .d2 { transition-delay: .22s; }
     .d3 { transition-delay: .34s; }
+    .d4 { transition-delay: .46s; }
 
     /* ── NAV ── */
     nav {
@@ -47,9 +68,12 @@
       padding: 0 40px;
       background: rgba(110, 20, 41, .52);
       backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       border-bottom: 1px solid rgba(255,255,255,.10);
       z-index: 100;
+      transition: background .3s;
     }
+    nav.scrolled { background: rgba(10, 5, 7, .85); }
     .logo {
       font-family: var(--arch);
       font-weight: 900;
@@ -87,17 +111,31 @@
       color: var(--enja);
       padding: 9px 22px;
       border-radius: 40px;
-      transition: opacity .2s;
+      transition: opacity .2s, transform .2s;
     }
-    .nav-cta:hover { opacity: .88; }
+    .nav-cta:hover { opacity: .88; transform: translateY(-1px); }
 
     /* ── HERO ── */
     .hero {
       position: relative;
       width: 100vw;
-      height: 100vh;
+      min-height: 100vh;
       overflow: hidden;
       background: var(--enja);
+      display: flex;
+      align-items: center;
+    }
+
+    /* カーソルグロー */
+    .cursor-glow {
+      position: absolute;
+      width: 480px; height: 480px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,.08) 0%, transparent 65%);
+      pointer-events: none;
+      z-index: 2;
+      transform: translate(-50%, -50%);
+      transition: left .18s ease, top .18s ease;
     }
 
     /* 速線レイヤー */
@@ -115,104 +153,147 @@
       to   { stroke-dashoffset: 0; }
     }
 
-    /* 巨大テキスト */
-    .big-text {
-      position: absolute;
-      left: -1vw;
-      top: 50%;
-      transform: translateY(-52%);
-      font-family: var(--zen);
-      font-weight: 900;
-      font-size: clamp(72px, 13vw, 220px);
-      line-height: 1.08;
-      letter-spacing: -.02em;
-      color: #fff;
-      white-space: normal;
-      word-break: keep-all;
-      pointer-events: none;
-      user-select: none;
-      z-index: 5;
-      max-width: 60vw;
+    /* ヒーローコンテンツ */
+    .hero-content {
+      position: relative;
+      z-index: 10;
+      padding: 120px 8vw 100px;
+      max-width: 1100px;
+      width: 100%;
     }
 
-    /* 右：差別化メッセージカラム */
-    .info-col {
-      position: absolute;
-      right: 4%;
-      top: 50%;
-      transform: translateY(-50%);
-      z-index: 20;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 0;
-      max-width: 320px;
-    }
-    .info-label {
-      font-family: var(--arch);
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: .22em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,.50);
-      margin-bottom: 14px;
-      text-align: right;
-    }
-    .info-main {
+    .hero-eyebrow {
       font-family: var(--jp);
-      font-weight: 700;
-      font-size: clamp(16px, 1.8vw, 24px);
-      line-height: 1.65;
-      text-align: right;
-      word-break: keep-all;
-      margin-bottom: 20px;
-    }
-    .info-main em {
-      font-style: normal;
-      display: block;
-      font-size: .72em;
-      font-weight: 400;
-      color: rgba(255,255,255,.65);
-      margin-top: 4px;
-    }
-    .divider {
-      width: 100%;
-      height: 1px;
-      background: rgba(255,255,255,.25);
-      margin: 20px 0;
-    }
-    /* エージェント肩書きリスト */
-    .agent-tags {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      align-items: flex-end;
-      margin-bottom: 28px;
-    }
-    .agent-tag {
-      font-family: var(--jp);
-      font-size: 12px;
+      font-size: clamp(11px, 1vw, 14px);
       font-weight: 500;
-      color: rgba(255,255,255,.80);
-      background: rgba(255,255,255,.12);
-      border: 1px solid rgba(255,255,255,.18);
-      padding: 5px 14px;
-      border-radius: 40px;
-      white-space: nowrap;
+      letter-spacing: .1em;
+      color: rgba(255,255,255,.60);
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: fadeUp .7s .1s cubic-bezier(.22,.9,.36,1) forwards;
     }
-    .cta-btn {
+
+    .hero-h1 {
+      font-family: var(--zen);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -.02em;
+      word-break: keep-all;
+    }
+    .hl1 {
+      display: block;
+      font-size: clamp(30px, 5.2vw, 80px);
+      color: rgba(255,255,255,.90);
+      opacity: 0;
+      animation: fadeUp .75s .25s cubic-bezier(.22,.9,.36,1) forwards;
+      margin-bottom: .08em;
+    }
+    .hl2 {
+      display: block;
+      font-size: clamp(72px, 12.5vw, 196px);
+      color: #fff;
+      opacity: 0;
+      animation: fadeUp .8s .40s cubic-bezier(.22,.9,.36,1) forwards;
+      line-height: 1;
+    }
+    .hl2 em {
+      font-style: normal;
+      position: relative;
+      display: inline-block;
+      animation: cxoPulse 4s 1.5s ease-in-out infinite;
+    }
+    .hl2 em::after {
+      content: '';
+      position: absolute;
+      bottom: -.05em; left: 0; right: 0;
+      height: .06em;
+      background: rgba(255,255,255,.35);
+      border-radius: 4px;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(36px); }
+      to   { opacity: 1; transform: none; }
+    }
+    @keyframes cxoPulse {
+      0%,100% { text-shadow: none; }
+      50%     { text-shadow: 0 0 60px rgba(255,255,255,.35), 0 0 120px rgba(255,255,255,.15); }
+    }
+
+    .hero-sub {
+      font-size: clamp(14px, 1.3vw, 18px);
+      line-height: 1.9;
+      color: rgba(255,255,255,.75);
+      font-weight: 400;
+      margin-top: 40px;
+      word-break: keep-all;
+      opacity: 0;
+      animation: fadeUp .7s .60s cubic-bezier(.22,.9,.36,1) forwards;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 28px;
+      opacity: 0;
+      animation: fadeUp .7s .75s cubic-bezier(.22,.9,.36,1) forwards;
+    }
+    .htag {
+      font-size: 12.5px;
+      font-weight: 500;
+      color: rgba(255,255,255,.85);
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.22);
+      padding: 6px 16px;
+      border-radius: 40px;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      transition: background .2s, border-color .2s;
+    }
+    .htag:hover { background: rgba(255,255,255,.22); border-color: rgba(255,255,255,.45); }
+
+    .hero-ctas {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      margin-top: 40px;
+      opacity: 0;
+      animation: fadeUp .7s .88s cubic-bezier(.22,.9,.36,1) forwards;
+    }
+    .cta-main {
+      position: relative;
       display: inline-flex;
       align-items: center;
       gap: 8px;
       background: #fff;
       color: var(--enja);
       font-weight: 700;
-      font-size: clamp(13px, 1.1vw, 15px);
-      padding: 14px 28px;
+      font-size: 15px;
+      padding: 16px 36px;
       border-radius: 40px;
-      transition: opacity .2s, transform .2s;
+      overflow: hidden;
+      transition: transform .2s, box-shadow .2s;
     }
-    .cta-btn:hover { opacity: .9; transform: translateY(-2px); }
+    .cta-main::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,.5) 50%, transparent 70%);
+      transform: translateX(-100%);
+      transition: transform .5s;
+    }
+    .cta-main:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(0,0,0,.25); }
+    .cta-main:hover::before { transform: translateX(100%); }
+    .cta-link {
+      font-size: 13.5px;
+      color: rgba(255,255,255,.60);
+      border-bottom: 1px solid rgba(255,255,255,.25);
+      padding-bottom: 2px;
+      transition: color .2s, border-color .2s;
+    }
+    .cta-link:hover { color: #fff; border-color: rgba(255,255,255,.70); }
+
     .foot-note {
       position: absolute;
       bottom: 5%;
@@ -220,9 +301,11 @@
       transform: translateX(-50%);
       z-index: 20;
       font-size: 11px;
-      color: rgba(255,255,255,.35);
+      color: rgba(255,255,255,.30);
       white-space: nowrap;
       letter-spacing: .12em;
+      opacity: 0;
+      animation: fadeUp .6s 1.1s forwards;
     }
 
     /* ── § 共通 ── */
@@ -256,7 +339,6 @@
       gap: 56px 80px;
       max-width: 900px;
     }
-    .why-item { }
     .why-item .bar {
       display: block;
       width: 28px; height: 2px;
@@ -282,19 +364,21 @@
     .sec-agents { background: var(--cream); }
     .sec-agents .sec-tag { color: var(--enja); }
     .sec-agents .sec-h { color: #1A0A0E; }
-    .agents-grid {
+    .agents-grid-wrap {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 28px;
+      grid-template-columns: 1.4fr 1fr 1fr 1fr;
+      gap: 24px;
+      align-items: start;
     }
     .agent-card {
       background: #fff;
       border-radius: 6px;
       overflow: hidden;
       box-shadow: 0 2px 20px rgba(26,10,14,.08);
-      transition: transform .25s, box-shadow .25s;
+      transition: transform .3s cubic-bezier(.22,.9,.36,1), box-shadow .3s;
+      will-change: transform;
     }
-    .agent-card:hover { transform: translateY(-6px); box-shadow: 0 12px 36px rgba(26,10,14,.14); }
+    .agent-card:hover { box-shadow: 0 20px 50px rgba(26,10,14,.18); }
     .agent-photo {
       width: 100%;
       aspect-ratio: 3/4;
@@ -302,9 +386,10 @@
       object-position: top;
       background: var(--cream2);
     }
-    .agent-info {
-      padding: 20px 20px 24px;
-    }
+    .agent-card.featured .agent-photo { aspect-ratio: 3/5; }
+    .agent-card.featured .agent-name { font-size: 19px; }
+    .agent-card.featured .agent-career { font-size: 13.5px; }
+    .agent-info { padding: 20px 20px 24px; }
     .agent-name {
       font-family: var(--jp);
       font-weight: 700;
@@ -326,17 +411,6 @@
       font-weight: 300;
     }
 
-    /* § 3 フィーチャー（一番目を大きく） */
-    .agents-grid-wrap {
-      display: grid;
-      grid-template-columns: 1.4fr 1fr 1fr 1fr;
-      gap: 24px;
-      align-items: start;
-    }
-    .agent-card.featured .agent-photo { aspect-ratio: 3/5; }
-    .agent-card.featured .agent-name { font-size: 19px; }
-    .agent-card.featured .agent-career { font-size: 13.5px; }
-
     /* ── § 4 インナーサークルの非公開求人 ── */
     .sec-circle { background: var(--enja); }
     .sec-circle .sec-tag { color: rgba(255,255,255,.55); }
@@ -354,7 +428,6 @@
       gap: 60px;
       flex-wrap: wrap;
     }
-    .circle-stat {}
     .circle-num {
       font-family: var(--arch);
       font-weight: 900;
@@ -389,6 +462,7 @@
     }
     .job-cards { display: flex; flex-direction: column; gap: 2px; }
     .job-card {
+      position: relative;
       display: grid;
       grid-template-columns: 1fr auto;
       align-items: center;
@@ -397,12 +471,23 @@
       background: rgba(255,255,255,.04);
       border: 1px solid rgba(255,255,255,.07);
       border-radius: 4px;
-      transition: background .2s, border-color .2s;
+      overflow: hidden;
+      transition: background .25s, border-color .25s, transform .25s;
+    }
+    .job-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,.04) 50%, transparent 100%);
+      transform: translateX(-100%);
+      transition: transform .6s ease;
     }
     .job-card:hover {
-      background: rgba(140,28,53,.12);
-      border-color: rgba(140,28,53,.35);
+      background: rgba(140,28,53,.10);
+      border-color: rgba(140,28,53,.30);
+      transform: translateX(4px);
     }
+    .job-card:hover::after { transform: translateX(100%); }
     .job-pos {
       font-weight: 700;
       font-size: clamp(16px, 1.5vw, 21px);
@@ -429,10 +514,7 @@
       display: block;
       margin-top: 3px;
     }
-    .jobs-more {
-      margin-top: 44px;
-      text-align: center;
-    }
+    .jobs-more { margin-top: 44px; text-align: center; }
     .jobs-more a {
       font-size: 13.5px;
       color: rgba(255,255,255,.60);
@@ -472,6 +554,11 @@
       margin-bottom: 26px;
       background: var(--ink2);
       position: relative;
+      transition: border-color .4s, box-shadow .4s;
+    }
+    .step-dot.lit {
+      border-color: var(--enja);
+      box-shadow: 0 0 0 8px rgba(140,28,53,.18), 0 0 0 16px rgba(140,28,53,.06);
     }
     .step-dot span {
       font-family: var(--arch);
@@ -519,6 +606,7 @@
       border-radius: 50%;
       flex-shrink: 0;
       position: relative;
+      transition: background .25s, border-color .25s;
     }
     .faq-icon::before, .faq-icon::after {
       content: '';
@@ -527,9 +615,10 @@
       border-radius: 2px;
       top: 50%; left: 50%;
       transform: translate(-50%, -50%);
+      transition: opacity .25s, background .25s;
     }
     .faq-icon::before { width: 10px; height: 1.5px; }
-    .faq-icon::after  { width: 1.5px; height: 10px; transition: opacity .25s; }
+    .faq-icon::after  { width: 1.5px; height: 10px; }
     details[open] .faq-icon { background: var(--enja); border-color: var(--enja); }
     details[open] .faq-icon::before { background: #fff; }
     details[open] .faq-icon::after  { opacity: 0; }
@@ -550,8 +639,13 @@
       top: 50%; left: 50%;
       transform: translate(-50%, -50%);
       width: 700px; height: 420px;
-      background: radial-gradient(ellipse, rgba(140,28,53,.20) 0%, transparent 70%);
+      background: radial-gradient(ellipse, rgba(140,28,53,.22) 0%, transparent 70%);
       pointer-events: none;
+      animation: breathe 5s ease-in-out infinite;
+    }
+    @keyframes breathe {
+      0%,100% { transform: translate(-50%,-50%) scale(1); opacity:1; }
+      50%      { transform: translate(-50%,-50%) scale(1.15); opacity:.7; }
     }
     .sec-cta-inner { max-width: 600px; margin: 0 auto; position: relative; z-index: 1; }
     .sec-cta .sec-h { color: #fff; font-size: clamp(28px, 3.2vw, 46px); }
@@ -606,10 +700,10 @@
       font-family: var(--jp);
       font-weight: 700;
       cursor: pointer;
-      transition: background .2s, transform .2s;
+      transition: background .2s, transform .2s, box-shadow .2s;
       margin-top: 4px;
     }
-    .form-submit:hover { background: var(--enja-d); transform: translateY(-2px); }
+    .form-submit:hover { background: var(--enja-d); transform: translateY(-2px); box-shadow: 0 10px 28px rgba(140,28,53,.4); }
     .form-note {
       font-size: 11px;
       color: rgba(255,255,255,.28);
@@ -642,11 +736,7 @@
       gap: 9px;
       margin-bottom: 16px;
     }
-    .ft-operated {
-      font-size: 11.5px;
-      color: rgba(255,255,255,.38);
-      margin-bottom: 6px;
-    }
+    .ft-operated { font-size: 11.5px; color: rgba(255,255,255,.38); margin-bottom: 6px; }
     .ft-addr { font-size: 11px; color: rgba(255,255,255,.25); line-height: 1.9; }
     .ft-links { display: flex; flex-direction: column; gap: 10px; align-items: flex-end; }
     .ft-links a { font-size: 12px; color: rgba(255,255,255,.30); transition: color .15s; }
@@ -671,7 +761,6 @@
     }
     @media (max-width: 900px) {
       .nav-links { display: none; }
-      .info-col { right: 3%; }
       .why-cols { grid-template-columns: 1fr; gap: 36px; }
       .circle-stats { gap: 36px; }
       .ft-inner { grid-template-columns: 1fr; }
@@ -679,8 +768,8 @@
     }
     @media (max-width: 640px) {
       nav { padding: 0 18px; }
-      .big-text { font-size: 16vw; }
-      .info-col { display: none; }
+      .hero-content { padding: 100px 24px 80px; }
+      .hl2 { font-size: 18vw; }
       .sec { padding: 80px 20px; }
       .form-row { grid-template-columns: 1fr; }
       .job-card { grid-template-columns: 1fr; gap: 8px; }
@@ -692,7 +781,10 @@
 </head>
 <body>
 
-<nav>
+<!-- スクロール進捗バー -->
+<div class="scroll-bar" id="scrollBar"></div>
+
+<nav id="mainNav">
   <a class="logo" href="#"><span class="logo-mark"></span>CXO エージェント</a>
   <ul class="nav-links">
     <li><a href="#agents">エージェント</a></li>
@@ -704,9 +796,13 @@
 </nav>
 
 <!-- § 1 ヒーロー -->
-<section class="hero">
+<section class="hero" id="hero">
 
-  <svg class="speed-layer" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice"
+  <!-- カーソルグロー -->
+  <div class="cursor-glow" id="cursorGlow"></div>
+
+  <!-- 速線 -->
+  <svg class="speed-layer" id="speedSvg" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice"
        xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <line x1="-200" y1="88"  x2="1800" y2="60"  stroke="white" stroke-width="1.5" opacity=".10" stroke-dasharray="2000" style="animation-delay:.05s"/>
     <line x1="-200" y1="145" x2="1800" y2="120" stroke="white" stroke-width="3"   opacity=".07" stroke-dasharray="2000" style="animation-delay:.10s"/>
@@ -720,23 +816,26 @@
     <line x1="-200" y1="810" x2="1800" y2="800" stroke="white" stroke-width="2"   opacity=".08" stroke-dasharray="2000" style="animation-delay:.09s"/>
   </svg>
 
-  <!-- 巨大テキスト -->
-  <div class="big-text">キャリアエージェントが<br>全員CXO。</div>
-
-  <!-- 右：差別化メッセージ -->
-  <div class="info-col">
-    <p class="info-label">経営層（CXO）に特化した人材紹介サービス「CXOエージェント」</p>
-    <p class="info-main">
-      経営を経験した人間にしか、<br>経営の転職は語れない。
-      <em>代表・CFO・CTO経験者が<br>直接担当します。</em>
+  <!-- ヒーローコンテンツ -->
+  <div class="hero-content">
+    <p class="hero-eyebrow">経営層（CXO）に特化した人材紹介サービス「CXOエージェント」</p>
+    <h1 class="hero-h1">
+      <span class="hl1">キャリアエージェントが</span>
+      <span class="hl2">全員<em>CXO</em>。</span>
+    </h1>
+    <p class="hero-sub">
+      経営を経験した人間にしか、経営の転職は語れない。<br>
+      代表・CFO・CTO経験者が直接担当します。
     </p>
-    <div class="divider"></div>
-    <div class="agent-tags">
-      <span class="agent-tag">スタートアップ代表経験者</span>
-      <span class="agent-tag">M&amp;A・投資実績あり</span>
-      <span class="agent-tag">経営層直結の非公開求人</span>
+    <div class="hero-tags">
+      <span class="htag">スタートアップ代表経験者</span>
+      <span class="htag">M&amp;A・投資実績あり</span>
+      <span class="htag">経営層直結の非公開求人</span>
     </div>
-    <a class="cta-btn" href="#contact">無料相談する →</a>
+    <div class="hero-ctas">
+      <a class="cta-main" href="#contact">無料相談する →</a>
+      <a class="cta-link" href="#agents">エージェントを見る ↓</a>
+    </div>
   </div>
 
   <p class="foot-note">OPERATED BY BEYONDGE 株式会社 — 登録・相談 完全無料</p>
@@ -780,7 +879,7 @@
     <h2 class="sec-h rv d1" style="color:#1A0A0E">担当するのは、<br>経営経験者たちです。</h2>
     <div class="agents-grid-wrap">
 
-      <div class="agent-card featured rv d1">
+      <div class="agent-card featured rv d1" data-tilt>
         <img class="agent-photo"
           src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=600&q=80"
           alt="代表 吉川隼大">
@@ -791,7 +890,7 @@
         </div>
       </div>
 
-      <div class="agent-card rv d2">
+      <div class="agent-card rv d2" data-tilt>
         <img class="agent-photo"
           src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=600&q=80"
           alt="エージェント">
@@ -802,7 +901,7 @@
         </div>
       </div>
 
-      <div class="agent-card rv d2">
+      <div class="agent-card rv d2" data-tilt>
         <img class="agent-photo"
           src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=600&q=80"
           alt="エージェント">
@@ -813,7 +912,7 @@
         </div>
       </div>
 
-      <div class="agent-card rv d3">
+      <div class="agent-card rv d3" data-tilt>
         <img class="agent-photo"
           src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=600&q=80"
           alt="エージェント">
@@ -841,11 +940,11 @@
     </p>
     <div class="circle-stats rv d2">
       <div class="circle-stat">
-        <div class="circle-num">500<span>件超</span></div>
+        <div class="circle-num" data-count="500" data-suffix="件超">0<span>件超</span></div>
         <p class="circle-cap">経営層・幹部候補の<br>非公開ポジション</p>
       </div>
       <div class="circle-stat">
-        <div class="circle-num">1,000<span>万〜</span></div>
+        <div class="circle-num" data-count="1000" data-suffix="万〜">0<span>万〜</span></div>
         <p class="circle-cap">年収レンジ（最高<br>3,000万円規模）</p>
       </div>
     </div>
@@ -859,28 +958,28 @@
     <h2 class="sec-h rv d1">求人イメージ</h2>
     <p class="jobs-note rv d1">※ 掲載はイメージです。実際の非公開求人はご登録後にご案内します</p>
     <div class="job-cards">
-      <div class="job-card rv">
+      <div class="job-card rv d1">
         <div>
           <p class="job-pos">CFO 候補</p>
           <p class="job-industry">製造業（売上300億規模） ／ 非公開</p>
         </div>
         <div class="job-salary">1,800万〜2,400万<small>想定年収</small></div>
       </div>
-      <div class="job-card rv">
+      <div class="job-card rv d2">
         <div>
           <p class="job-pos">COO</p>
           <p class="job-industry">ITスタートアップ（Series B）／ 東京</p>
         </div>
         <div class="job-salary">1,200万〜1,800万<small>想定年収＋ストックオプション</small></div>
       </div>
-      <div class="job-card rv">
+      <div class="job-card rv d1">
         <div>
           <p class="job-pos">事業本部長</p>
           <p class="job-industry">消費財メーカー（上場） ／ 非公開</p>
         </div>
         <div class="job-salary">1,500万〜2,200万<small>想定年収</small></div>
       </div>
-      <div class="job-card rv">
+      <div class="job-card rv d2">
         <div>
           <p class="job-pos">CTO</p>
           <p class="job-industry">DXコンサルティングファーム ／ 非公開</p>
@@ -1025,12 +1124,95 @@
 
 <script>
 (function(){
-  var io = new IntersectionObserver(function(entries){
-    entries.forEach(function(e){
-      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+
+  /* ── スクロール進捗バー ── */
+  var bar = document.getElementById('scrollBar');
+  var nav = document.getElementById('mainNav');
+  function onScroll() {
+    var h = document.documentElement;
+    var pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+    bar.style.width = pct + '%';
+    nav.classList.toggle('scrolled', h.scrollTop > 60);
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  /* ── カーソルグロー（ヒーローのみ） ── */
+  var glow = document.getElementById('cursorGlow');
+  var hero = document.getElementById('hero');
+  hero.addEventListener('mousemove', function(e) {
+    var r = hero.getBoundingClientRect();
+    glow.style.left = (e.clientX - r.left) + 'px';
+    glow.style.top  = (e.clientY - r.top)  + 'px';
+    glow.style.opacity = '1';
+  });
+  hero.addEventListener('mouseleave', function() {
+    glow.style.opacity = '0';
+  });
+
+  /* ── 速線マウスパラレックス ── */
+  var svg = document.getElementById('speedSvg');
+  hero.addEventListener('mousemove', function(e) {
+    var cx = e.clientX / window.innerWidth  - 0.5;
+    var cy = e.clientY / window.innerHeight - 0.5;
+    svg.style.transform = 'translate(' + (cx * 14) + 'px,' + (cy * 8) + 'px)';
+  });
+  hero.addEventListener('mouseleave', function() {
+    svg.style.transform = '';
+  });
+
+  /* ── スクロールリビール ── */
+  var io = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+        /* ステップドット点灯 */
+        var dot = e.target.querySelector('.step-dot');
+        if (dot) setTimeout(function(){ dot.classList.add('lit'); }, 300);
+      }
     });
-  }, { threshold: .14, rootMargin: '0px 0px -5% 0px' });
-  document.querySelectorAll('.rv').forEach(function(el){ io.observe(el); });
+  }, { threshold: .14, rootMargin: '0px 0px -4% 0px' });
+  document.querySelectorAll('.rv').forEach(function(el) { io.observe(el); });
+
+  /* ── カウントアップ（§4 統計数値） ── */
+  var counted = false;
+  var countObserver = new IntersectionObserver(function(entries) {
+    if (entries[0].isIntersecting && !counted) {
+      counted = true;
+      document.querySelectorAll('[data-count]').forEach(function(el) {
+        var target = parseInt(el.getAttribute('data-count'));
+        var suffix = el.getAttribute('data-suffix') || '';
+        var duration = 1200;
+        var start = null;
+        function step(ts) {
+          if (!start) start = ts;
+          var progress = Math.min((ts - start) / duration, 1);
+          var eased = 1 - Math.pow(1 - progress, 3);
+          var val = Math.floor(eased * target);
+          var display = val >= 1000 ? val.toLocaleString() : String(val);
+          el.innerHTML = display + '<span>' + suffix + '</span>';
+          if (progress < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      });
+    }
+  }, { threshold: .5 });
+  var circleSection = document.querySelector('.sec-circle');
+  if (circleSection) countObserver.observe(circleSection);
+
+  /* ── カード 3D ティルト ── */
+  document.querySelectorAll('[data-tilt]').forEach(function(card) {
+    card.addEventListener('mousemove', function(e) {
+      var r = card.getBoundingClientRect();
+      var x = (e.clientX - r.left) / r.width  - 0.5;
+      var y = (e.clientY - r.top)  / r.height - 0.5;
+      card.style.transform = 'perspective(600px) rotateY(' + (x * 10) + 'deg) rotateX(' + (-y * 8) + 'deg) scale(1.03)';
+    });
+    card.addEventListener('mouseleave', function() {
+      card.style.transform = '';
+    });
+  });
+
 })();
 </script>
 
