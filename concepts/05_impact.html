@@ -115,185 +115,58 @@
     }
     .nav-cta:hover { opacity: .88; transform: translateY(-1px); }
 
-    /* ── HERO（ポスター調） ── */
+    /* ── HERO（ポスター背景＋人物） ── */
     .hero {
       position: relative;
       width: 100vw;
       min-height: 100vh;
       overflow: hidden;
-      background: #F4F0E8;
+      background: #F2F0EB;
       isolation: isolate;
     }
-    /* 紙テクスチャ風のうっすらノイズ */
-    .hero::before {
-      content: '';
-      position: absolute; inset: 0; z-index: 0;
-      background:
-        radial-gradient(circle at 78% 42%, rgba(216,12,24,.05), transparent 55%),
-        radial-gradient(circle at 15% 80%, rgba(0,0,0,.04), transparent 50%);
-      pointer-events: none;
-    }
 
-    /* 上下の破れた黒インクの帯 */
-    .torn { position: absolute; left: 0; width: 100%; z-index: 9; pointer-events: none; }
-    .torn-top { top: -2px; }
-    .torn-bottom { bottom: -2px; transform: scaleY(-1); }
-    .torn svg { display: block; width: 100%; height: 90px; }
-    @media (max-width: 700px){ .torn svg { height: 54px; } }
-
-    /* 巨大な赤テキスト（背面レイヤー） */
-    .poster-text {
+    /* 背景ポスター（1枚目の画像） */
+    .hero-poster {
       position: absolute;
       inset: 0;
-      z-index: 2;
-      pointer-events: none;
-      font-family: var(--zen);
-      font-weight: 900;
-      color: #D80C18;
-      letter-spacing: -.03em;
-      line-height: .92;
-      word-break: keep-all;
-    }
-    .poster-text span {
-      position: absolute;
-      white-space: nowrap;
-      display: block;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: left center;
       opacity: 0;
-      transform: translateY(24px);
-      animation: fadeUp .8s cubic-bezier(.22,.9,.36,1) forwards;
-      text-shadow: 0 2px 0 rgba(150,8,16,.18);
+      animation: posterIn 1s .1s cubic-bezier(.22,.9,.36,1) forwards;
     }
-    .pt1 { top: 9%;  left: 2.5%; font-size: clamp(46px, 9.5vw, 150px); animation-delay: .15s; }
-    .pt2 { top: 33%; left: 2.5%; font-size: clamp(40px, 8.4vw, 132px); animation-delay: .28s; }
-    .pt3 { top: 33%; right: 8%;  font-size: clamp(40px, 8.4vw, 132px); animation-delay: .40s; }
-    .pt4 { bottom: 9%; left: 1.5%; font-size: clamp(58px, 13vw, 210px); animation-delay: .52s; }
+    @keyframes posterIn {
+      from { opacity: 0; transform: scale(1.04); }
+      to   { opacity: 1; transform: scale(1); }
+    }
 
-    /* 人物（前面） */
+    /* 人物（右からフェードイン） */
     .hero-person {
       position: absolute;
       bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      height: 96%;
-      z-index: 4;
+      right: 2.5%;
+      height: 94%;
+      z-index: 3;
       pointer-events: none;
       opacity: 0;
-      animation: fadeUpBig 1s .35s cubic-bezier(.22,.9,.36,1) forwards;
-      filter: drop-shadow(0 20px 40px rgba(0,0,0,.28)) contrast(1.06);
+      transform: translateX(120%);
+      animation: personSlideIn 1.15s .55s cubic-bezier(.18,.86,.32,1) forwards;
+      filter: drop-shadow(-18px 18px 36px rgba(0,0,0,.30)) contrast(1.05);
+      will-change: transform, opacity;
     }
     .hero-person img {
       height: 100%;
       width: auto;
       max-width: none;
       object-fit: contain;
-      object-position: bottom center;
+      object-position: bottom right;
     }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to   { opacity: 1; transform: none; }
-    }
-    @keyframes fadeUpBig {
-      from { opacity: 0; transform: translate(-50%, 36px); }
-      to   { opacity: 1; transform: translate(-50%, 0); }
-    }
-    @keyframes popIn {
-      0%   { opacity: 0; transform: scale(.82) rotate(var(--rot, 0deg)); }
-      70%  { transform: scale(1.04) rotate(var(--rot, 0deg)); }
-      100% { opacity: 1; transform: scale(1) rotate(var(--rot, 0deg)); }
-    }
-
-    /* 左上：黒インクのバッジ */
-    .badge-tl {
-      position: absolute;
-      top: 8%; left: 2.5%;
-      z-index: 6;
-      background: #111;
-      color: #fff;
-      padding: 14px 26px 16px;
-      transform: rotate(-1.5deg);
-      box-shadow: 6px 8px 0 rgba(0,0,0,.12);
-      clip-path: polygon(2% 8%, 98% 0, 100% 88%, 1% 100%);
-      opacity: 0;
-      animation: popIn .6s .9s cubic-bezier(.22,1.2,.4,1) forwards;
-    }
-    .badge-tl b {
-      display: block;
-      font-family: var(--jp);
-      font-weight: 700;
-      font-size: clamp(13px, 1.5vw, 19px);
-      line-height: 1.5;
-      word-break: keep-all;
-    }
-    .badge-tl b em { font-style: normal; color: #FF3040; }
-
-    /* 右：円形バッジ */
-    .badge-circle {
-      position: absolute;
-      top: 30%; right: 3.5%;
-      z-index: 6;
-      width: clamp(118px, 13vw, 170px);
-      height: clamp(118px, 13vw, 170px);
-      border-radius: 50%;
-      background: #D80C18;
-      color: #fff;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      text-align: center;
-      padding: 14px;
-      box-shadow: 0 14px 30px rgba(216,12,24,.35);
-      transform: rotate(3deg);
-      --rot: 3deg;
-      opacity: 0;
-      animation: popIn .6s 1.05s cubic-bezier(.22,1.2,.4,1) forwards;
-    }
-    .badge-circle .bc-main {
-      font-family: var(--zen); font-weight: 900;
-      font-size: clamp(15px, 1.7vw, 22px);
-      line-height: 1.28; word-break: keep-all;
-    }
-    .badge-circle .bc-main em { font-style: normal; font-size: .72em; }
-    .badge-circle .bc-sub {
-      font-family: var(--jp); font-weight: 500;
-      font-size: clamp(9px, .9vw, 11px);
-      margin-top: 7px; line-height: 1.5; opacity: .92;
-    }
-
-    /* 右下：チェック項目 */
-    .checks {
-      position: absolute;
-      right: 2.5%; bottom: 21%;
-      z-index: 6;
-      display: flex; flex-direction: column; gap: 10px;
-      width: clamp(240px, 24vw, 300px);
-    }
-    .check-item {
-      display: flex; align-items: center; gap: 11px;
-      background: #111;
-      color: #fff;
-      padding: 11px 26px 11px 14px;
-      clip-path: polygon(1% 6%, 99% 0, 100% 92%, 0% 100%);
-      opacity: 0;
-      transform: translateX(28px);
-      animation: slideInR .55s cubic-bezier(.22,.9,.36,1) forwards;
-    }
-    .checks .check-item:nth-child(1){ animation-delay: 1.15s; }
-    .checks .check-item:nth-child(2){ animation-delay: 1.28s; }
-    .checks .check-item:nth-child(3){ animation-delay: 1.41s; }
-    @keyframes slideInR {
-      to { opacity: 1; transform: none; }
-    }
-    .check-mark {
-      flex-shrink: 0;
-      width: 22px; height: 22px; border-radius: 50%;
-      background: #D80C18;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .check-mark svg { width: 12px; height: 12px; }
-    .check-item span {
-      font-family: var(--jp); font-weight: 700;
-      font-size: clamp(11px, 1.1vw, 13.5px);
-      line-height: 1.4; word-break: keep-all;
+    @keyframes personSlideIn {
+      0%   { opacity: 0; transform: translateX(120%); }
+      60%  { opacity: 1; }
+      100% { opacity: 1; transform: translateX(0); }
     }
 
     /* 下部バー：ロゴ＋CTA */
@@ -305,14 +178,14 @@
       width: min(92%, 980px);
       display: flex; align-items: center; justify-content: space-between;
       gap: 24px;
-      background: rgba(255,255,255,.78);
+      background: rgba(255,255,255,.82);
       backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
       border: 1px solid rgba(0,0,0,.08);
       border-radius: 8px;
       padding: 14px 16px 14px 22px;
-      box-shadow: 0 18px 40px rgba(0,0,0,.14);
+      box-shadow: 0 18px 40px rgba(0,0,0,.16);
       opacity: 0;
-      animation: barIn .7s 1.3s cubic-bezier(.22,.9,.36,1) forwards;
+      animation: barIn .7s 1.5s cubic-bezier(.22,.9,.36,1) forwards;
     }
     @keyframes barIn {
       from { opacity: 0; transform: translate(-50%, 24px); }
@@ -351,21 +224,19 @@
 
     .foot-note { display: none; }
 
-    /* ヒーロー：レスポンシブ（縦積み） */
-    @media (max-width: 860px) {
-      .hero { min-height: auto; padding: 90px 0 30px; }
-      .poster-text { position: relative; height: auto; padding: 8px 18px 0; }
-      .poster-text span { position: static; display: block; animation: fadeUp .7s forwards; white-space: normal; }
-      .pt1{font-size:13vw;} .pt2{font-size:12vw;} .pt3{font-size:12vw;} .pt4{font-size:18vw;}
-      .hero-person { position: relative; height: auto; left: auto; transform: none; margin: -6vw auto 0; width: 80%; animation: fadeUp .8s .2s forwards; }
-      .hero-person img { width: 100%; height: auto; }
-      .badge-tl { position: relative; top: auto; left: auto; display: inline-block; margin: 0 18px 12px; transform: rotate(-1.5deg); animation: fadeUp .5s forwards; }
-      .badge-circle { position: relative; top: auto; right: auto; margin: 18px auto 0; animation: fadeUp .5s forwards; }
-      .checks { position: relative; right: auto; bottom: auto; margin: 18px auto 0; max-width: 90%; padding: 0 18px; }
-      .check-item { transform: none; animation: fadeUp .5s forwards; }
-      .hero-bar { position: relative; left: auto; bottom: auto; transform: none; margin: 28px auto 0; flex-wrap: wrap; justify-content: center; text-align: center; animation: fadeUp .6s forwards; }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: none; }
     }
 
+    /* ヒーロー：レスポンシブ（縦積み） */
+    @media (max-width: 860px) {
+      .hero { min-height: 86vh; }
+      .hero-poster { object-position: center top; object-fit: cover; }
+      .hero-person { right: -4%; height: 64%; animation-delay: .4s; }
+      .hero-bar { flex-direction: column; gap: 12px; text-align: center; padding: 16px; width: min(92%, 420px); }
+      .hero-bar-cta { width: 100%; justify-content: center; }
+    }
     /* ── § 共通 ── */
     .sec { padding: 110px 48px; }
     .sec-inner { max-width: 1100px; margin: 0 auto; }
@@ -853,60 +724,18 @@
   <a class="nav-cta" href="#contact">無料相談する</a>
 </nav>
 
-<!-- § 1 ヒーロー（ポスター調） -->
+<!-- § 1 ヒーロー（ポスター背景＋人物） -->
 <section class="hero" id="hero">
 
-  <!-- 上：破れた黒インクの帯 -->
-  <div class="torn torn-top" aria-hidden="true">
-    <svg viewBox="0 0 1440 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <filter id="rough-top"><feTurbulence type="fractalNoise" baseFrequency="0.012 0.04" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="46"/></filter>
-      </defs>
-      <rect x="-20" y="-40" width="1480" height="92" fill="#111" filter="url(#rough-top)"/>
-    </svg>
-  </div>
-
-  <!-- 巨大な赤テキスト（背面） -->
-  <div class="poster-text" aria-hidden="true">
-    <span class="pt1">経営の未来は、</span>
-    <span class="pt2">あなたの</span>
-    <span class="pt3">決断で</span>
-    <span class="pt4">動く。</span>
-  </div>
+  <!-- 背景ポスター（1枚目） -->
+  <img class="hero-poster" src="assets/poster.png" alt="経営ポジションのハイクラス求人をあなたに。エージェント全員がCxOポジション経験者。">
 
   <!-- 見出し（スクリーンリーダー用） -->
-  <h1 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);">経営の未来は、あなたの決断で動く。エージェント全員がCxOポジション経験者のCXOエージェント。</h1>
+  <h1 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);">経営ポジションのハイクラス求人をあなたに。エージェント全員がCxOポジション経験者のCXOエージェント。</h1>
 
-  <!-- 人物（前面） -->
+  <!-- 人物（右からフェードイン） -->
   <div class="hero-person">
-    <img src="assets/person.png" alt="">
-  </div>
-
-  <!-- 左上：黒インクのバッジ -->
-  <div class="badge-tl">
-    <b>エージェント全員が<br><em>CxOポジション</em>経験者</b>
-  </div>
-
-  <!-- 右：円形バッジ -->
-  <div class="badge-circle">
-    <div class="bc-main"><em>CXO特化の</em><br>非公開求人<br>多数</div>
-    <div class="bc-sub">経営の中枢で、<br>次のステージへ。</div>
-  </div>
-
-  <!-- 右下：チェック項目 -->
-  <div class="checks">
-    <div class="check-item">
-      <span class="check-mark"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-      <span>スタートアップ代表経験者がサポート</span>
-    </div>
-    <div class="check-item">
-      <span class="check-mark"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-      <span>M&amp;A・投資実績のある案件多数</span>
-    </div>
-    <div class="check-item">
-      <span class="check-mark"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-      <span>年収1,000万円以上の求人が中心</span>
-    </div>
+    <img src="assets/person2.png" alt="">
   </div>
 
   <!-- 下部バー：ロゴ＋CTA -->
@@ -921,17 +750,8 @@
     <a class="hero-bar-cta" href="#contact">無料相談する <span>→</span></a>
   </div>
 
-  <!-- 下：破れた黒インクの帯 -->
-  <div class="torn torn-bottom" aria-hidden="true">
-    <svg viewBox="0 0 1440 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <filter id="rough-bot"><feTurbulence type="fractalNoise" baseFrequency="0.012 0.04" numOctaves="3" seed="3" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="46"/></filter>
-      </defs>
-      <rect x="-20" y="-40" width="1480" height="92" fill="#111" filter="url(#rough-bot)"/>
-    </svg>
-  </div>
-
 </section>
+
 
 
 <!-- § 2 なぜ経営者がエージェントなのか -->
@@ -1225,29 +1045,20 @@
     var pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
     bar.style.width = pct + '%';
     nav.classList.toggle('scrolled', h.scrollTop > 60);
-
-    /* 人物のスクロールパララックス */
-    if (person) {
-      var off = Math.min(h.scrollTop, window.innerHeight) * 0.12;
-      person.style.translate = '0 ' + off + 'px';
-    }
   }
   window.addEventListener('scroll', onScroll, { passive: true });
 
-  /* ── ヒーロー：マウスパララックス ── */
+  /* ── ヒーロー：マウスパララックス（背景ポスター） ── */
   var hero = document.getElementById('hero');
-  var person = document.querySelector('.hero-person');
-  var poster = document.querySelector('.poster-text');
+  var poster = document.querySelector('.hero-poster');
   if (hero && window.matchMedia('(min-width: 861px)').matches) {
     hero.addEventListener('mousemove', function(e) {
       var cx = e.clientX / window.innerWidth  - 0.5;
       var cy = e.clientY / window.innerHeight - 0.5;
-      if (poster) poster.style.transform = 'translate(' + (cx * 18) + 'px,' + (cy * 12) + 'px)';
-      if (person) person.style.marginLeft = (cx * -22) + 'px';
+      if (poster) poster.style.translate = (cx * -14) + 'px ' + (cy * -8) + 'px';
     });
     hero.addEventListener('mouseleave', function() {
-      if (poster) poster.style.transform = '';
-      if (person) person.style.marginLeft = '';
+      if (poster) poster.style.translate = '';
     });
   }
 
