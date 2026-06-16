@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CXO CIRCUIT｜経営に挑むキャリアは、ここから始まる。</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Space+Mono:wght@400;700&family=Caveat:wght@600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0A0B0E; --ink:#F4F4F0; --mute:#9AA0A8;
+  --lime:#C7F046; --line:rgba(255,255,255,.16);
+  --arch:'Archivo',sans-serif; --mono:'Space Mono',monospace; --hand:'Caveat',cursive; --jp:'Noto Sans JP',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--jp);overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+
+/* ===== ヒーロー（B&W建築写真） ===== */
+.hero{position:relative;min-height:100vh;overflow:hidden;display:flex;flex-direction:column;justify-content:center}
+.hero-bg{position:absolute;inset:0;z-index:0;
+  background:url("https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1920&q=72") center 22%/cover no-repeat;
+  filter:grayscale(1) contrast(1.08) brightness(.92);
+  transform:scale(1.04);animation:slow 18s ease-in-out infinite alternate}
+@keyframes slow{to{transform:scale(1.12)}}
+.hero-shade{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:
+   linear-gradient(95deg, rgba(8,9,12,.94) 0%, rgba(8,9,12,.62) 34%, rgba(8,9,12,.12) 64%, rgba(8,9,12,.5) 100%),
+   linear-gradient(0deg, rgba(8,9,12,.9) 0%, rgba(8,9,12,0) 42%);}
+.hero-grain{position:absolute;inset:0;z-index:2;pointer-events:none;opacity:.4;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/></svg>")}
+
+/* ヘッダー */
+header{position:absolute;top:0;left:0;width:100%;z-index:30;display:flex;align-items:center;justify-content:space-between;padding:26px 40px}
+.logo{display:flex;align-items:center;gap:11px;font-family:var(--arch);font-weight:800;font-size:19px;letter-spacing:.04em}
+.logo .mk{width:21px;height:21px;border:2px solid var(--ink);border-radius:50%;position:relative}
+.logo .mk::after{content:"";position:absolute;inset:4px;border-radius:50%;background:var(--lime)}
+nav{display:flex;gap:30px;font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:rgba(244,244,240,.8)}
+nav a:hover{color:var(--lime)}
+.c-btn{font-family:var(--mono);font-size:12px;letter-spacing:.06em;background:var(--ink);color:var(--bg);padding:11px 20px;border-radius:40px;font-weight:700;display:inline-flex;gap:8px;align-items:center}
+.c-btn:hover{background:var(--lime)}
+
+/* ヒーロー本文 */
+.hero-in{position:relative;z-index:20;padding:0 40px;max-width:1480px;margin:0 auto;width:100%}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.22em;color:var(--lime);display:flex;align-items:center;gap:14px;margin-bottom:24px}
+.eyebrow::before{content:"";width:42px;height:1px;background:var(--lime)}
+.h1{font-family:var(--arch);font-weight:900;font-size:clamp(52px,10.5vw,150px);line-height:.92;letter-spacing:-.02em;text-transform:uppercase}
+.h1 .l{display:block;overflow:hidden}
+.h1 .l>span{display:inline-block;transform:translateY(112%);animation:rise 1s cubic-bezier(.2,.85,.25,1) forwards}
+.h1 .l:nth-child(2) span{animation-delay:.12s}
+@keyframes rise{to{transform:none}}
+.h1 .dot{color:var(--lime)}
+.sub{font-family:var(--jp);font-weight:500;font-size:clamp(14px,1.5vw,18px);line-height:1.9;margin-top:28px;max-width:520px;color:#E6E7E3;opacity:0;animation:fade 1s ease .7s forwards}
+@keyframes fade{to{opacity:1}}
+.cta{margin-top:38px;display:flex;gap:16px;align-items:center;flex-wrap:wrap;opacity:0;animation:fade 1s ease .9s forwards}
+.btn-lime{background:var(--lime);color:#10130a;font-weight:700;font-family:var(--jp);font-size:15px;padding:16px 30px;border-radius:40px;display:inline-flex;align-items:center;gap:12px;transition:.2s}
+.btn-lime:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(199,240,70,.28)}
+.btn-out{border:1px solid rgba(244,244,240,.5);color:var(--ink);font-family:var(--mono);font-size:12px;letter-spacing:.1em;padding:15px 26px;border-radius:40px}
+.btn-out:hover{border-color:var(--lime);color:var(--lime)}
+
+/* メタ・スクロール */
+.meta{position:absolute;left:40px;bottom:30px;z-index:20;font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:rgba(244,244,240,.6)}
+.scrollcue{position:absolute;right:40px;bottom:30px;z-index:20;font-family:var(--mono);font-size:10px;letter-spacing:.3em;color:rgba(244,244,240,.7);display:flex;align-items:center;gap:12px}
+.scrollcue .bar{width:48px;height:1px;background:rgba(244,244,240,.3);position:relative;overflow:hidden}
+.scrollcue .bar::after{content:"";position:absolute;left:-48px;top:0;width:48px;height:1px;background:var(--lime);animation:cue 2s ease-in-out infinite}
+@keyframes cue{0%{transform:translateX(0)}60%,100%{transform:translateX(96px)}}
+
+/* ===== ステッカー（スーツケースの“行き先”タグ風） ===== */
+.stk{position:absolute;z-index:25;will-change:transform;animation:float 8s ease-in-out infinite}
+.s2{animation-duration:10s;animation-delay:-2s}.s3{animation-duration:9s;animation-delay:-4s}.s4{animation-duration:11s;animation-delay:-1s}
+@keyframes float{0%,100%{transform:translateY(0) rotate(var(--r))}50%{transform:translateY(-13px) rotate(var(--r))}}
+
+/* 手荷物タグ（主役） */
+.lug{--r:-8deg;top:15%;right:6%;width:188px;background:#F4F2EC;color:#16140f;border-radius:10px;padding:16px 16px 14px;box-shadow:0 26px 56px rgba(0,0,0,.55);transform:rotate(var(--r))}
+.lug::before{content:"";position:absolute;top:-7px;left:50%;width:22px;height:14px;background:#F4F2EC;border-radius:14px 14px 0 0;transform:translateX(-50%)}
+.lug .hole{position:absolute;top:-1px;left:50%;width:9px;height:9px;border-radius:50%;background:#16140f;transform:translateX(-50%)}
+.lug .top{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1.5px dashed #16140f;padding-bottom:9px}
+.lug .flt{font-family:var(--arch);font-weight:800;font-size:13px;letter-spacing:.02em}
+.lug .cls{font-family:var(--mono);font-size:9px;letter-spacing:.1em}
+.lug .dest{font-family:var(--arch);font-weight:900;font-size:30px;line-height:1;margin-top:10px;letter-spacing:-.01em}
+.lug .destjp{font-family:var(--jp);font-weight:700;font-size:13px;margin-top:3px}
+.lug .code{height:34px;margin-top:11px;background:repeating-linear-gradient(90deg,#16140f 0 2px,transparent 2px 4px,#16140f 4px 5px,transparent 5px 9px,#16140f 9px 11px,transparent 11px 14px);border-radius:1px}
+.lug .no{font-family:var(--mono);font-size:8.5px;letter-spacing:.08em;margin-top:7px}
+
+/* 搭乗券カード */
+.pass{--r:5deg;top:46%;right:9%;width:206px;background:#0E1015;border:1px solid var(--line);border-radius:10px;padding:16px 18px;color:var(--ink);box-shadow:0 22px 50px rgba(0,0,0,.5);transform:rotate(var(--r))}
+.pass .ph{font-family:var(--mono);font-size:9px;letter-spacing:.18em;color:var(--lime)}
+.pass .pr{display:flex;justify-content:space-between;align-items:center;margin-top:10px}
+.pass .pr .a{font-family:var(--arch);font-weight:800;font-size:18px}
+.pass .pr .ar{font-family:var(--mono);color:var(--lime)}
+.pass .meta2{font-family:var(--mono);font-size:9px;letter-spacing:.06em;color:var(--mute);margin-top:12px;display:flex;justify-content:space-between}
+
+/* ネオン緑バッジ（NEXT STOP 経営行き） */
+.badge{--r:-6deg;bottom:12%;right:30%;width:122px;height:122px;border-radius:50%;background:var(--lime);color:#10130a;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;transform:rotate(var(--r));box-shadow:0 18px 44px rgba(199,240,70,.3)}
+.badge .t1{font-family:var(--mono);font-size:9px;letter-spacing:.16em;font-weight:700}
+.badge .t2{font-family:var(--arch);font-weight:900;font-size:15px;line-height:1.05;margin:4px 0}
+.badge .t3{font-family:var(--jp);font-weight:700;font-size:13px}
+
+/* ホログラム箔ラベル */
+.holo{--r:7deg;bottom:20%;right:5%;padding:13px 20px;border-radius:40px;transform:rotate(var(--r));color:#10130a;
+  background:linear-gradient(115deg,#a0e9ff,#c7f046 28%,#ffa6df 52%,#9bb8ff 78%,#a0e9ff);background-size:280% 100%;
+  animation:float 10s ease-in-out infinite,holo 5s linear infinite;box-shadow:0 16px 40px rgba(150,180,255,.3)}
+@keyframes holo{to{background-position:280% 0}}
+.holo .t{font-family:var(--hand);font-weight:700;font-size:20px;line-height:.95;text-align:center}
+.holo .s{font-family:var(--mono);font-size:8px;letter-spacing:.12em;text-align:center;margin-top:1px}
+
+/* 入国スタンプ風（経営行き） */
+.stamp{--r:-14deg;top:30%;right:31%;width:96px;height:96px;border:2px solid var(--lime);border-radius:50%;display:flex;align-items:center;justify-content:center;transform:rotate(var(--r));opacity:.92}
+.stamp .in{width:74px;height:74px;border:1px solid var(--lime);border-radius:50%;display:flex;align-items:center;justify-content:center;position:relative}
+.stamp .jp{font-family:var(--jp);font-weight:700;font-size:19px;color:var(--lime);letter-spacing:.1em}
+.stamp svg{position:absolute;inset:0}
+.stamp .ring-txt{font-family:var(--mono);font-size:7px;letter-spacing:.2em;fill:var(--lime)}
+
+@media(max-width:980px){
+  nav{display:none}
+  .pass,.stamp{display:none}
+  .lug{top:auto;bottom:23%;right:5%;width:150px}
+  .badge{bottom:9%;right:8%;width:96px;height:96px}
+  .holo{bottom:13%;right:auto;left:6%}
+  header{padding:18px 22px}.hero-in,.meta{padding-left:22px}.meta{left:22px}.scrollcue{right:22px}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important}
+  .h1 .l>span{transform:none}.sub,.cta{opacity:1}
+  .hero-bg{transform:none}
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-shade"></div>
+  <div class="hero-grain"></div>
+
+  <header>
+    <a class="logo" href="#"><span class="mk"></span>CXO CIRCUIT</a>
+    <nav><a href="#">ABOUT</a><a href="#">POSITIONS</a><a href="#">FLOW</a><a href="#">VOICES</a></nav>
+    <a class="c-btn" href="#">登録（無料） <span>→</span></a>
+  </header>
+
+  <div class="hero-in">
+    <div class="eyebrow">EXECUTIVE CAREER CIRCUIT — SINCE 2026</div>
+    <h1 class="h1">
+      <span class="l"><span>LEAD</span></span>
+      <span class="l"><span>THE NEXT<span class="dot">.</span></span></span>
+    </h1>
+    <p class="sub">経営に挑むキャリアは、ここから始まる。<br>事業責任者・幹部候補から CXO まで——経営層と直接つながる非公開ポジションを、あなたの志向に合わせて。</p>
+    <div class="cta">
+      <a class="btn-lime" href="#">経営人材として登録する <span>→</span></a>
+      <a class="btn-out" href="#">VIEW POSITIONS</a>
+    </div>
+  </div>
+
+  <div class="meta">N35.69 / E139.76 — OPERATED BY BEYONDGE</div>
+  <div class="scrollcue">SCROLL <span class="bar"></span></div>
+
+  <!-- ステッカー：行き先タグ -->
+  <div class="stk lug">
+    <span class="hole"></span>
+    <div class="top"><span class="flt">CXO 2026</span><span class="cls">ONE WAY</span></div>
+    <div class="dest">TO: 経営</div>
+    <div class="destjp">行き先：ボードルーム</div>
+    <div class="code"></div>
+    <div class="no">CXO-CIRCUIT / NO.0614 / NEXT</div>
+  </div>
+
+  <div class="stk pass s2">
+    <div class="ph">BOARDING PASS</div>
+    <div class="pr"><span class="a">現在地</span><span class="ar">———→</span><span class="a">経営</span></div>
+    <div class="meta2"><span>GATE / NEXT</span><span>SEAT / 01A</span><span>2026</span></div>
+  </div>
+
+  <div class="stk badge s3">
+    <div class="t1">NEXT STOP</div>
+    <div class="t2">経営</div>
+    <div class="t3">行き</div>
+  </div>
+
+  <div class="stk holo s4">
+    <div class="t">Start your<br>circuit</div>
+    <div class="s">DEPARTURE · MANAGEMENT</div>
+  </div>
+
+  <div class="stk stamp s2">
+    <div class="in"><span class="jp">経営行</span></div>
+    <svg viewBox="0 0 96 96" aria-hidden="true">
+      <defs><path id="sp" d="M48,48 m-40,0 a40,40 0 1,1 80,0 a40,40 0 1,1 -80,0"/></defs>
+      <text class="ring-txt"><textPath href="#sp">· DEPARTURE · CXO CIRCUIT · 2026 · EXECUTIVE </textPath></text>
+    </svg>
+  </div>
+</div>
+
+</body>
+</html>
