@@ -6,7 +6,7 @@
   <title>CXO CIRCUIT — ⑤ インパクト版（えんじ）</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&family=Zen+Kaku+Gothic+New:wght@900&family=Noto+Sans+JP:wght@400;500;700;900&family=Space+Mono&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&family=Zen+Kaku+Gothic+New:wght@900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -14,11 +14,9 @@
       --enja:  #8C1C35;
       --enja-d:#6E1429;
       --fg:    #FFFFFF;
-      --lime:  #C7F046;
       --zen:   'Zen Kaku Gothic New', sans-serif;
       --arch:  'Archivo', sans-serif;
       --jp:    'Noto Sans JP', sans-serif;
-      --mono:  'Space Mono', monospace;
     }
 
     html, body { height: 100%; overflow: hidden; }
@@ -33,10 +31,10 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 36px;
-      background: rgba(110, 20, 41, .55);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(255,255,255,.12);
+      padding: 0 40px;
+      background: rgba(110, 20, 41, .50);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255,255,255,.10);
       z-index: 100;
     }
     .logo {
@@ -49,8 +47,8 @@
       gap: 9px;
     }
     .logo-mark {
-      width: 24px; height: 24px;
-      border: 2px solid rgba(255,255,255,.9);
+      width: 22px; height: 22px;
+      border: 2px solid rgba(255,255,255,.85);
       border-radius: 50%;
       position: relative;
       flex-shrink: 0;
@@ -58,16 +56,15 @@
     .logo-mark::after {
       content: '';
       position: absolute;
-      inset: 5px;
+      inset: 4px;
       background: #fff;
       border-radius: 50%;
     }
     .nav-links { list-style: none; display: flex; gap: 28px; }
     .nav-links a {
-      font-family: var(--mono);
-      font-size: 10.5px;
-      letter-spacing: .09em;
-      color: rgba(255,255,255,.65);
+      font-family: var(--jp);
+      font-size: 12px;
+      color: rgba(255,255,255,.60);
       transition: color .15s;
     }
     .nav-links a:hover { color: #fff; }
@@ -92,7 +89,23 @@
       background: var(--enja);
     }
 
-    /* ── 超巨大背景テキスト ── */
+    /* ── 速線レイヤー ── */
+    .speed-layer {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .speed-layer line {
+      animation: rush 1.1s cubic-bezier(.22,.9,.36,1) both;
+    }
+    @keyframes rush {
+      from { stroke-dashoffset: 2000; }
+      to   { stroke-dashoffset: 0; }
+    }
+
+    /* ── 巨大テキスト ── */
     .big-text {
       position: absolute;
       left: -1vw;
@@ -107,263 +120,118 @@
       white-space: nowrap;
       pointer-events: none;
       user-select: none;
-      z-index: 1;
+      z-index: 5;
     }
 
-    /* ── 人物写真（非表示） ── */
-    .person { display: none; }
-
-    /* ── 左：フィーチャーリスト ── */
-    .feat-list {
-      position: absolute;
-      left: 3.5%;
-      bottom: 20%;
-      z-index: 20;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-    .fi {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-    }
-    .fi-icon {
-      width: 32px; height: 32px;
-      border-radius: 8px;
-      background: rgba(255,255,255,.15);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-      flex-shrink: 0;
-    }
-    .fi-body {}
-    .fi-label {
-      display: inline-block;
-      font-family: var(--jp);
-      font-weight: 700;
-      font-size: 12.5px;
-      color: var(--enja);
-      background: var(--lime);
-      padding: 1px 10px;
-      border-radius: 4px;
-      margin-bottom: 2px;
-    }
-    .fi-desc {
-      font-family: var(--jp);
-      font-size: 11.5px;
-      color: rgba(255,255,255,.75);
-      line-height: 1.4;
-    }
-
-    /* ── 左下：ブランドロゴ ── */
-    .brand-bl {
-      position: absolute;
-      left: 3.5%;
-      bottom: 6%;
-      z-index: 20;
-    }
-    .brand-bl .brand-sub {
-      font-family: var(--jp);
-      font-size: 11px;
-      color: rgba(255,255,255,.55);
-      margin-bottom: 4px;
-    }
-    .brand-bl .brand-name {
-      font-family: var(--arch);
-      font-weight: 900;
-      font-size: 18px;
-      letter-spacing: .06em;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .brand-tm { font-size: 11px; opacity: .7; }
-
-    /* ── 上部中央：スターバーストバッジ ── */
-    .starburst-top {
-      position: absolute;
-      top: 10%;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 20;
-      animation: bob 6s ease-in-out infinite;
-    }
-    @keyframes bob {
-      0%,100% { transform: translateX(-50%) translateY(0); }
-      50%      { transform: translateX(-50%) translateY(-8px); }
-    }
-    .starburst-svg { display: block; }
-    .starburst-inner {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 28px;
-      pointer-events: none;
-    }
-    .starburst-inner .si1 { font-family: var(--jp); font-weight: 700; font-size: 9px; color: var(--enja); letter-spacing: .08em; margin-bottom: 1px; }
-    .starburst-inner .si2 { font-family: var(--zen); font-weight: 900; font-size: 14px; line-height: 1.1; color: var(--enja); }
-    .starburst-inner .si3 { font-family: var(--jp); font-size: 8.5px; color: var(--enja); margin-top: 2px; }
-
-    /* ── 右上：サービス説明カード ── */
-    .card-tr {
-      position: absolute;
-      top: 10%;
-      right: 3.5%;
-      z-index: 20;
-      background: #fff;
-      color: var(--enja);
-      border-radius: 10px;
-      padding: 16px 18px;
-      max-width: 200px;
-      box-shadow: 0 16px 48px rgba(0,0,0,.25);
-      animation: bob2 8s ease-in-out infinite;
-    }
-    @keyframes bob2 {
-      0%,100% { transform: translateY(0); }
-      50%      { transform: translateY(-8px); }
-    }
-    .card-tr .ctr-title {
-      font-family: var(--jp);
-      font-weight: 700;
-      font-size: 12px;
-      line-height: 1.6;
-      margin-bottom: 8px;
-    }
-    .card-tr .ctr-body {
-      font-family: var(--jp);
-      font-size: 11px;
-      line-height: 1.65;
-      color: #5a1224;
-      margin-bottom: 10px;
-    }
-    .card-tr .ctr-btn {
-      display: block;
-      background: var(--enja);
-      color: #fff;
-      font-family: var(--jp);
-      font-weight: 700;
-      font-size: 11.5px;
-      text-align: center;
-      padding: 8px;
-      border-radius: 6px;
-    }
-
-    /* ── 右中：ポジション説明 ── */
-    .pos-mid {
-      position: absolute;
-      top: 40%;
-      right: 3.5%;
-      z-index: 20;
-      max-width: 180px;
-    }
-    .pos-mid .pm-item {
-      font-family: var(--jp);
-      font-size: 13px;
-      color: rgba(255,255,255,.9);
-      line-height: 1.5;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .pos-mid .pm-item::before {
-      content: '';
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: var(--lime);
-      flex-shrink: 0;
-    }
-    .pos-mid .pm-sub {
-      font-family: var(--jp);
-      font-weight: 900;
-      font-size: 18px;
-      line-height: 1.2;
-      margin-top: 12px;
-      color: #fff;
-    }
-
-    /* ── 右下：CTAボックス ── */
-    .cta-box {
-      position: absolute;
-      right: 3.5%;
-      bottom: 28%;
-      z-index: 20;
-      background: #fff;
-      color: var(--enja);
-      font-family: var(--jp);
-      font-weight: 700;
-      font-size: 14px;
-      padding: 13px 22px;
-      border-radius: 8px;
-      box-shadow: 0 12px 36px rgba(0,0,0,.25);
-      white-space: nowrap;
-      cursor: pointer;
-      transition: transform .2s;
-      animation: bob2 9s ease-in-out infinite;
-    }
-    .cta-box:hover { transform: translateY(-2px); }
-
-    /* ── 右下：実績サークル ── */
-    .stat-circle {
+    /* ── 右：情報カラム ── */
+    .info-col {
       position: absolute;
       right: 4%;
-      bottom: 8%;
+      top: 50%;
+      transform: translateY(-50%);
       z-index: 20;
-      width: 108px; height: 108px;
-      border-radius: 50%;
-      background: var(--lime);
-      color: var(--enja);
       display: flex;
       flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      box-shadow: 0 12px 32px rgba(199,240,70,.30);
-      animation: bob 10s ease-in-out infinite;
+      align-items: flex-end;
+      gap: 0;
     }
-    .stat-circle .sc1 { font-family: var(--arch); font-weight: 900; font-size: 22px; line-height: 1; }
-    .stat-circle .sc2 { font-family: var(--jp); font-size: 9.5px; font-weight: 700; line-height: 1.3; margin-top: 3px; }
 
-    /* ── 下部中央：タグライン ── */
-    .bottom-bar {
+    /* 給与帯 */
+    .salary {
+      font-family: var(--arch);
+      font-weight: 900;
+      font-size: clamp(20px, 2.2vw, 34px);
+      line-height: 1.1;
+      letter-spacing: -.01em;
+      text-align: right;
+      opacity: .95;
+    }
+    .salary small {
+      display: block;
+      font-family: var(--jp);
+      font-size: .45em;
+      font-weight: 400;
+      opacity: .75;
+      letter-spacing: .04em;
+      margin-top: 2px;
+    }
+
+    /* 区切り線 */
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: rgba(255,255,255,.30);
+      margin: 18px 0;
+    }
+
+    /* 件数 */
+    .count-wrap {
+      text-align: right;
+    }
+    .count-num {
+      font-family: var(--arch);
+      font-weight: 900;
+      font-size: clamp(52px, 5.5vw, 88px);
+      line-height: 1;
+      letter-spacing: -.03em;
+    }
+    .count-unit {
+      font-family: var(--jp);
+      font-size: .32em;
+      font-weight: 700;
+      opacity: .75;
+      vertical-align: super;
+      letter-spacing: .04em;
+    }
+    .count-label {
+      font-family: var(--jp);
+      font-size: clamp(12px, 1.1vw, 16px);
+      font-weight: 700;
+      line-height: 1.6;
+      text-align: right;
+      opacity: .88;
+      margin-top: 6px;
+    }
+
+    /* CTA */
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 28px;
+      background: #fff;
+      color: var(--enja);
+      font-family: var(--jp);
+      font-weight: 700;
+      font-size: clamp(13px, 1.1vw, 16px);
+      padding: 14px 28px;
+      border-radius: 40px;
+      transition: opacity .2s, transform .2s;
+    }
+    .cta-btn:hover { opacity: .9; transform: translateY(-2px); }
+
+    /* ── 下部ラベル（小） ── */
+    .foot-note {
       position: absolute;
-      bottom: 4%;
+      bottom: 5%;
       left: 50%;
       transform: translateX(-50%);
       z-index: 20;
-      display: flex;
-      align-items: center;
-      gap: 20px;
+      font-family: var(--jp);
+      font-size: 11px;
+      color: rgba(255,255,255,.40);
       white-space: nowrap;
+      letter-spacing: .12em;
     }
-    .bottom-bar span {
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: .14em;
-      color: rgba(255,255,255,.5);
-      text-transform: uppercase;
-    }
-    .bottom-bar .sep { color: rgba(255,255,255,.25); letter-spacing: 0; }
 
-    /* Responsive */
-    @media (max-width: 960px) {
+    @media (max-width: 900px) {
       .nav-links { display: none; }
-      .big-text { font-size: 18vw; }
-      .pos-mid { display: none; }
-      .feat-list { bottom: 24%; }
-      .stat-circle { bottom: 10%; right: 3%; width: 88px; height: 88px; }
-      .card-tr { max-width: 160px; right: 2%; }
+      .info-col { right: 3%; }
     }
     @media (max-width: 640px) {
       nav { padding: 0 18px; }
-      .big-text { font-size: 22vw; left: -3vw; }
-      .person { transform: translateX(-50%); }
-      .bottom-bar { display: none; }
+      .big-text { font-size: 22vw; }
+      .info-col { display: none; }
     }
   </style>
 </head>
@@ -382,94 +250,39 @@
 
 <section class="hero">
 
-  <!-- 巨大背景テキスト -->
-  <div class="big-text" aria-hidden="true">経営に、<br>挑め。</div>
+  <!-- 速線エフェクト -->
+  <svg class="speed-layer" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice"
+       xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <line x1="-200" y1="88"  x2="1800" y2="60"  stroke="white" stroke-width="1.5" opacity=".10" stroke-dasharray="2000" style="animation-delay:.05s"/>
+    <line x1="-200" y1="145" x2="1800" y2="120" stroke="white" stroke-width="3"   opacity=".07" stroke-dasharray="2000" style="animation-delay:.10s"/>
+    <line x1="-200" y1="240" x2="1800" y2="218" stroke="white" stroke-width="1"   opacity=".13" stroke-dasharray="2000" style="animation-delay:.15s"/>
+    <line x1="-200" y1="310" x2="1800" y2="290" stroke="white" stroke-width="4"   opacity=".06" stroke-dasharray="2000" style="animation-delay:.08s"/>
+    <line x1="-200" y1="420" x2="1800" y2="400" stroke="white" stroke-width="1"   opacity=".11" stroke-dasharray="2000" style="animation-delay:.18s"/>
+    <line x1="-200" y1="490" x2="1800" y2="472" stroke="white" stroke-width="2.5" opacity=".08" stroke-dasharray="2000" style="animation-delay:.12s"/>
+    <line x1="-200" y1="570" x2="1800" y2="554" stroke="white" stroke-width="1"   opacity=".14" stroke-dasharray="2000" style="animation-delay:.06s"/>
+    <line x1="-200" y1="650" x2="1800" y2="636" stroke="white" stroke-width="3.5" opacity=".06" stroke-dasharray="2000" style="animation-delay:.20s"/>
+    <line x1="-200" y1="730" x2="1800" y2="718" stroke="white" stroke-width="1"   opacity=".10" stroke-dasharray="2000" style="animation-delay:.14s"/>
+    <line x1="-200" y1="810" x2="1800" y2="800" stroke="white" stroke-width="2"   opacity=".08" stroke-dasharray="2000" style="animation-delay:.09s"/>
+  </svg>
 
-  <!-- 人物写真（B&W screen blend） -->
-  <div class="person">
-    <img
-      src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=700&q=80"
-      alt="CXO候補人材">
-  </div>
+  <!-- 巨大テキスト -->
+  <div class="big-text" aria-hidden="false">経営に、<br>挑め。</div>
 
-  <!-- 左：フィーチャーリスト -->
-  <div class="feat-list">
-    <div class="fi">
-      <div class="fi-icon">🔒</div>
-      <div class="fi-body">
-        <div class="fi-label">非公開求人</div>
-        <div class="fi-desc">市場に出回らないCXO等ポジション厳選掲載</div>
-      </div>
+  <!-- 右：シンプル情報カラム -->
+  <div class="info-col">
+    <p class="salary">
+      年収1,000万〜<br>3,000万円規模
+      <small>の非公開求人</small>
+    </p>
+    <div class="divider"></div>
+    <div class="count-wrap">
+      <span class="count-num">500<span class="count-unit">件超</span></span>
+      <p class="count-label">経営層・幹部候補の<br>非公開ポジション掲載中</p>
     </div>
-    <div class="fi">
-      <div class="fi-icon">👤</div>
-      <div class="fi-body">
-        <div class="fi-label">専属コンサルタント</div>
-        <div class="fi-desc">経営層経験者があなたの転職を伴走</div>
-      </div>
-    </div>
-    <div class="fi">
-      <div class="fi-icon">⚡</div>
-      <div class="fi-body">
-        <div class="fi-label">最短3営業日</div>
-        <div class="fi-desc">登録から求人提案まで、スピード対応</div>
-      </div>
-    </div>
+    <a class="cta-btn" href="#">無料で相談する →</a>
   </div>
 
-  <!-- 左下：ブランド -->
-  <div class="brand-bl">
-    <p class="brand-sub">経営への挑戦を加速する、<br>新しいキャリアプラットフォーム</p>
-    <div class="brand-name">// CXO CIRCUIT <span class="brand-tm">™</span></div>
-  </div>
-
-  <!-- 上部中央：スターバーストバッジ -->
-  <div class="starburst-top">
-    <svg class="starburst-svg" width="150" height="150" viewBox="0 0 150 150" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <polygon
-        points="75,4 90.8,48.2 137.8,30.7 113.0,75 137.8,119.3 90.8,101.8 75,146 59.2,101.8 12.2,119.3 37.0,75 12.2,30.7 59.2,48.2"
-        fill="#ffffff"/>
-    </svg>
-    <div class="starburst-inner">
-      <span class="si1">ONLY HERE</span>
-      <span class="si2">非公開求人<br>掲載中</span>
-      <span class="si3">CXO / CFO / COO</span>
-    </div>
-  </div>
-
-  <!-- 右上：サービス説明カード -->
-  <div class="card-tr">
-    <p class="ctr-title">プロも経営志向者も<br>挑戦できる<br>次世代プラットフォーム！</p>
-    <p class="ctr-body">今すぐ、あなたのキャリアを経営の次のステージへ。</p>
-    <a class="ctr-btn" href="#">今すぐ無料登録 →</a>
-  </div>
-
-  <!-- 右中：ポジション説明 -->
-  <div class="pos-mid">
-    <div class="pm-item">CXO 求人</div>
-    <div class="pm-item">CFO 求人</div>
-    <div class="pm-item">COO 求人</div>
-    <div class="pm-item">事業責任者 求人</div>
-    <p class="pm-sub">すべての経営<br>ポジションが、<br>ここに。</p>
-  </div>
-
-  <!-- 右下：CTAボックス -->
-  <div class="cta-box">今すぐ登録</div>
-
-  <!-- 右下：実績サークル -->
-  <div class="stat-circle">
-    <span class="sc1">500+</span>
-    <span class="sc2">非公開<br>求人数</span>
-  </div>
-
-  <!-- 下部中央：タグライン -->
-  <div class="bottom-bar">
-    <span>CXO × CFO × COO</span>
-    <span class="sep">×</span>
-    <span>経営に挑むキャリアは、ここから始まる。</span>
-    <span class="sep">×</span>
-    <span>BEYONDGE.JP</span>
-  </div>
+  <p class="foot-note">OPERATED BY BEYONDGE 株式会社 — 登録・相談 完全無料</p>
 
 </section>
 
