@@ -121,9 +121,47 @@
       width: 100vw;
       min-height: 100vh;
       overflow: hidden;
-      background: var(--enja);
+      background: #0A0507;
       display: flex;
       align-items: center;
+    }
+
+    /* スライドショー */
+    .hero-slides {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+    .hero-slide {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      transform: scale(1.07);
+      transition: opacity .55s ease-in-out, transform 4s ease-out;
+    }
+    .hero-slide.active {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* オーバーレイ：えんじ×ダーク */
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(135deg, rgba(100,14,28,.78) 0%, rgba(10,5,7,.86) 65%, rgba(10,5,7,.92) 100%);
+      z-index: 1;
+      pointer-events: none;
+    }
+    /* 左端にえんじのエッジライト */
+    .hero-overlay::after {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: linear-gradient(to bottom, transparent, var(--enja), transparent);
     }
 
     /* カーソルグロー */
@@ -131,18 +169,19 @@
       position: absolute;
       width: 480px; height: 480px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(255,255,255,.08) 0%, transparent 65%);
+      background: radial-gradient(circle, rgba(255,255,255,.06) 0%, transparent 65%);
       pointer-events: none;
-      z-index: 2;
+      z-index: 4;
       transform: translate(-50%, -50%);
       transition: left .18s ease, top .18s ease;
+      opacity: 0;
     }
 
     /* 速線レイヤー */
     .speed-layer {
       position: absolute;
       inset: 0;
-      z-index: 1;
+      z-index: 2;
       pointer-events: none;
     }
     .speed-layer line {
@@ -798,6 +837,21 @@
 <!-- § 1 ヒーロー -->
 <section class="hero" id="hero">
 
+  <!-- スライドショー背景 -->
+  <div class="hero-slides" id="heroSlides">
+    <div class="hero-slide active" style="background-image:url('https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1920&q=80')"></div>
+    <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=1920&q=80')"></div>
+    <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=1920&q=80')"></div>
+    <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=1920&q=80')"></div>
+    <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1560472354-b33ff0c44a43?auto=format&fit=crop&w=1920&q=80')"></div>
+    <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1920&q=80')"></div>
+    <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1920&q=80')"></div>
+    <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1531538606174-0f90ff5dce83?auto=format&fit=crop&w=1920&q=80')"></div>
+  </div>
+
+  <!-- オーバーレイ -->
+  <div class="hero-overlay"></div>
+
   <!-- カーソルグロー -->
   <div class="cursor-glow" id="cursorGlow"></div>
 
@@ -1124,6 +1178,15 @@
 
 <script>
 (function(){
+
+  /* ── スライドショー ── */
+  var slides = document.querySelectorAll('.hero-slide');
+  var cur = 0;
+  setInterval(function() {
+    slides[cur].classList.remove('active');
+    cur = (cur + 1) % slides.length;
+    slides[cur].classList.add('active');
+  }, 1800);
 
   /* ── スクロール進捗バー ── */
   var bar = document.getElementById('scrollBar');
