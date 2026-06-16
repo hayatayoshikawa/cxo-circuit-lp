@@ -123,14 +123,16 @@
       transform: translateY(-52%);
       font-family: var(--zen);
       font-weight: 900;
-      font-size: clamp(100px, 17vw, 280px);
-      line-height: 1.08;
+      font-size: clamp(56px, 10vw, 160px);
+      line-height: 1.1;
       letter-spacing: -.02em;
       color: #fff;
-      white-space: nowrap;
+      white-space: normal;
+      word-break: keep-all;
       pointer-events: none;
       user-select: none;
       z-index: 5;
+      max-width: 55vw;
     }
 
     /* 右：差別化メッセージカラム */
@@ -719,7 +721,7 @@
   </svg>
 
   <!-- 巨大テキスト -->
-  <div class="big-text">社長が、<br>エージェントに<br>なった。</div>
+  <div class="big-text">社長・経営層の<br>エージェントが、<br>あなたの経営<br>キャリアを支援する。</div>
 
   <!-- 右：差別化メッセージ -->
   <div class="info-col">
