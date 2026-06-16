@@ -11,48 +11,46 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --enja:   #8C1C35;
-      --enja-d: #6E1429;
-      --bg:     #F5EEE6;
-      --ink:    #100C0A;
-      --mute:   #7A706C;
-      --line:   rgba(16,12,10,.1);
-      --zen:    'Zen Kaku Gothic New', sans-serif;
-      --arch:   'Archivo', sans-serif;
-      --jp:     'Noto Sans JP', sans-serif;
-      --mono:   'Space Mono', monospace;
+      --enja:  #8C1C35;
+      --enja-d:#6E1429;
+      --fg:    #FFFFFF;
+      --lime:  #C7F046;
+      --zen:   'Zen Kaku Gothic New', sans-serif;
+      --arch:  'Archivo', sans-serif;
+      --jp:    'Noto Sans JP', sans-serif;
+      --mono:  'Space Mono', monospace;
     }
 
-    html, body { height: 100%; overflow-x: hidden; }
-    body { font-family: var(--jp); background: var(--bg); color: var(--ink); }
+    html, body { height: 100%; overflow: hidden; }
+    body { font-family: var(--jp); background: var(--enja); color: var(--fg); }
     a { text-decoration: none; color: inherit; }
 
     /* ── NAV ── */
     nav {
       position: fixed;
       inset: 0 0 auto 0;
-      height: 64px;
+      height: 58px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 48px;
-      background: rgba(245,238,230,.90);
-      backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--line);
+      padding: 0 36px;
+      background: rgba(110, 20, 41, .55);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,.12);
       z-index: 100;
     }
     .logo {
       font-family: var(--arch);
       font-weight: 900;
-      font-size: 15.5px;
+      font-size: 14.5px;
       letter-spacing: .10em;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 9px;
     }
     .logo-mark {
-      width: 26px; height: 26px;
-      border: 2.5px solid var(--enja);
+      width: 24px; height: 24px;
+      border: 2px solid rgba(255,255,255,.9);
       border-radius: 50%;
       position: relative;
       flex-shrink: 0;
@@ -61,204 +59,157 @@
       content: '';
       position: absolute;
       inset: 5px;
-      background: var(--enja);
+      background: #fff;
       border-radius: 50%;
     }
-    .nav-list { list-style: none; display: flex; gap: 32px; }
-    .nav-list a {
+    .nav-links { list-style: none; display: flex; gap: 28px; }
+    .nav-links a {
       font-family: var(--mono);
-      font-size: 11px;
+      font-size: 10.5px;
       letter-spacing: .09em;
-      color: var(--mute);
+      color: rgba(255,255,255,.65);
       transition: color .15s;
     }
-    .nav-list a:hover { color: var(--enja); }
+    .nav-links a:hover { color: #fff; }
     .nav-cta {
       font-family: var(--jp);
       font-weight: 700;
-      font-size: 13px;
-      background: var(--enja);
-      color: #fff;
-      padding: 10px 24px;
+      font-size: 12.5px;
+      background: #fff;
+      color: var(--enja);
+      padding: 9px 22px;
       border-radius: 40px;
-      transition: background .2s, transform .2s;
+      transition: opacity .2s;
     }
-    .nav-cta:hover { background: var(--enja-d); transform: translateY(-1px); }
+    .nav-cta:hover { opacity: .88; }
 
     /* ── HERO ── */
     .hero {
       position: relative;
-      min-height: 100vh;
+      width: 100vw;
+      height: 100vh;
       overflow: hidden;
-      display: flex;
-      align-items: center;
-      padding-top: 64px;
+      background: var(--enja);
     }
 
-    /* 大きな背景テキスト */
-    .bg-kana {
+    /* ── 超巨大背景テキスト ── */
+    .big-text {
       position: absolute;
-      z-index: 1;
-      pointer-events: none;
-      user-select: none;
+      left: -1vw;
+      top: 50%;
+      transform: translateY(-52%);
       font-family: var(--zen);
       font-weight: 900;
-      line-height: .85;
-      letter-spacing: -.03em;
-      color: var(--enja);
-      top: 50%;
-      left: 50%;
-      transform: translate(-10%, -50%);
-      font-size: clamp(170px, 28vw, 440px);
+      font-size: clamp(140px, 23vw, 360px);
+      line-height: .86;
+      letter-spacing: -.02em;
+      color: #fff;
       white-space: nowrap;
-    }
-
-    /* ブラシストローク装飾 */
-    .brush-layer {
-      position: absolute;
-      inset: 0;
-      z-index: 2;
       pointer-events: none;
+      user-select: none;
+      z-index: 1;
     }
 
-    /* 人物写真 */
+    /* ── 人物写真 ── */
     .person {
       position: absolute;
-      right: 2%;
-      bottom: 44px;
-      height: calc(100vh - 108px);
-      z-index: 5;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-38%);
+      height: 90%;
+      z-index: 8;
       pointer-events: none;
     }
     .person img {
       height: 100%;
       width: auto;
-      object-fit: cover;
-      object-position: top center;
-      filter: grayscale(1) contrast(1.18) brightness(.88);
-      -webkit-mask-image: linear-gradient(to top, transparent 0%, black 10%, black 82%, transparent 100%);
-              mask-image: linear-gradient(to top, transparent 0%, black 10%, black 82%, transparent 100%);
+      filter: grayscale(1) contrast(1.8) brightness(1.1);
+      mix-blend-mode: screen;
     }
 
-    /* ── コンテンツ（左） ── */
-    .content {
-      position: relative;
-      z-index: 10;
-      padding: 0 48px;
-      max-width: 560px;
-    }
-    .label {
-      font-family: var(--mono);
-      font-size: 10.5px;
-      letter-spacing: .20em;
-      color: var(--enja);
-      text-transform: uppercase;
-      margin-bottom: 18px;
+    /* ── 左：フィーチャーリスト ── */
+    .feat-list {
+      position: absolute;
+      left: 3.5%;
+      bottom: 20%;
+      z-index: 20;
       display: flex;
-      align-items: center;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .fi {
+      display: flex;
+      align-items: flex-start;
       gap: 10px;
     }
-    .label::before {
-      content: '';
-      width: 28px; height: 2px;
-      background: var(--enja);
+    .fi-icon {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      background: rgba(255,255,255,.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
       flex-shrink: 0;
     }
-    .h1 {
-      font-family: var(--zen);
-      font-weight: 900;
-      font-size: clamp(34px, 4.8vw, 66px);
-      line-height: 1.28;
-      letter-spacing: -.01em;
-      margin-bottom: 18px;
-      word-break: keep-all;
-    }
-    .sub {
-      font-size: 14px;
-      line-height: 1.95;
-      color: var(--mute);
-      margin-bottom: 32px;
-      max-width: 400px;
-    }
-    .ctas { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
-    .btn-p {
-      background: var(--enja);
-      color: #fff;
+    .fi-body {}
+    .fi-label {
+      display: inline-block;
       font-family: var(--jp);
       font-weight: 700;
-      font-size: 14.5px;
-      padding: 14px 28px;
-      border-radius: 40px;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      transition: background .2s, transform .2s, box-shadow .2s;
-    }
-    .btn-p:hover {
-      background: var(--enja-d);
-      transform: translateY(-2px);
-      box-shadow: 0 14px 36px rgba(140,28,53,.28);
-    }
-    .btn-s {
-      font-family: var(--mono);
-      font-size: 11px;
-      letter-spacing: .10em;
-      color: var(--ink);
-      border: 1.5px solid rgba(16,12,10,.22);
-      padding: 13px 22px;
-      border-radius: 40px;
-      transition: border-color .2s, color .2s;
-    }
-    .btn-s:hover { border-color: var(--enja); color: var(--enja); }
-
-    /* フィーチャーピル */
-    .pills {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 28px;
-    }
-    .pill {
-      font-family: var(--jp);
       font-size: 12.5px;
-      font-weight: 500;
-      background: #fff;
-      border: 1px solid var(--line);
-      padding: 7px 16px;
-      border-radius: 40px;
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      box-shadow: 0 2px 8px rgba(0,0,0,.06);
+      color: var(--enja);
+      background: var(--lime);
+      padding: 1px 10px;
+      border-radius: 4px;
+      margin-bottom: 2px;
     }
-    .pill::before {
-      content: '';
-      width: 7px; height: 7px;
-      border-radius: 50%;
-      background: var(--enja);
-      flex-shrink: 0;
+    .fi-desc {
+      font-family: var(--jp);
+      font-size: 11.5px;
+      color: rgba(255,255,255,.75);
+      line-height: 1.4;
     }
 
-    /* ── 浮遊要素 ── */
-    .float {
+    /* ── 左下：ブランドロゴ ── */
+    .brand-bl {
       position: absolute;
+      left: 3.5%;
+      bottom: 6%;
       z-index: 20;
-      animation: bob 7s ease-in-out infinite;
+    }
+    .brand-bl .brand-sub {
+      font-family: var(--jp);
+      font-size: 11px;
+      color: rgba(255,255,255,.55);
+      margin-bottom: 4px;
+    }
+    .brand-bl .brand-name {
+      font-family: var(--arch);
+      font-weight: 900;
+      font-size: 18px;
+      letter-spacing: .06em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .brand-tm { font-size: 11px; opacity: .7; }
+
+    /* ── 上部中央：スターバーストバッジ ── */
+    .starburst-top {
+      position: absolute;
+      top: 10%;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 20;
+      animation: bob 6s ease-in-out infinite;
     }
     @keyframes bob {
-      0%,100% { transform: rotate(var(--r,0deg)) translateY(0); }
-      50%      { transform: rotate(var(--r,0deg)) translateY(-10px); }
+      0%,100% { transform: translateX(-50%) translateY(0); }
+      50%      { transform: translateX(-50%) translateY(-8px); }
     }
-
-    /* スターバースト */
-    .star-badge {
-      --r: 8deg;
-      top: 14%;
-      right: 7%;
-      width: 128px; height: 128px;
-    }
-    .star-badge svg { position: absolute; inset: 0; width: 100%; height: 100%; }
-    .star-inner {
+    .starburst-svg { display: block; }
+    .starburst-inner {
       position: absolute;
       inset: 0;
       display: flex;
@@ -266,126 +217,167 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      gap: 2px;
+      padding: 28px;
+      pointer-events: none;
     }
-    .star-inner .t1 { font-family: var(--mono); font-size: 8px; letter-spacing:.14em; color: rgba(255,255,255,.8); }
-    .star-inner .t2 { font-family: var(--zen); font-weight:900; font-size: 18px; line-height:1; color:#fff; }
-    .star-inner .t3 { font-family: var(--jp); font-size: 10px; color: rgba(255,255,255,.9); }
+    .starburst-inner .si1 { font-family: var(--jp); font-weight: 700; font-size: 9px; color: var(--enja); letter-spacing: .08em; margin-bottom: 1px; }
+    .starburst-inner .si2 { font-family: var(--zen); font-weight: 900; font-size: 14px; line-height: 1.1; color: var(--enja); }
+    .starburst-inner .si3 { font-family: var(--jp); font-size: 8.5px; color: var(--enja); margin-top: 2px; }
 
-    /* インフォカード */
-    .info-card {
-      --r: -5deg;
-      bottom: 25%;
-      right: 4%;
+    /* ── 右上：サービス説明カード ── */
+    .card-tr {
+      position: absolute;
+      top: 10%;
+      right: 3.5%;
+      z-index: 20;
       background: #fff;
-      border-radius: 14px;
-      padding: 16px 20px;
-      box-shadow: 0 14px 40px rgba(0,0,0,.12);
-      animation-delay: -3s;
-      min-width: 156px;
-    }
-    .ic-label {
-      font-family: var(--mono);
-      font-size: 9px;
-      letter-spacing: .18em;
       color: var(--enja);
-      text-transform: uppercase;
-      margin-bottom: 10px;
-      padding-bottom: 8px;
-      border-bottom: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 16px 18px;
+      max-width: 200px;
+      box-shadow: 0 16px 48px rgba(0,0,0,.25);
+      animation: bob2 8s ease-in-out infinite;
     }
-    .ic-row {
+    @keyframes bob2 {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(-8px); }
+    }
+    .card-tr .ctr-title {
+      font-family: var(--jp);
+      font-weight: 700;
+      font-size: 12px;
+      line-height: 1.6;
+      margin-bottom: 8px;
+    }
+    .card-tr .ctr-body {
+      font-family: var(--jp);
+      font-size: 11px;
+      line-height: 1.65;
+      color: #5a1224;
+      margin-bottom: 10px;
+    }
+    .card-tr .ctr-btn {
+      display: block;
+      background: var(--enja);
+      color: #fff;
+      font-family: var(--jp);
+      font-weight: 700;
+      font-size: 11.5px;
+      text-align: center;
+      padding: 8px;
+      border-radius: 6px;
+    }
+
+    /* ── 右中：ポジション説明 ── */
+    .pos-mid {
+      position: absolute;
+      top: 40%;
+      right: 3.5%;
+      z-index: 20;
+      max-width: 180px;
+    }
+    .pos-mid .pm-item {
+      font-family: var(--jp);
+      font-size: 13px;
+      color: rgba(255,255,255,.9);
+      line-height: 1.5;
       display: flex;
       align-items: center;
-      gap: 8px;
-      padding: 4px 0;
+      gap: 6px;
     }
-    .ic-row::before {
+    .pos-mid .pm-item::before {
       content: '';
       width: 6px; height: 6px;
       border-radius: 50%;
-      background: var(--enja);
+      background: var(--lime);
       flex-shrink: 0;
     }
-    .ic-row span {
-      font-family: var(--zen);
+    .pos-mid .pm-sub {
+      font-family: var(--jp);
       font-weight: 900;
-      font-size: 14px;
+      font-size: 18px;
+      line-height: 1.2;
+      margin-top: 12px;
+      color: #fff;
     }
 
-    /* スクロールキュー */
-    .scroll-cue {
+    /* ── 右下：CTAボックス ── */
+    .cta-box {
       position: absolute;
-      left: 48px;
-      bottom: 56px;
+      right: 3.5%;
+      bottom: 28%;
+      z-index: 20;
+      background: #fff;
+      color: var(--enja);
+      font-family: var(--jp);
+      font-weight: 700;
+      font-size: 14px;
+      padding: 13px 22px;
+      border-radius: 8px;
+      box-shadow: 0 12px 36px rgba(0,0,0,.25);
+      white-space: nowrap;
+      cursor: pointer;
+      transition: transform .2s;
+      animation: bob2 9s ease-in-out infinite;
+    }
+    .cta-box:hover { transform: translateY(-2px); }
+
+    /* ── 右下：実績サークル ── */
+    .stat-circle {
+      position: absolute;
+      right: 4%;
+      bottom: 8%;
+      z-index: 20;
+      width: 108px; height: 108px;
+      border-radius: 50%;
+      background: var(--lime);
+      color: var(--enja);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      box-shadow: 0 12px 32px rgba(199,240,70,.30);
+      animation: bob 10s ease-in-out infinite;
+    }
+    .stat-circle .sc1 { font-family: var(--arch); font-weight: 900; font-size: 22px; line-height: 1; }
+    .stat-circle .sc2 { font-family: var(--jp); font-size: 9.5px; font-weight: 700; line-height: 1.3; margin-top: 3px; }
+
+    /* ── 下部中央：タグライン ── */
+    .bottom-bar {
+      position: absolute;
+      bottom: 4%;
+      left: 50%;
+      transform: translateX(-50%);
       z-index: 20;
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 20px;
+      white-space: nowrap;
+    }
+    .bottom-bar span {
       font-family: var(--mono);
       font-size: 10px;
-      letter-spacing: .28em;
-      color: var(--mute);
-    }
-    .sc-line {
-      width: 40px; height: 1px;
-      background: var(--line);
-      position: relative;
-      overflow: hidden;
-    }
-    .sc-line::after {
-      content: '';
-      position: absolute;
-      top: 0; left: -40px;
-      width: 40px; height: 1px;
-      background: var(--enja);
-      animation: scan 2.2s ease-in-out infinite;
-    }
-    @keyframes scan { 60%,100% { transform: translateX(80px); } }
-
-    /* 下部マーキー */
-    .marquee {
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 44px;
-      background: var(--enja);
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      z-index: 30;
-    }
-    .marquee-tr {
-      display: flex;
-      white-space: nowrap;
-      animation: mqx 22s linear infinite;
-    }
-    .marquee-tr span {
-      font-family: var(--arch);
-      font-weight: 800;
-      font-size: 12px;
       letter-spacing: .14em;
-      color: rgba(255,255,255,.88);
-      padding: 0 28px;
+      color: rgba(255,255,255,.5);
       text-transform: uppercase;
-      display: flex;
-      align-items: center;
     }
-    .marquee-tr span::after { content: ' ◆ '; font-size: 7px; opacity: .5; padding: 0 6px; }
-    @keyframes mqx { to { transform: translateX(-50%); } }
+    .bottom-bar .sep { color: rgba(255,255,255,.25); letter-spacing: 0; }
 
     /* Responsive */
     @media (max-width: 960px) {
-      .nav-list { display: none; }
-      .content { padding: 0 28px; }
-      .bg-kana { font-size: 24vw; left: 42%; }
-      .person { right: -6%; height: calc(82vh - 64px); }
-      .info-card { display: none; }
-      .star-badge { right: 5%; top: 12%; width: 100px; height: 100px; }
+      .nav-links { display: none; }
+      .big-text { font-size: 18vw; }
+      .pos-mid { display: none; }
+      .feat-list { bottom: 24%; }
+      .stat-circle { bottom: 10%; right: 3%; width: 88px; height: 88px; }
+      .card-tr { max-width: 160px; right: 2%; }
     }
     @media (max-width: 640px) {
-      .person { opacity: .30; right: 0; }
-      .bg-kana { font-size: 28vw; }
-      nav { padding: 0 22px; }
+      nav { padding: 0 18px; }
+      .big-text { font-size: 22vw; left: -3vw; }
+      .person { transform: translateX(-50%); }
+      .bottom-bar { display: none; }
     }
   </style>
 </head>
@@ -393,7 +385,7 @@
 
 <nav>
   <a class="logo" href="#"><span class="logo-mark"></span>CXO CIRCUIT</a>
-  <ul class="nav-list">
+  <ul class="nav-links">
     <li><a href="#">サービス</a></li>
     <li><a href="#">求人</a></li>
     <li><a href="#">ご利用の流れ</a></li>
@@ -405,104 +397,92 @@
 <section class="hero">
 
   <!-- 巨大背景テキスト -->
-  <div class="bg-kana" aria-hidden="true">経営へ、<br>挑め。</div>
+  <div class="big-text" aria-hidden="true">経営に、<br>挑め。</div>
 
-  <!-- ブラシストローク装飾 -->
-  <svg class="brush-layer" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice"
-       aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-      <filter id="b1"><feGaussianBlur stdDeviation="5"/></filter>
-      <filter id="b2"><feGaussianBlur stdDeviation="3"/></filter>
-    </defs>
-    <!-- ヒーロー右上の水平ブラシ -->
-    <path d="M620 195 Q820 172 1040 190 Q1220 205 1420 178"
-          stroke="#8C1C35" stroke-width="30" stroke-linecap="round" fill="none"
-          opacity=".12" filter="url(#b1)"/>
-    <!-- 左の短いアクセント -->
-    <path d="M44 346 Q130 332 228 344"
-          stroke="#8C1C35" stroke-width="10" stroke-linecap="round" fill="none"
-          opacity=".20" filter="url(#b2)"/>
-    <!-- 右下の大きなストローク -->
-    <path d="M700 640 Q920 600 1180 626 Q1340 640 1440 608"
-          stroke="#8C1C35" stroke-width="40" stroke-linecap="round" fill="none"
-          opacity=".10" filter="url(#b1)"/>
-    <!-- 見出し下アンダーライン風 -->
-    <path d="M44 480 Q180 466 300 476"
-          stroke="#8C1C35" stroke-width="7" stroke-linecap="round" fill="none"
-          opacity=".28" filter="url(#b2)"/>
-  </svg>
-
-  <!-- 人物写真（B&W） -->
+  <!-- 人物写真（B&W screen blend） -->
   <div class="person">
     <img
       src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=700&q=80"
-      alt="経営人材イメージ">
+      alt="CXO候補人材">
   </div>
 
-  <!-- メインコンテンツ（左） -->
-  <div class="content">
-    <p class="label">経営人材特化 キャリアプラットフォーム</p>
-    <h1 class="h1">経営に挑む<br>キャリアは、<br>ここから始まる。</h1>
-    <p class="sub">
-      CXO・CFO・COO など、次の経営ポジションへ。<br>
-      非公開求人と専属コンサルタントが、<br>
-      あなたの挑戦を支える。
-    </p>
-    <div class="ctas">
-      <a class="btn-p" href="#">経営人材として登録する <span>→</span></a>
-      <a class="btn-s" href="#">求人を見る</a>
+  <!-- 左：フィーチャーリスト -->
+  <div class="feat-list">
+    <div class="fi">
+      <div class="fi-icon">🔒</div>
+      <div class="fi-body">
+        <div class="fi-label">非公開求人</div>
+        <div class="fi-desc">市場に出回らないCXO等ポジション厳選掲載</div>
+      </div>
     </div>
-    <div class="pills">
-      <div class="pill">完全非公開求人</div>
-      <div class="pill">専属コンサル伴走</div>
-      <div class="pill">登録・相談 無料</div>
-      <div class="pill">CXO / CFO / COO</div>
+    <div class="fi">
+      <div class="fi-icon">👤</div>
+      <div class="fi-body">
+        <div class="fi-label">専属コンサルタント</div>
+        <div class="fi-desc">経営層経験者があなたの転職を伴走</div>
+      </div>
+    </div>
+    <div class="fi">
+      <div class="fi-icon">⚡</div>
+      <div class="fi-body">
+        <div class="fi-label">最短3営業日</div>
+        <div class="fi-desc">登録から求人提案まで、スピード対応</div>
+      </div>
     </div>
   </div>
 
-  <!-- スターバーストバッジ（右上） -->
-  <div class="float star-badge">
-    <!-- 8-point starburst SVG -->
-    <svg viewBox="0 0 130 130" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <!-- 左下：ブランド -->
+  <div class="brand-bl">
+    <p class="brand-sub">経営への挑戦を加速する、<br>新しいキャリアプラットフォーム</p>
+    <div class="brand-name">// CXO CIRCUIT <span class="brand-tm">™</span></div>
+  </div>
+
+  <!-- 上部中央：スターバーストバッジ -->
+  <div class="starburst-top">
+    <svg class="starburst-svg" width="150" height="150" viewBox="0 0 150 150" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <polygon
-        points="65,3 78.8,31.8 108.8,21.2 98.2,51.2 127,65 98.2,78.8 108.8,108.8 78.8,98.2 65,127 51.2,98.2 21.2,108.8 31.8,78.8 3,65 31.8,51.2 21.2,21.2 51.2,31.8"
-        fill="#8C1C35"/>
+        points="75,4 90.8,48.2 137.8,30.7 113.0,75 137.8,119.3 90.8,101.8 75,146 59.2,101.8 12.2,119.3 37.0,75 12.2,30.7 59.2,48.2"
+        fill="#ffffff"/>
     </svg>
-    <div class="star-inner">
-      <span class="t1">ONLY HERE</span>
-      <span class="t2">非公開<br>求人</span>
-      <span class="t3">掲載中</span>
+    <div class="starburst-inner">
+      <span class="si1">ONLY HERE</span>
+      <span class="si2">非公開求人<br>掲載中</span>
+      <span class="si3">CXO / CFO / COO</span>
     </div>
   </div>
 
-  <!-- インフォカード（右下浮遊） -->
-  <div class="float info-card">
-    <div class="ic-label">POSITIONS</div>
-    <div class="ic-row"><span>CXO</span></div>
-    <div class="ic-row"><span>CFO</span></div>
-    <div class="ic-row"><span>COO</span></div>
-    <div class="ic-row"><span>事業責任者</span></div>
+  <!-- 右上：サービス説明カード -->
+  <div class="card-tr">
+    <p class="ctr-title">プロも経営志向者も<br>挑戦できる<br>次世代プラットフォーム！</p>
+    <p class="ctr-body">今すぐ、あなたのキャリアを経営の次のステージへ。</p>
+    <a class="ctr-btn" href="#">今すぐ無料登録 →</a>
   </div>
 
-  <!-- スクロールキュー -->
-  <div class="scroll-cue">SCROLL <span class="sc-line"></span></div>
+  <!-- 右中：ポジション説明 -->
+  <div class="pos-mid">
+    <div class="pm-item">CXO 求人</div>
+    <div class="pm-item">CFO 求人</div>
+    <div class="pm-item">COO 求人</div>
+    <div class="pm-item">事業責任者 求人</div>
+    <p class="pm-sub">すべての経営<br>ポジションが、<br>ここに。</p>
+  </div>
 
-  <!-- 下部マーキー -->
-  <div class="marquee">
-    <div class="marquee-tr">
-      <span>CXO CIRCUIT</span>
-      <span>EXECUTIVE CAREER PLATFORM</span>
-      <span>経営人材特化</span>
-      <span>NON-PUBLIC POSITIONS</span>
-      <span>LEAD THE NEXT</span>
-      <span>OPERATED BY BEYONDGE</span>
-      <span>CXO CIRCUIT</span>
-      <span>EXECUTIVE CAREER PLATFORM</span>
-      <span>経営人材特化</span>
-      <span>NON-PUBLIC POSITIONS</span>
-      <span>LEAD THE NEXT</span>
-      <span>OPERATED BY BEYONDGE</span>
-    </div>
+  <!-- 右下：CTAボックス -->
+  <div class="cta-box">今すぐ登録</div>
+
+  <!-- 右下：実績サークル -->
+  <div class="stat-circle">
+    <span class="sc1">500+</span>
+    <span class="sc2">非公開<br>求人数</span>
+  </div>
+
+  <!-- 下部中央：タグライン -->
+  <div class="bottom-bar">
+    <span>CXO × CFO × COO</span>
+    <span class="sep">×</span>
+    <span>経営に挑むキャリアは、ここから始まる。</span>
+    <span class="sep">×</span>
+    <span>BEYONDGE.JP</span>
   </div>
 
 </section>
