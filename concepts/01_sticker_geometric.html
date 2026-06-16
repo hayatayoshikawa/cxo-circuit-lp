@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CXO CIRCUIT｜経営に挑むキャリアは、ここから始まる。</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Space+Mono:wght@400;700&family=Caveat:wght@600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0A0B0E; --bg-2:#0E1014; --ink:#F2F3F0; --mute:#8A8F98;
+  --lime:#C7F046; --blue:#5B8CFF; --line:#1C2026;
+  --arch:'Archivo',sans-serif; --mono:'Space Mono',monospace;
+  --hand:'Caveat',cursive; --jp:'Noto Sans JP',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--jp);overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+
+/* ===== 背景キャンバス ===== */
+#net{position:fixed;inset:0;width:100%;height:100%;z-index:0;display:block}
+.bg-grad{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+   radial-gradient(900px 600px at 78% 18%, rgba(91,140,255,.18), transparent 60%),
+   radial-gradient(760px 620px at 12% 88%, rgba(199,240,70,.12), transparent 60%);}
+.grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.5;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/></svg>")}
+
+/* ===== ヘッダー ===== */
+header{position:fixed;top:0;left:0;width:100%;z-index:40;display:flex;align-items:center;justify-content:space-between;padding:24px 38px}
+.logo{display:flex;align-items:center;gap:11px;font-family:var(--arch);font-weight:800;font-size:19px;letter-spacing:.04em}
+.logo .mk{width:22px;height:22px;border:2px solid var(--ink);border-radius:50%;position:relative}
+.logo .mk::after{content:"";position:absolute;inset:4px;border-radius:50%;background:var(--lime)}
+nav{display:flex;gap:30px;font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:var(--mute)}
+nav a:hover{color:var(--ink)}
+.c-btn{font-family:var(--mono);font-size:12px;letter-spacing:.08em;background:var(--ink);color:var(--bg);padding:11px 20px;border-radius:40px;display:inline-flex;gap:8px;align-items:center;font-weight:700}
+.c-btn:hover{background:var(--lime)}
+.nav-hide{display:flex}
+
+/* ===== ヒーロー ===== */
+.hero{position:relative;z-index:5;min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:120px 38px 70px;max-width:1500px;margin:0 auto}
+.kicker{font-family:var(--mono);font-size:12px;letter-spacing:.22em;color:var(--lime);display:flex;align-items:center;gap:14px;margin-bottom:26px}
+.kicker::before{content:"";width:42px;height:1px;background:var(--lime)}
+.h1{font-family:var(--arch);font-weight:900;font-size:clamp(54px,11vw,168px);line-height:.92;letter-spacing:-.02em;text-transform:uppercase}
+.h1 .l{display:block;overflow:hidden}
+.h1 .l > span{display:inline-block;transform:translateY(110%);opacity:0;animation:rise 1s cubic-bezier(.2,.8,.25,1) forwards}
+.h1 .l:nth-child(1) span{animation-delay:.15s}
+.h1 .l:nth-child(2) span{animation-delay:.30s}
+@keyframes rise{to{transform:none;opacity:1}}
+.h1 .holo{background:linear-gradient(100deg,#9ad7ff,#c7f046 30%,#ff9ed6 60%,#9ad7ff);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:rise 1s cubic-bezier(.2,.8,.25,1) .30s forwards,holo 6s linear infinite}
+@keyframes holo{to{background-position:300% 0}}
+.h1 .dot{color:var(--lime)}
+.sub{font-family:var(--jp);font-weight:500;font-size:clamp(14px,1.5vw,18px);line-height:1.9;color:#D7DAD5;margin-top:30px;max-width:560px;opacity:0;animation:fade 1s ease .7s forwards}
+.hero-cta{margin-top:38px;display:flex;gap:18px;align-items:center;flex-wrap:wrap;opacity:0;animation:fade 1s ease .9s forwards}
+@keyframes fade{to{opacity:1}}
+.btn-lime{background:var(--lime);color:#10130a;font-weight:700;font-family:var(--jp);font-size:15px;padding:16px 30px;border-radius:40px;display:inline-flex;align-items:center;gap:12px;transition:.2s}
+.btn-lime:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(199,240,70,.25)}
+.btn-lime .ar{font-family:var(--mono)}
+.btn-text{font-family:var(--mono);font-size:12px;letter-spacing:.1em;color:var(--ink);border-bottom:1px solid var(--mute);padding-bottom:4px}
+.btn-text:hover{border-color:var(--lime)}
+
+/* 下部メタ */
+.meta{position:absolute;left:38px;bottom:34px;font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--mute);z-index:6}
+.scrollcue{position:absolute;left:50%;bottom:30px;transform:translateX(-50%);z-index:6;font-family:var(--mono);font-size:10px;letter-spacing:.3em;color:var(--mute);display:flex;flex-direction:column;align-items:center;gap:10px}
+.scrollcue .bar{width:1px;height:48px;background:var(--line);position:relative;overflow:hidden}
+.scrollcue .bar::after{content:"";position:absolute;top:-48px;left:0;width:100%;height:48px;background:var(--lime);animation:cue 2s ease-in-out infinite}
+@keyframes cue{0%{transform:translateY(0)}60%,100%{transform:translateY(96px)}}
+
+/* ===== ステッカー ===== */
+.stickers{position:absolute;inset:0;z-index:6;pointer-events:none}
+.st{position:absolute;pointer-events:auto;will-change:transform;animation:float 7s ease-in-out infinite}
+.st2{animation-duration:9s;animation-delay:-2s}
+.st3{animation-duration:8s;animation-delay:-4s}
+.st4{animation-duration:10s;animation-delay:-1s}
+@keyframes float{0%,100%{transform:translateY(0) rotate(var(--r))}50%{transform:translateY(-14px) rotate(var(--r))}}
+
+/* バーコードタグ */
+.tag-bar{--r:-7deg;top:16%;left:3.2%;width:128px;background:#F4F4EF;border-radius:7px;padding:12px 12px 10px;color:#15140f;box-shadow:0 22px 50px rgba(0,0,0,.5);transform:rotate(var(--r))}
+.tag-bar .code{height:46px;background:repeating-linear-gradient(90deg,#15140f 0 2px,transparent 2px 4px,#15140f 4px 5px,transparent 5px 9px,#15140f 9px 12px,transparent 12px 14px);border-radius:1px}
+.tag-bar .mono{font-family:var(--mono);font-size:9px;letter-spacing:.06em;margin-top:8px;line-height:1.5}
+.tag-bar .big{font-family:var(--arch);font-weight:800;font-size:12px;letter-spacing:.04em;margin-top:2px}
+
+/* ホログラム箔ラベル */
+.holo-label{--r:8deg;top:24%;right:5%;padding:14px 22px;border-radius:40px;transform:rotate(var(--r));
+  background:linear-gradient(115deg,#a0e9ff,#c7f046 28%,#ffa6df 52%,#9bb8ff 78%,#a0e9ff);background-size:280% 100%;
+  animation:float 9s ease-in-out infinite,holo 5s linear infinite;color:#10130a;box-shadow:0 18px 44px rgba(150,180,255,.3)}
+.holo-label .t{font-family:var(--hand);font-weight:700;font-size:22px;line-height:.95;text-align:center}
+.holo-label .s{font-family:var(--mono);font-size:8.5px;letter-spacing:.14em;text-align:center;margin-top:2px}
+
+/* ネオン付箋 */
+.note{--r:-5deg;bottom:15%;right:11%;width:150px;height:150px;background:var(--lime);color:#11140a;padding:18px 16px;transform:rotate(var(--r));box-shadow:0 24px 50px rgba(0,0,0,.45)}
+.note::after{content:"";position:absolute;top:0;right:0;border-width:0 26px 26px 0;border-style:solid;border-color:rgba(0,0,0,.18) #0A0B0E;filter:none}
+.note .h{font-family:var(--hand);font-weight:700;font-size:30px;line-height:.95}
+.note .m{font-family:var(--mono);font-size:8.5px;letter-spacing:.1em;margin-top:12px;opacity:.7}
+.tape{position:absolute;top:-12px;left:38px;width:64px;height:26px;background:rgba(240,238,225,.55);transform:rotate(-6deg);box-shadow:0 4px 10px rgba(0,0,0,.2)}
+
+/* ×カード */
+.xcard{--r:6deg;bottom:13%;right:27%;background:#0E0F12;border:1px solid #23262c;border-radius:8px;padding:18px 22px;transform:rotate(var(--r));box-shadow:0 20px 44px rgba(0,0,0,.5)}
+.xcard .row{font-family:var(--mono);font-weight:700;font-size:13px;letter-spacing:.1em;line-height:1.7;color:var(--ink)}
+.xcard .x{color:var(--lime)}
+
+/* 地球シール */
+.seal{--r:-10deg;top:54%;right:31%;width:104px;height:104px;transform:rotate(var(--r));opacity:.92}
+.seal svg{width:100%;height:100%}
+.seal .ring-txt{font-family:var(--mono);font-size:7.6px;letter-spacing:.34em;fill:var(--ink)}
+
+@media(max-width:900px){
+  nav,.nav-hide{display:none}
+  .seal,.xcard,.tag-bar{display:none}
+  .holo-label{top:auto;bottom:6%;right:4%}
+  .note{bottom:auto;top:14%;right:4%;width:118px;height:118px}
+  .note .h{font-size:24px}
+  header{padding:18px 22px}.hero{padding:104px 22px 60px}
+  .meta{left:22px}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important}
+  .h1 .l>span,.sub,.hero-cta{opacity:1;transform:none}
+  #net{display:none}
+}
+</style>
+</head>
+<body>
+
+<canvas id="net"></canvas>
+<div class="bg-grad"></div>
+<div class="grain"></div>
+
+<header>
+  <a class="logo" href="#"><span class="mk"></span>CXO CIRCUIT</a>
+  <nav class="nav-hide">
+    <a href="#">ABOUT</a><a href="#">POSITIONS</a><a href="#">FLOW</a><a href="#">VOICES</a>
+  </nav>
+  <a class="c-btn" href="#">登録（無料） <span>→</span></a>
+</header>
+
+<section class="hero">
+  <div class="kicker">EXECUTIVE CAREER CIRCUIT — SINCE 2026</div>
+  <h1 class="h1">
+    <span class="l"><span>BEYOND</span></span>
+    <span class="l"><span class="holo">YOUR&nbsp;TITLE</span><span class="dot">.</span></span>
+  </h1>
+  <p class="sub">経営に挑むキャリアは、ここから始まる。<br>事業責任者・幹部候補から CXO まで——経営層と直接つながる非公開ポジションを、あなたの志向に合わせて。</p>
+  <div class="hero-cta">
+    <a class="btn-lime" href="#">経営人材として登録する <span class="ar">→</span></a>
+    <a class="btn-text" href="#">VIEW POSITIONS</a>
+  </div>
+
+  <div class="meta">N35.69&nbsp;/&nbsp;E139.76 — OPERATED BY BEYONDGE</div>
+  <div class="scrollcue">SCROLL<span class="bar"></span></div>
+
+  <!-- ステッカー群 -->
+  <div class="stickers">
+    <div class="st tag-bar">
+      <div class="code"></div>
+      <div class="big">CXO CIRCUIT</div>
+      <div class="mono">CAREER / EXECUTIVE<br>NO. 2026-0614</div>
+    </div>
+
+    <div class="st holo-label st2">
+      <div class="t">Start your<br>circuit</div>
+      <div class="s">NEXT MOVE · MANAGEMENT</div>
+    </div>
+
+    <div class="st note st3">
+      <div class="tape"></div>
+      <div class="h">Beyond<br>the title.</div>
+      <div class="m">// 肩書きの、その先へ</div>
+    </div>
+
+    <div class="st xcard st4">
+      <div class="row">VISION</div>
+      <div class="row"><span class="x">×</span> STRATEGY</div>
+      <div class="row"><span class="x">×</span> EXECUTION</div>
+    </div>
+
+    <div class="st seal st2">
+      <svg viewBox="0 0 120 120" aria-hidden="true">
+        <defs><path id="cp" d="M60,60 m-44,0 a44,44 0 1,1 88,0 a44,44 0 1,1 -88,0"/></defs>
+        <circle cx="60" cy="60" r="57" fill="none" stroke="#F2F3F0" stroke-width="1"/>
+        <circle cx="60" cy="60" r="30" fill="none" stroke="#F2F3F0" stroke-width="1"/>
+        <ellipse cx="60" cy="60" rx="12" ry="30" fill="none" stroke="#F2F3F0" stroke-width=".8"/>
+        <ellipse cx="60" cy="60" rx="24" ry="30" fill="none" stroke="#F2F3F0" stroke-width=".6" opacity=".6"/>
+        <line x1="30" y1="60" x2="90" y2="60" stroke="#F2F3F0" stroke-width=".8"/>
+        <line x1="36" y1="44" x2="84" y2="44" stroke="#F2F3F0" stroke-width=".5" opacity=".6"/>
+        <line x1="36" y1="76" x2="84" y2="76" stroke="#F2F3F0" stroke-width=".5" opacity=".6"/>
+        <text class="ring-txt"><textPath href="#cp">· EXECUTIVE · CAREER · CIRCUIT · BEYONDGE </textPath></text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<script>
+/* ===== ネットワーク・パーティクル背景（動的UI） ===== */
+(function(){
+  if(window.matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+  var c=document.getElementById('net'), x=c.getContext('2d'), W,H,DPR,nodes=[],mouse={x:-999,y:-999};
+  function size(){ DPR=Math.min(window.devicePixelRatio||1,2); W=c.width=innerWidth*DPR; H=c.height=innerHeight*DPR; c.style.width=innerWidth+'px'; c.style.height=innerHeight+'px'; }
+  size(); addEventListener('resize',function(){ size(); init(); });
+  addEventListener('mousemove',function(e){ mouse.x=e.clientX*DPR; mouse.y=e.clientY*DPR; });
+  function init(){
+    nodes=[]; var count=Math.min(90, Math.floor((innerWidth*innerHeight)/15000));
+    for(var i=0;i<count;i++){ nodes.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.28*DPR,vy:(Math.random()-.5)*.28*DPR}); }
+  }
+  init();
+  var D=140*DPR;
+  function frame(){
+    x.clearRect(0,0,W,H);
+    for(var i=0;i<nodes.length;i++){
+      var n=nodes[i]; n.x+=n.vx; n.y+=n.vy;
+      if(n.x<0||n.x>W)n.vx*=-1; if(n.y<0||n.y>H)n.vy*=-1;
+      // mouse repel-ish attraction
+      var dx=n.x-mouse.x, dy=n.y-mouse.y, md=Math.hypot(dx,dy);
+      if(md<160*DPR){ n.x+=dx/md*.6; n.y+=dy/md*.6; }
+    }
+    for(var i=0;i<nodes.length;i++){
+      for(var j=i+1;j<nodes.length;j++){
+        var a=nodes[i],b=nodes[j],dx=a.x-b.x,dy=a.y-b.y,d=Math.hypot(dx,dy);
+        if(d<D){
+          var o=(1-d/D);
+          x.strokeStyle='rgba('+(150+Math.floor(o*105))+','+(200)+',120,'+(o*.42)+')';
+          x.lineWidth=DPR*.7; x.beginPath(); x.moveTo(a.x,a.y); x.lineTo(b.x,b.y); x.stroke();
+        }
+      }
+    }
+    for(var i=0;i<nodes.length;i++){
+      var n=nodes[i]; x.beginPath(); x.arc(n.x,n.y,1.5*DPR,0,6.28);
+      x.fillStyle='rgba(199,240,70,.85)'; x.fill();
+    }
+    requestAnimationFrame(frame);
+  }
+  frame();
+
+  /* 文字分割（BEYOND） */
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CXO CIRCUIT — LP ワイヤーフレーム v1</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Helvetica Neue',Arial,sans-serif;background:#EBEBEB;color:#1A1A1A;font-size:13px}
+
+.wf-page{max-width:1280px;margin:0 auto;padding:28px 24px}
+
+/* ページタイトル */
+.page-title{text-align:center;margin-bottom:20px}
+.page-title h1{font-size:18px;font-weight:700;color:#212121;letter-spacing:.05em}
+.page-title p{font-size:11px;color:#9E9E9E;margin-top:4px}
+
+/* 凡例 */
+.legend{display:flex;gap:20px;justify-content:center;margin-bottom:24px;flex-wrap:wrap}
+.legend-item{display:flex;align-items:center;gap:6px;font-size:11px;color:#616161}
+.legend-dot{width:10px;height:10px;border-radius:50%}
+.legend-dot.normal{background:#424242}
+.legend-dot.missing{background:#C62828}
+.legend-dot.extra{background:#9E9E9E}
+
+/* セクションカード全体 — 隙間なくスタック */
+.wf-stack{border:2px solid #B0B0B0;border-radius:4px;overflow:hidden;background:#fff}
+.sec-card{display:flex;border-top:2px solid #B0B0B0;background:#fff}
+.sec-card:first-child{border-top:none}
+.sec-card.extra{background:#FAFAFA}
+
+/* 左カラム：ワイヤーフレーム図 */
+.wf-col{flex:1.4;padding:16px;border-right:2px solid #E0E0E0;min-width:0;display:flex;flex-direction:column;justify-content:center}
+.sec-card.extra .wf-col{border-right-color:#E0E0E0}
+
+/* 右カラム：説明テキスト */
+.desc-col{width:260px;flex-shrink:0;padding:16px;background:#F7F7F7;display:flex;flex-direction:column;justify-content:center;gap:10px}
+/* 右側の詳細文章は非表示（セクション名のみ表示） */
+.desc-tag,.desc-section{display:none !important}
+.sec-card.missing .desc-col{background:#FFF3F3}
+.sec-card.extra .desc-col{background:#F5F5F5}
+
+/* セクション番号バッジ */
+.sec-badge{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:#424242;color:#fff;font-weight:700;font-size:12px;flex-shrink:0}
+.sec-card.missing .sec-badge{background:#C62828}
+.sec-card.extra .sec-badge{background:#9E9E9E;font-size:14px}
+
+/* 右カラム内のパーツ */
+.desc-header{display:flex;align-items:flex-start;gap:8px}
+.desc-title{font-size:13px;font-weight:700;color:#212121;line-height:1.4;margin-top:2px}
+.desc-tag{display:inline-block;font-size:10px;padding:2px 7px;border-radius:20px;background:#E0E0E0;color:#616161;margin-top:4px}
+.sec-card.missing .desc-tag{background:#FFCDD2;color:#C62828}
+.sec-card.extra .desc-tag{background:#E0E0E0;color:#757575}
+
+.desc-section{border-top:1px solid #E0E0E0;padding-top:8px}
+.sec-card.missing .desc-section{border-color:#FFCDD2}
+.desc-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#9E9E9E;margin-bottom:4px}
+.desc-text{font-size:12px;color:#424242;line-height:1.65}
+.desc-list{padding-left:14px;margin:0;font-size:12px;color:#424242;line-height:1.8}
+.warn{font-size:12px;color:#C62828;font-weight:600;display:flex;align-items:flex-start;gap:4px}
+
+/* ===== WFパーツ（グレースケール） ===== */
+.box{background:#E8E8E8;border:1px solid #C0C0C0;border-radius:2px;display:flex;align-items:center;justify-content:center;color:#757575;font-size:11px;text-align:center}
+.box-img{background:#D4D4D4;position:relative;overflow:hidden}
+.box-img::before,.box-img::after{content:'';position:absolute;background:#BDBDBD;height:1px;width:141%;transform-origin:left center}
+.box-img::before{transform:rotate(10deg);top:50%;left:-20%}
+.box-img::after{transform:rotate(-10deg);top:50%;left:-20%}
+.box-text{background:#F5F5F5;border:1px dashed #C0C0C0}
+.box-btn{background:#444;color:#fff;border:none;font-weight:600;font-size:11px}
+.box-btn.red{background:#C62828}
+.box-btn.outline{background:transparent;border:1.5px solid #444;color:#444}
+
+.row{display:flex;gap:8px;margin-bottom:8px}
+.row:last-child{margin-bottom:0}
+.col{flex:1;min-width:0}
+
+.divider{height:1px;background:#E0E0E0;margin:10px 0}
+.label-sm{font-size:10px;color:#9E9E9E;font-weight:600;text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px}
+
+/* サマリーテーブル */
+.summary{background:#fff;border:1px solid #C0C0C0;border-radius:4px;padding:16px;margin-top:12px}
+.summary h2{font-size:13px;font-weight:700;color:#212121;margin-bottom:10px}
+.summary table{width:100%;border-collapse:collapse;font-size:12px}
+.summary th{background:#F0F0F0;padding:6px 8px;text-align:left;border:1px solid #D4D4D4;font-weight:600;color:#424242}
+.summary td{padding:5px 8px;border:1px solid #D4D4D4;color:#424242;vertical-align:top}
+.summary tr.warn-row td{background:#FFF3F3;color:#C62828}
+.summary tr.extra-row td{color:#9E9E9E}
+</style>
+</head>
+<body>
+<div class="wf-page">
+
+  <div class="page-title">
+    <h1>CXO CIRCUIT — LP ワイヤーフレーム v1</h1>
+    <p>作成日: 2026-06-15 ／ 参照: ③ LPの構成要素（ワイヤーフレーム構成案）</p>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot normal"></div> ③ LP構成要素に対応するセクション</div>
+    <div class="legend-item"><div class="legend-dot extra"></div> モック追加要素（③にない）</div>
+  </div>
+
+  <div class="wf-stack">
+
+  <!-- ============================================================ -->
+  <!-- [0] ヘッダー -->
+  <!-- ============================================================ -->
+  <div class="sec-card">
+    <div class="wf-col">
+      <div class="label-sm">上段 — ロゴ + CTA</div>
+      <div class="row" style="margin-bottom:6px">
+        <div class="box" style="height:32px;width:160px;flex:none;font-weight:700;font-size:12px">CXO CIRCUIT<br><span style="font-size:9px;font-weight:400">EXECUTIVE CAREER PLATFORM</span></div>
+        <div style="flex:1"></div>
+        <div class="box box-text" style="height:32px;width:190px;flex:none;font-size:10px">採用にお困りの企業様はこちら →</div>
+        <div class="box box-btn outline" style="height:32px;width:140px;flex:none">キャリア面談を相談する</div>
+        <div class="box box-btn red" style="height:32px;width:160px;flex:none">経営人材として登録（無料）</div>
+      </div>
+      <div class="label-sm">下段 — ナビゲーション</div>
+      <div class="row" style="gap:12px">
+        <div class="box box-text" style="height:26px;padding:0 10px">できること</div>
+        <div class="box box-text" style="height:26px;padding:0 10px">求人例</div>
+        <div class="box box-text" style="height:26px;padding:0 10px">実績</div>
+        <div class="box box-text" style="height:26px;padding:0 10px">決定者の声</div>
+        <div class="box box-text" style="height:26px;padding:0 10px">コンサルタント</div>
+        <div class="box box-text" style="height:26px;padding:0 10px">FAQ</div>
+      </div>
+    </div>
+    <div class="desc-col">
+      <div class="desc-header">
+        <div class="sec-badge">0</div>
+        <div>
+          <div class="desc-title">ヘッダー</div>
+          <div class="desc-tag">固定表示・常時スクロール追従</div>
+        </div>
+      </div>
+      <div class="desc-section">
+        <div class="desc-label">構成</div>
+        <ul class="desc-list">
+          <li>上段: ロゴ（左）＋ 企業向けリンク・2CTAボタン（右）</li>
+          <li>下段: ページ内アンカーナビ 6項目</li>
+        </ul>
+      </div>
+      <div class="desc-section">
+        <div class="desc-label">CTA仕様</div>
+        <ul class="desc-list">
+          <li>赤ボタン「経営人材として登録（無料）」→ #register</li>
+          <li>アウトライン「キャリア面談を相談する」→ #register</li>
+          <li>テキスト「採用にお困りの企業様はこちら →」→ 企業向けLP</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- [1] ヒーロー -->
+  <!-- ============================================================ -->
+  <div class="sec-card">
+    <div class="wf-col">
+      <div class="box box-img" style="flex:1;min-height:440px;width:100%;position:relative">
+        <div style="position:absolute;inset:0;background:rgba(60,60,60,.55);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:20px">
+          <div class="box" style="width:180px;height:28px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.4);color:#fff;font-size:13px;letter-spacing:.2em;font-weight:700">CXO CIRCUIT</div>
+          <div style="color:#D4B896;font-size:10px;letter-spacing:.1em">── EXECUTIVE CAREER PLATFORM ──</div>
+          <div style="color:#fff;font-size:20px;font-weight:700;line-height:1.6;text-align:center">経営に挑むキャリアは、<br>ここから<span style="color:#E0C97A">始まる。</span></div>
+          <div style="color:rgba(255,255,255,.8);font-size:11px;line-height:1.8;text-align:center;max-width:380px">事業責任者・幹部候補からCXOまで。<br>経営層との直接的な接点から生まれる非公開ポジションを、<br>あなたの経歴と志向に合わせてご紹介します。</div>
+          <div style="display:flex;gap:10px;margin-top:4px">
+            <div class="box box-btn red" style="height:40px;width:200px;font-size:12px">経営人材として登録する（無料）</div>
+            <div class="box box-btn outline" style="height:40px;width:160px;font-size:12px;border-color:#fff;color:#fff">キャリア面談を相談する</div>
+          </div>
+          <div style="color:rgba(255,255,255,.5);font-size:10px">登録は1分・完全無料・秘密厳守。今すぐ転職の予定がない方も歓迎です。</div>
+        </div>
+      </div>
+    </div>
+    <div class="desc-col">
+      <div class="desc-header">
+        <div class="sec-badge">1</div>
+        <div>
+          <div class="desc-title">ヒーロー（語りかけ型）</div>
+          <div class="desc-tag">フルスクリーン</div>
+        </div>
+      </div>
+      <div class="desc-section">
+        <div class="desc-label">確定コピー</div>
+        <div class="desc-text">「経営に挑むキャリアは、ここから<b>始まる。</b>」</div>
+      </div>
+      <div class="desc-section">
+        <div class="desc-label">構成要素</div>
+        <ul class="desc-list">
+          <li>ブランドマーク「CXO CIRCUIT」</li>
+          <li>メインキャッチコピー（H1）</li>
+          <li>サブコピー 3行</li>
+          <li>CTA① 赤ボタン「登録（無料）」</li>
+          <li>CTA② アウトライン「キャリア面談を相談する」</li>
+          <li>補足注記（登録は1分・秘密厳守）</li>
+        </ul>
+      </div>
+      <div class="desc-section">
+        <div class="desc-label">背景</div>
+        <div class="desc-text">都市・ビジネスイメージの全幅写真 + 暗色オーバーレイ</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- [+] ロゴ帯（モック追加） -->
+  <!-- ============================================================ -->
+  <div class="sec-card extra">
+    <div class="wf-col">
+      <div class="label-sm">経営人材が参画した企業・支援先（一部）</div>
+      <div style="display:flex;gap:12px;align-items:center;padding:10px 0">
+        <div class="box box-img" style="height:28px;width:72px;flex:none">ロゴ1</div>
+        <div class="box box-img" style="height:28px;width:72px;flex:none">ロゴ2</div>
+        <div class="box box-img" style="height:28px;width:72px;flex:none">ロゴ3</div>
+        <div class="box box-img" style="height:28px;width:72px;flex:none">ロゴ4</div>
+        <div class="box box-img" style="height:28px;width:72px;flex:none">ロゴ5</div>
+        <div style="color:#BDBDBD;font-size:11px;white-space:nowrap">… 無限スクロール →</div>
+      </div>
+    </div>
+    <div class="desc-col">
+      <div class="desc-header">
+        <div class="sec-badge">+</div>
+        <div>
+          <div class="desc-title">ロゴ帯（無限マーキー）</div>
+          <div class="desc-tag">③外・モック追加要素</div>
+        </div>
+      </div>
+      <div class="desc-section">
+        <div class="desc-label">役割</div>
+        <div class="desc-text">ヒーロー直下に配置し、参画実績のある企業ロゴを横スクロールで見せる信頼性補強帯。</div>
+      </div>
+      <div class="desc-section">
+        <div class="desc-label">判断事項</div>
+        <div class="desc-text">③ LP構成要素には記載なし。存続・削除は野上さん・小高さんの確認後に判断。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- [2] 問いかけ（共感セクション） -->
+  <!-- ============================================================ -->
+  <div class="sec-card">
+    <div class="wf-col">
+      <div class="row">
+        <div class="col">
+          <div class="box box-text" style="height:36px;font-size:13px;font-weight:600">こんな方に、使ってほしい。</div>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="row">
+        <div class="col">
+          <div class="box box-text" style="height:88px;flex-direction:column;align-items:flex-start;padding:8px;gap:3px">
+            <div style="color:#C62828;font-weight:700;font-size:14px">✓</div>
+            <div style="font-weight:600;font-size:11px">社内の順番待ちに、<br>限界を感じている</div>
+            <div style="font-size:10px;color:#9E9E9E">補足テキスト 2〜3行</div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="box box-text" style="height:88px;flex-direction:column;align-items:flex-start;padding:8px;gap:3px">
+            <div style="color:#C62828;font-weight:700;font-size:14px">✓</div>
+            <div style="font-weight:600;font-size:11px">現職を辞めずに、<br>経営に触れてみたい</div>
+            <div style="font-size:10px;color:#9E9E9E">補足テキスト 2〜3行</div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="box box-text" style="height:88px;flex-direction:column;align-items:flex-start;padding:8px;gap:3px">
+            <div style="color:#C62828;font-weight:700;font-size:14px">✓</div>
+            <div style="font-weight:600;font-size:11px">CXO・事業責任者として<br>組織を動かしたい</div>
+            <div style="font-size:10px;color:#9E9E9E">補足テキスト 2〜3行</div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="box box-text" style="height:88px;flex-direction:column;align-items:flex-start;padding:8px;gap:3px">
+            <div style="color:#C62828;font-weight:700;font-size:14px">✓</div>
+            <div style="font-weight:600;font-size:11px">非公開求人を<br>紹介してもらえる環境がない</div>
+            <div style="font-size:10px;color:#9E9E9E">補足テキスト 2〜3行</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="desc-col">
+      <div class="desc-header">
+        <div class="sec-badge">2</div>
+        <div>
+          <div class="desc-title">問いかけ（共感セクション）</div>
+          <div class="desc-tag">こんな方へ / ペルソナ訴求</div>
+        </div>
+      </div>
+      <div class="desc-section">
+        <div class="desc-label">③ 要件コピー</div>
+        <div class="desc-text">「いまの延長線上に、『経営』はあるか。」という問いかけ + 共感カード</div>
+      </div>
+      <div class="desc-section">
+        <div class="desc-label">構成</div>
+        <ul class="desc-list">
+          <li>セクションタイトル</li>
+          <li>チェックマーク付き共感カード × 4枚</li>
+          <li>各カード: 見出し（太字）+ 補足テキスト</li>
+        </ul>
+      </div>
+      <div class="desc-section">
+        <div class="desc-label">備考</div>
+        <div class="desc-text">③は「3カード」記載だがモックは4枚。4枚で継続か3枚に絞るか要確認。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- [3] できること -->
+  <!-- ============================================================ -->
+  <div class="sec-card">
+    <div class="wf-col">
+      <div class="row">
+        <div class="col">
+          <div class="box box-text" style="height:36px;font-size:13px;font-weight:600">CXO CIRCUITでできること</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="box box-text" style="height:26px;font-size:10px">サブリード（1〜2行）</div>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="row">
+        <div class="col" style="flex:1.5">
+          <div class="box box-text" style="height:100px;flex-direction:column;align-items:flex-start;padding:10px;gap:6px;border:1.5px solid #C0C0C0">
+            <div style="font-weight:700;font-size:12px">経営ポジション直結の求人紹介</div>
+            <div style="font-size:10px;color:#757575;line-height:1.7">事業責任者候補・幹部候補・CXO直下ポジションを厳選。<br>非公開求人をご提案。</div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="box box-text" style="height:100px;flex-direction:column;align-items:flex-start;padding:10px;gap:6px">
+            <div style="font-weight:700;font-size:12px">副業・顧問案件の情報配信</div>
+            <div style="font-size:10px;color:#757575;line-height:1.7">現職を続けながら経営に関わりたい方には<br>登録だけで案件情報をお届け。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="desc-col">
+      <div class="desc-header">
+        <div class="sec-badge">3</div>
+        <div>
+          <div class="desc-title">CXO CIRCUITでできること</div>
+          <div class="desc-tag">特徴・サービス説明</div>
+        </div>
+      </div>
+      <div class="desc-section">
+        <div class="desc-label">③ 要件</div>
+        <div class="desc-text">「特徴3つ」と記載。経営人材に特化したエージェントとして、2つ（以上）の形で支援する内容を訴求。</div>
+      </div>
+      <div class="desc-section">
+        <div class="desc-label">構成</div>
+        <ul class="desc-list">
+          <li>セクションタイトル + サブリード</li>
+          <li>メインカード（大）: 正社員転職 求人紹介</li>
+          <li>サブカード（小）: 副業・顧問 案件配信</li>
+        </ul>
+      </div>
+      <div class="desc-section">
+        <div class="desc-label">要確認</div>
+        <div class="desc-text">③「特徴3つ」に対しモックは2カード。3つ目の追加検討が必要か確認。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- [4] 求人イメージ -->
+  <!-- ============================================================ -->
+  <div class="sec-card">
+    <div class="wf-col">
+      <div class="row">
+        <div class="col"><div class="box box-text" style="height:34px;font-size:13px;font-weight:600">紹介ポジションのイメージ</div></div>
+      </div>
+      <div class="divider"></div>
+      <div class="row">
+        <div class="col">
+          <div class="box box-text" style="height:120px;flex-direction:column;align-items:flex-start;padding:8px;gap:4px">
+            <div style="display:flex;gap:4px"><div class="box" style="height:16px;padding:0 5px;font-size:9px">正社員</div><div class="box" style="height:16px;padding:0 5px;font-size:9px;background:#D4C4A8">事業責任者</div></div>
+            <div style="font-weight:600;font-size:11px">事業責任者候補<br>（SaaSスタートアップ）</div>
+            <div style="font-size:9px;color:#9E9E9E">シリーズB・東京</div>
+            <div style="display:flex;gap:3px"><div class="box" style="height:14px;padding:0 4px;font-size:9px">リモート可</div><div class="box" style="height:14px;padding:0 4px;font-size:9px">週3〜4日</div></div>
+            <div style="font-size:12px;font-weight:700;color:#1A1A1A;margin-top:auto">¥800〜1,200 <span style="font-size:9px;font-weight:400">万円</span></div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="box box-text" style="height:120px;flex-direction:column;align-items:flex-start;padding:8px;gap:4px">
+            <div style="display:flex;gap:4px"><div class="box" style="height:16px;padding:0 5px;font-size:9px">正社員</div><div class="box" style="height:16px;padding:0 5px;font-size:9px;background:#D4C4A8">幹部候補</div></div>
+            <div style="font-weight:600;font-size:11px">次世代幹部候補<br>（メーカー新規事業）</div>
+            <div style="font-size:9px;color:#9E9E9E">大手メーカー・新規事業部門</div>
+            <div style="display:flex;gap:3px"><div class="box" style="height:14px;padding:0 4px;font-size:9px">週5日</div></div>
+            <div style="font-size:12px;font-weight:700;color:#1A1A1A;margin-top:auto">¥700〜1,000 <span style="font-size:9px;font-weight:400">万円</span></div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="box box-text" style="height:120px;flex-direction:column;align-items:flex-start;padding:8px;gap:4px">
+            <div style="display:flex;gap:4px"><div class="box" style="height:16px;padding:0 5px;font-size:9px">正社員</div><div class="box" style="height:16px;padding:0 5px;font-size:9px">CXOクラス</div></div>
+            <div style="font-weight:600;font-size:11px">CEO直下<br>セールスマネージャー</div>
+            <div style="font-size:9px;color:#9E9E9E">急成長コンサルティングファーム</div>
+            <div style="display:flex;gap:3px"><div class="box" style="height:14px;padding:0 4px;font-size:9px">一部リモート可</div></div>
+            <div style="font-size:12px;font-weight:700;color:#1A1A1A;margin-top:auto">¥2,000〜3,000 <span style="font-size:9px;font-weight:400">万円</span></div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="box box-text" style="height:120px;flex-direction:column;align-items:flex-start;padding:8px;gap:4px">
+            <div style="display:flex;gap:4px"><div class="box" style="height:16px;padding:0 5px;font-size:9px;background:#D4C4A8">副業・顧問</div></div>
+            <div style="font-weight:600;font-size:11px">社外CXO・顧問<br>（週1日〜）</div>
+            <div style="font-size:9px;color:#9E9E9E">スタートアップ〜中堅企業</div>
+            <div style="display:flex;gap:3px;flex-wrap:wrap"><div class="box" style="height:14px;padding:0 4px;font-size:9px">フルリモート可</div><div class="box" style="height:14px;padding:0 4px;font-size:9px">副業OK</div></div>
+            <div style="font-size:11px;font-weight:600;color:#616161;margin-top:auto">月額・稼働に応じ個別設計</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="desc-col">
+      <div class="desc-header">
+        <div class="sec-badge">4</div>
+        <div>
+          <div class="desc-title">求人イメージ（具体例）</div>
+          <div class="desc-tag">3〜4枚カードグリッド</div>
+        </div>
+      </div>
+      <div class="desc-section">
+        <div class="desc-label">③ 要件</div>
+        <div class="desc-text">実際の求人・案件ではなくイメージカードを提示。フェーズ・志向に合わせた具体例を見せる。</div>
+      </div>
+      <div class="desc-section">
+        <div class="desc-label">カード構成（各4枚）</div>
+        <ul class="desc-list">
+          <li>雇用形態・ポジションタグ</li>
+          <li>ポジション名（社名非表示）</li>
+          <li>企業概要テキスト</li>
+          <li>条件バッジ（リモート可・週◯日等）</li>
+          <li>年収レンジ または 報酬形式</li>
+        </ul>
+      </div>
+      <div class="desc-section">
+        <div class="desc-label">注記</div>
+        <div class="desc-text">「※ 求人例はイメージです。非公開求人を含む最新ポジションは登録後にご案内します。」</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- [5] 実績・信頼 -->
+  <!-- ============================================================ -->
+  <div class="sec-card">
+    <div class="wf-col">
+      <div class="label-sm">6a — 参画実績ケース × 4</div>
+      <div class="row" style="margin-bottom:8px">
+        <div class="col"><div class="box box-text" style="height:32px;font-size:13px;font-weight:600">経営人材の参画実績</div></div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="box box-text" style="height:80px;flex-direction:column;gap:3px;padding:6px">
+            <div style="font-size:9px;background:#E0E0E0;padding:1px 5px;border-radius:2px">代表CSO就任・IPO準備</div>
+            <div class="box box-img" style="height:22px;width:50px">ロゴ</div>
+            <div style="font-size:10px;font-weight:600">NEWONE</div>
+            <div style="font-size:9px;color:#9E9E9E">詳細 1〜2行</div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="box box-text" style="height:80px;flex-direction:column;gap:3px;padding:6px">
+            <div style="font-size:9px;background:#E0E0E0;padding:1px 5px;border-radius:2px">代表COO・Co-Founder</div>
+            <div class="box box-img" style="height:22px;width:50px">ロゴ</div>
+            <div style="font-size:10px;font-weight:600">Senxeed Robotics</div>
+            <div style="font-size:9px;color:#9E9E9E">詳細 1〜2行</div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="box box-text" style="height:80px;flex-direction:column;gap:3px;padding:6px">
+            <div style="font-size:9px;background:#E0E0E0;padding:1px 5px;border-radius:2px">代表CEO参画・M&amp;A</div>
+            <div class="box box-img" style="height:22px;width:50px">ロゴ</div>
+            <div style="font-size:10px;font-weight:600">PONTELY</div>
+            <div style="font-size:9px;color:#9E9E9E">詳細 1〜2行</div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="box box-text" style="height:80px;flex-direction:column;gap:3px;padding:6px">
+            <div style="font-size:9px;background:#E0E0E0;padding:1px 5px;border-radius:2px">社外取締役・IPO戦略支援</div>
+            <div class="box" style="height:22px;width:50px;background:#CCC;font-size:9px">ロゴ待ち</div>
+            <div style="font-size:10px;font-weight:600">REVORF</div>
+            <div style="font-size:9px;color:#9E9E9E">詳細 1〜2行</div>
+          </div>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="label-sm">6b — 決定者の声（モック追加）</div>
+      <div class="row">
+        <div class="col" style="flex:1">
+          <div class="box box-text" style="height:68px;flex-direction:column;align-items:flex-start;padding:8px;gap:5px">
+            <div style="display:flex;align-items:center;gap:6px">
+              <div class="box box-img" style="height:32px;width:32px;border-radius:50%;flex:none">写真</div>
+              <div>
+                <div style="font-size:11px;font-weight:600">T.S. さん（40代）</div>
+                <div style="font-size:9px;color:#9E9E9E">大手メーカー事業部長出身</div>
+              </div>
+            </div>
+            <div style="font-size:9px">大手メーカー → <b>SaaSスタートアップ 事業責任者</b>（年収1,150万円）</div>
+          </div>
+        </div>
+        <div class="col" style="flex:2">
+          <div class="box box-text" style="height:68px;font-size:10px;color:#757575;padding:8px;font-style:italic;text-align:left;align-items:flex-start">「社内で経営に関わるには、あと10年かかる実感がありました。…（本文）」</div>
+        </div>
+      </div>
+      <div class="row" style="gap:8px">
+        <div class="col">
+          <div class="box box-text" style="height:60px;flex-direction:column;align-items:flex-start;padding:6px;gap:4px">
+            <div style="display:flex;align-items:center;gap:5px">
+              <div class="box box-img" style="height:26px;width:26px;border-radius:50%;flex:none">写</div>
+              <div style="font-size:10px;font-weight:600">K.M. さん（30代）<br><span style="font-weight:400;color:#9E9E9E;font-size:9px">戦略コンサル出身</span></div>
+            </div>
+            <div style="font-size:9px;color:#757575">コンサル → COO室長。本文 2〜3行。</div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="box box-text" style="height:60px;flex-direction:column;align-items:flex-start;padding:6px;gap:4px">
+            <div style="display:flex;align-items:center;gap:5px">
+              <div class="box box-img" style="height:26px;width:26px;border-radius:50%;flex:none">写</div>
+              <div style="font-size:10px;font-weight:600">Y.H. さん（50代）<br><span style="font-weight:400;color:#9E9E9E;font-size:9px">上場企業 営業本部長</span></div>
+            </div>
+            <div style="font-size:9px;color:#757575">現職のまま社外CXO 2社。本文 2〜3行。</div>
+          </div>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="label-sm">6c — コンサルタント紹介（モック追加）</div>
+      <div style="display:flex;justify-content:center;gap:24px;padding:8px 0">
+        <div style="text-align:center">
+          <div class="box box-img" style="height:64px;width:64px;border-radius:3px;margin:0 auto 5px">写真</div>
+          <div style="font-size:11px;font-weight:600">吉川 隼大</div>
+          <div style="font-size:9px;color:#9E9E9E">プロフィールを見る</div>
+        </div>
+        <div style="text-align:center">
+          <div class="box" style="height:64px;width:64px;border-radius:3px;margin:0 auto 5px;background:#C8B896;font-size:18px;font-weight:700">小</div>
+          <div style="font-size:11px;font-weight:600">小高 康太</div>
+          <div style="font-size:9px;color:#9E9E9E">プロフィールを見る</div>
+        </div>
+        <div style="text-align:center">
+          <div class="box box-img" style="height:64px;width:64px;border-radius:3px;margin:0 auto 5px">写真</div>
+          <div style="font-size:11px;font-weight:600">桒野 由美子</div>
+          <div style="font-size:9px;color:#9E9E9E">プロフィールを見る</div>
+        </div>
+      </div>
+    </div>
+    <div class="desc-col">
+      <div class="desc-header">
+        <div class="sec-badge">5</div>
+        <div>
+          <div class="desc-title">実績・信頼（証拠セクション）</div>
+          <div class="desc-tag">3ブロック構成</div>
+        </div>
+      </div>
+      <div class="desc-section">
+        <div class="desc-label">6a — 参画実績</div>
+        <div class="desc-text">運営チームが支援した経営人材参画ケース4社（NEWONE / Senxeed / PONTELY / REVORF）。ロゴ + 役職 + 一文説明。</div>
+      </div>
+      <div class="desc-section">
+        <div class="desc-label">6b — 決定者の声</div>
+        <div class="desc-text">③外のモック追加要素。転職・副業参画した3名のビフォーアフター + 引用コメント。存続推奨。</div>
+      </div>
+      <div class="desc-section">
+        <div class="desc-label">6c — コンサルタント</div>
+        <div class="desc-text">③外のモック追加要素。担当3名（吉川・小高・桒野）の顔写真カードを横並び。クリックでモーダル詳細表示。</div>
+      </div>
+      <div class="desc-section">
+        <div class="desc-label">判断事項</div>
+        <div class="desc-text">決定者の声・コンサルタント紹介は③に明示なし。[8]運営会社へ統合する案も検討可。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- [6] 登録後の流れ -->
+  <!-- ============================================================ -->
+  <div class="sec-card">
+    <div class="wf-col">
+      <div class="row">
+        <div class="col"><div class="box box-text" style="height:34px;font-size:13px;font-weight:600">登録後の流れ</div></div>
+      </div>
+      <div class="divider"></div>
+      <div class="row" style="align-items:flex-start">
+        <div class="col" style="text-align:center">
+          <div class="box" style="height:36px;width:36px;border-radius:50%;margin:0 auto 6px;background:#424242;color:#fff;font-weight:700;font-size:14px">1</div>
+          <div style="font-size:11px;font-weight:600">登録（1分）</div>
+          <div style="font-size:9px;color:#9E9E9E;margin-top:3px">氏名・メール<br>希望区分のみ</div>
+        </div>
+        <div style="color:#BDBDBD;font-size:16px;padding-top:10px;flex:none">→</div>
+        <div class="col" style="text-align:center">
+          <div class="box" style="height:36px;width:36px;border-radius:50%;margin:0 auto 6px;background:#424242;color:#fff;font-weight:700;font-size:14px">2</div>
+          <div style="font-size:11px;font-weight:600">希望に合わせて分岐</div>
+          <div style="font-size:9px;color:#9E9E9E;margin-top:3px">転職 or<br>副業・顧問</div>
+        </div>
+        <div style="color:#BDBDBD;font-size:16px;padding-top:10px;flex:none">→</div>
+        <div class="col" style="text-align:center">
+          <div class="box" style="height:36px;width:36px;border-radius:50%;margin:0 auto 6px;background:#424242;color:#fff;font-weight:700;font-size:14px">3</div>
+          <div style="font-size:11px;font-weight:600">求人・案件のご紹介</div>
+          <div style="font-size:9px;color:#9E9E9E;margin-top:3px">経歴・志向に<br>マッチ</div>
+        </div>
+        <div style="color:#BDBDBD;font-size:16px;padding-top:10px;flex:none">→</div>
+        <div class="col" style="text-align:center">
+          <div class="box" style="height:36px;width:36px;border-radius:50%;margin:0 auto 6px;background:#424242;color:#fff;font-weight:700;font-size:14px">4</div>
+          <div style="font-size:11px;font-weight:600">参画・入社後フォロー</div>
+          <div style="font-size:9px;color:#9E9E9E;margin-top:3px">選考〜条件交渉<br>まで伴走</div>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="label-sm">2分岐ブロック</div>
+      <div class="row">
+        <div class="col">
+          <div class="box box-text" style="height:52px;flex-direction:column;align-items:flex-start;padding:8px;border-left:3px solid #444">
+            <div style="font-size:11px;font-weight:700">正社員転職をご希望の方</div>
+            <div style="font-size:9px;color:#757575;margin-top:3px">専任コンサルとのキャリア面談 → 市場価値整理・求人紹介</div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="box box-text" style="height:52px;flex-direction:column;align-items:flex-start;padding:8px;border-left:3px solid #B5A07A">
+            <div style="font-size:11px;font-weight:700">副業・顧問をご希望の方</div>
+            <div style="font-size:9px;color:#757575;margin-top:3px">マッチ案件をメールでお届け → 気になる案件から面談へ</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="desc-col">
+      <div class="desc-header">
+        <div class="sec-badge">6</div>
+        <div>
+          <div class="desc-title">登録後の流れ（4ステップ）</div>
+          <div class="desc-tag">横並びフロー + 2分岐</div>
+        </div>
+      </div>
+      <div class="desc-section">
+        <div class="desc-label">③ 要件</div>
+        <div class="desc-text">4ステップで登録から参画・入社後フォローまでの流れを示す。登録後に「転職希望」「副業・顧問希望」の2ルートに分岐する点を明示。</div>
+      </div>
+      <div class="desc-section">
+        <div class="desc-label">ステップ一覧</div>
+        <ul class="desc-list">
+          <li>STEP1: 登録（1分・氏名メールのみ）</li>
+          <li>STEP2: 希望ルートに分岐</li>
+          <li>STEP3: 求人・案件のご紹介</li>
+          <li>STEP4: 参画・入社後フォロー</li>
+        </ul>
+      </div>
+      <div class="desc-section">
+        <div class="desc-label">分岐ルート</div>
+        <ul class="desc-list">
+          <li>転職ルート: 専任コンサルとの面談から個別サポート</li>
+          <li>副業・顧問ルート: メール配信型のマッチング</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- [7] 運営会社 -->
+  <!-- ============================================================ -->
+  <div class="sec-card">
+    <div class="wf-col">
+      <div class="row">
+        <div class="col"><div class="box box-text" style="height:34px;font-size:13px;font-weight:600">運営会社</div></div>
+      </div>
+      <div class="row" style="margin-top:8px">
+        <div class="col" style="flex:2">
+          <div class="box box-text" style="height:88px;align-items:flex-start;padding:10px;flex-direction:column;gap:7px">
+            <div style="font-size:10px;line-height:1.7;color:#424242">CXO CIRCUITはBeyondge株式会社が運営。スタートアップへの投資・コンサルで培った経営層との直接接点から非公開ポジションをご紹介。</div>
+            <div style="display:flex;gap:5px;flex-wrap:wrap">
+              <div class="box" style="height:20px;padding:0 7px;font-size:9px;border-radius:20px">事業創出・変革</div>
+              <div class="box" style="height:20px;padding:0 7px;font-size:9px;border-radius:20px">採用</div>
+              <div class="box" style="height:20px;padding:0 7px;font-size:9px;border-radius:20px">投資・資金調達</div>
+              <div class="box" style="height:20px;padding:0 7px;font-size:9px;border-radius:20px">M&amp;A</div>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="box" style="height:88px;background:#1A1A1A;color:#C9B391;flex-direction:column;gap:5px;padding:10px">
+            <div style="font-size:12px;font-weight:700;font-style:italic">あたらしい世界の<br>その先へ</div>
+            <div style="font-size:9px;color:#888;line-height:1.5">Beyondge株式会社 VISION<br>代表取締役CEO 野上 隆徳</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="desc-col">
+      <div class="desc-header">
+        <div class="sec-badge">7</div>
+        <div>
+          <div class="desc-title">運営会社（Beyondge・後置き）</div>
+          <div class="desc-tag">信頼性補強 / ページ後半配置</div>
+        </div>
+      </div>
+      <div class="desc-section">
+        <div class="desc-label">③ 要件</div>
+        <div class="desc-text">「Beyondge株式会社が運営」の事実を後置きで紹介。ブランド押し出しではなく、信頼性の根拠として添える位置づけ。</div>
+      </div>
+      <div class="desc-section">
+        <div class="desc-label">構成</div>
+        <ul class="desc-list">
+          <li>会社説明テキスト（1〜2文）</li>
+          <li>専門領域タグ（5項目）</li>
+          <li>VISIONコピー + 代表名（右カード）</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- [8] FAQ -->
+  <!-- ============================================================ -->
+  <div class="sec-card">
+    <div class="wf-col">
+      <div class="row">
+        <div class="col"><div class="box box-text" style="height:34px;font-size:13px;font-weight:600">よくあるご質問</div></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:6px;margin-top:10px">
+        <div class="box box-text" style="height:34px;justify-content:flex-start;padding:0 10px;gap:7px">
+          <span style="background:#424242;color:#fff;padding:1px 5px;border-radius:2px;font-size:10px;font-weight:700;flex-shrink:0">Q</span>
+          <span style="font-size:11px">利用に費用はかかりますか？</span>
+          <span style="margin-left:auto;color:#C0C0C0">▼</span>
+        </div>
+        <div class="box box-text" style="height:34px;justify-content:flex-start;padding:0 10px;gap:7px">
+          <span style="background:#424242;color:#fff;padding:1px 5px;border-radius:2px;font-size:10px;font-weight:700;flex-shrink:0">Q</span>
+          <span style="font-size:11px">今すぐ転職するつもりがなくても登録できますか？</span>
+          <span style="margin-left:auto;color:#C0C0C0">▼</span>
+        </div>
+        <div class="box box-text" style="height:34px;justify-content:flex-start;padding:0 10px;gap:7px">
+          <span style="background:#424242;color:#fff;padding:1px 5px;border-radius:2px;font-size:10px;font-weight:700;flex-shrink:0">Q</span>
+          <span style="font-size:11px">副業・顧問だけの希望でもいいですか？</span>
+          <span style="margin-left:auto;color:#C0C0C0">▼</span>
+        </div>
+        <div class="box box-text" style="height:34px;justify-content:flex-start;padding:0 10px;gap:7px">
+          <span style="background:#424242;color:#fff;padding:1px 5px;border-radius:2px;font-size:10px;font-weight:700;flex-shrink:0">Q</span>
+          <span style="font-size:11px">経歴が企業に勝手に公開されることはありませんか？</span>
+          <span style="margin-left:auto;color:#C0C0C0">▼</span>
+        </div>
+        <div class="box box-text" style="height:34px;justify-content:flex-start;padding:0 10px;gap:7px">
+          <span style="background:#424242;color:#fff;padding:1px 5px;border-radius:2px;font-size:10px;font-weight:700;flex-shrink:0">Q</span>
+          <span style="font-size:11px">地方在住でも利用できますか？</span>
+          <span style="margin-left:auto;color:#C0C0C0">▼</span>
+        </div>
+      </div>
+    </div>
+    <div class="desc-col">
+      <div class="desc-header">
+        <div class="sec-badge">8</div>
+        <div>
+          <div class="desc-title">FAQ</div>
+          <div class="desc-tag">アコーディオン形式 / 5問</div>
+        </div>
+      </div>
+      <div class="desc-section">
+        <div class="desc-label">収録 Q&amp;A（5問）</div>
+        <ul class="desc-list">
+          <li>費用について（無料）</li>
+          <li>転職意思がない方でも登録可否</li>
+          <li>副業・顧問のみ希望の可否</li>
+          <li>経歴の無断開示について（秘密厳守）</li>
+          <li>地方在住でも利用可否</li>
+        </ul>
+      </div>
+      <div class="desc-section">
+        <div class="desc-label">インタラクション</div>
+        <div class="desc-text">クリックで回答が展開するアコーディオン形式。最初の1問はデフォルト展開状態。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- [9] 最終CTA + フォーム -->
+  <!-- ============================================================ -->
+  <div class="sec-card">
+    <div class="wf-col">
+      <div style="text-align:center;padding:10px 0 14px">
+        <div class="box box-text" style="height:44px;max-width:440px;margin:0 auto;font-size:15px;font-weight:700">あなたの経営キャリアを、始めよう。</div>
+        <div style="font-size:10px;color:#9E9E9E;margin-top:6px">今の職場を辞める必要はありません。まず、あなたの市場価値を聞いてみてください。</div>
+      </div>
+      <div class="box box-text" style="max-width:520px;margin:0 auto;flex-direction:column;align-items:stretch;padding:16px;gap:9px;height:auto">
+        <div>
+          <div style="font-size:10px;font-weight:600;color:#424242;margin-bottom:3px">氏名 <span style="color:#C62828">必須</span></div>
+          <div class="box" style="height:32px;background:#fff;justify-content:flex-start;padding:0 8px;font-size:10px;color:#C0C0C0">山田 太郎</div>
+        </div>
+        <div>
+          <div style="font-size:10px;font-weight:600;color:#424242;margin-bottom:3px">メールアドレス <span style="color:#C62828">必須</span></div>
+          <div class="box" style="height:32px;background:#fff;justify-content:flex-start;padding:0 8px;font-size:10px;color:#C0C0C0">example@email.com</div>
+        </div>
+        <div>
+          <div style="font-size:10px;font-weight:600;color:#424242;margin-bottom:3px">ご希望の区分 <span style="color:#C62828">必須</span></div>
+          <div class="box" style="height:32px;background:#fff;justify-content:flex-start;padding:0 8px;font-size:10px;color:#C0C0C0">選択してください ▼</div>
+        </div>
+        <div>
+          <div style="font-size:10px;font-weight:600;color:#424242;margin-bottom:3px">経歴・コメント（任意）</div>
+          <div class="box" style="height:56px;background:#fff;justify-content:flex-start;align-items:flex-start;padding:6px 8px;font-size:10px;color:#C0C0C0">現職・これまでのご経歴・関心のある領域など</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:7px;font-size:10px;color:#424242">
+          <div class="box" style="height:14px;width:14px;flex:none;border-radius:2px"></div>
+          プライバシーポリシーおよび利用規約に同意します
+        </div>
+        <div class="box box-btn red" style="height:44px;border-radius:2px;font-size:13px;width:100%">経営人材として登録する（無料）</div>
+        <div style="text-align:center;font-size:9px;color:#C0C0C0">登録は無料・秘密厳守。担当より3営業日以内にご連絡いたします。</div>
+      </div>
+    </div>
+    <div class="desc-col">
+      <div class="desc-header">
+        <div class="sec-badge">9</div>
+        <div>
+          <div class="desc-title">最終CTA ＋ 登録フォーム</div>
+          <div class="desc-tag">ページ末 / コンバージョン</div>
+        </div>
+      </div>
+      <div class="desc-section">
+        <div class="desc-label">見出しコピー</div>
+        <div class="desc-text">「あなたの経営キャリアを、始めよう。」</div>
+      </div>
+      <div class="desc-section">
+        <div class="desc-label">フォーム項目</div>
+        <ul class="desc-list">
+          <li>氏名（必須）</li>
+          <li>メールアドレス（必須）</li>
+          <li>ご希望の区分（必須・3択セレクト）</li>
+          <li>経歴・コメント（任意・テキストエリア）</li>
+          <li>プライバシーポリシー同意チェックボックス</li>
+        </ul>
+      </div>
+      <div class="desc-section">
+        <div class="desc-label">送信先</div>
+        <div class="desc-text">Google Apps Script（GAS）→ スプレッドシート記録 + 通知メール送信。GAS URLは本番デプロイ後に差し込み。</div>
+      </div>
+      <div class="desc-section">
+        <div class="desc-label">希望区分 選択肢</div>
+        <ul class="desc-list">
+          <li>正社員での転職を希望</li>
+          <li>副業・顧問での参画を希望</li>
+          <li>両方検討中 / まずは情報収集</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  </div><!-- /wf-stack -->
+
+  <!-- ============================================================ -->
+  <!-- サマリーテーブル -->
+  <!-- ============================================================ -->
+  <div class="summary">
+    <h2>構成サマリー — ③ LP構成要素 vs モック v2</h2>
+    <table>
+      <tr><th>③ No.</th><th>セクション名</th><th style="text-align:center">モック v2</th><th>備考</th></tr>
+      <tr><td>0</td><td>ヘッダー</td><td style="text-align:center">✅</td><td>2段固定ヘッダー実装済</td></tr>
+      <tr><td>1</td><td>ヒーロー（語りかけ型）</td><td style="text-align:center">✅</td><td>確定コピー + 2CTA</td></tr>
+      <tr class="extra-row"><td>—</td><td>ロゴ帯（マーキー）</td><td style="text-align:center">✅</td><td>③外・追加要素。存続・削除は要判断</td></tr>
+      <tr><td>2</td><td>問いかけ（こんな方へ）</td><td style="text-align:center">✅</td><td>4カード（③は3カード記載）</td></tr>
+      <tr><td>3</td><td>CXO CIRCUITでできること</td><td style="text-align:center">✅</td><td>2カード（③は特徴3つ記載）</td></tr>
+      <tr><td>4</td><td>求人イメージ（3〜4枚）</td><td style="text-align:center">✅</td><td>4枚カード実装済</td></tr>
+      <tr><td>5</td><td>実績・信頼（証拠セクション）</td><td style="text-align:center">✅</td><td>参画実績 + 決定者の声 + コンサルタント</td></tr>
+      <tr><td>6</td><td>登録後の流れ（4ステップ）</td><td style="text-align:center">✅</td><td>4ステップ + 2ルート分岐</td></tr>
+      <tr><td>7</td><td>運営会社（Beyondge・後置き）</td><td style="text-align:center">✅</td><td>後半配置で実装済</td></tr>
+      <tr><td>8</td><td>FAQ</td><td style="text-align:center">✅</td><td>5問 アコーディオン形式</td></tr>
+      <tr><td>9</td><td>最終CTA ＋ 登録フォーム</td><td style="text-align:center">✅</td><td>4項目フォーム + GAS連携</td></tr>
+    </table>
+  </div>
+
+</div>
+</body>
+</html>

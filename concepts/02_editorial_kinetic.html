@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CXO CIRCUIT｜経営に挑むキャリアは、ここから始まる。</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Shippori+Mincho+B1:wght@500;600;700;800&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F4F2EC; --paper-2:#EDEAE2; --ink:#16140F; --ink-2:#3A362E; --mute:#8C857A; --line:#D8D3C8;
+  --accent:#A8331F; /* 朱・極小面積のみ */
+  --serif:'Shippori Mincho B1',serif;
+  --sans:'Noto Sans JP',sans-serif;
+  --inter:'Inter',sans-serif;
+  --ease:cubic-bezier(.16,.84,.36,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-weight:300;-webkit-font-smoothing:antialiased;overflow-x:hidden;cursor:none}
+a{color:inherit;text-decoration:none}
+.inter{font-family:var(--inter);letter-spacing:.14em}
+.wrap{max-width:1280px;margin:0 auto;padding:0 5vw}
+
+/* ===== カスタムカーソル ===== */
+.cursor{position:fixed;top:0;left:0;width:9px;height:9px;border-radius:50%;background:var(--ink);pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .25s var(--ease),height .25s var(--ease),background .25s,opacity .3s}
+.cursor.ring{width:9px;height:9px}
+.cursor-ring{position:fixed;top:0;left:0;width:38px;height:38px;border:1px solid var(--ink);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:transform .18s var(--ease),width .25s,height .25s,opacity .3s;opacity:.5}
+body.hov .cursor{width:5px;height:5px}
+body.hov .cursor-ring{width:64px;height:64px;opacity:.9}
+@media(hover:none){.cursor,.cursor-ring{display:none}body{cursor:auto}}
+
+/* ===== ローダー ===== */
+.loader{position:fixed;inset:0;background:var(--paper);z-index:1000;display:flex;align-items:center;justify-content:center;transition:opacity .8s var(--ease),visibility .8s}
+.loader.done{opacity:0;visibility:hidden}
+.loader-mark{font-family:var(--inter);font-weight:500;font-size:13px;letter-spacing:.5em;color:var(--ink);overflow:hidden}
+.loader-mark span{display:inline-block;animation:lup .9s var(--ease) both}
+@keyframes lup{from{transform:translateY(110%)}to{transform:translateY(0)}}
+
+/* ===== ヘッダー ===== */
+header{position:fixed;top:0;left:0;width:100%;z-index:200;padding:26px 5vw;display:flex;align-items:center;justify-content:space-between;mix-blend-mode:difference;color:#fff;opacity:0;transition:opacity 1s ease .2s}
+header.show{opacity:1}
+.brand{font-family:var(--inter);font-weight:600;font-size:15px;letter-spacing:.3em;display:flex;align-items:center;gap:11px}
+.brand .pt{width:6px;height:6px;border-radius:50%;background:var(--accent)}
+.menu-btn{display:flex;flex-direction:column;gap:6px;cursor:none}
+.menu-btn span{width:26px;height:1.5px;background:#fff;display:block;transition:.3s}
+
+/* 角のメタ情報（時計・所在） */
+.corner{position:fixed;z-index:150;font-family:var(--inter);font-size:11px;letter-spacing:.18em;color:var(--mute);opacity:0;transition:opacity 1s ease .9s}
+.corner.show{opacity:1}
+.corner.tr{top:90px;right:5vw;text-align:right}
+.corner.bl{bottom:34px;left:5vw}
+.corner .clk{color:var(--ink);font-variant-numeric:tabular-nums}
+
+/* ===== ヒーロー ===== */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;position:relative;padding:120px 5vw 80px}
+.hero-idx{position:absolute;top:42%;right:5vw;font-family:var(--inter);font-size:11px;letter-spacing:.2em;color:var(--mute);writing-mode:vertical-rl;opacity:0;transition:opacity 1s ease 1.4s}
+.hero.show .hero-idx{opacity:1}
+.catch{font-family:var(--serif);font-weight:700;font-size:clamp(38px,7.4vw,104px);line-height:1.28;letter-spacing:.02em;color:var(--ink)}
+.catch .ln{display:block;overflow:hidden}
+.catch .ch{display:inline-block;opacity:0;transform:translateY(-118%)}
+.hero.show .catch .ch{animation:drop 1s var(--ease) both;animation-delay:calc(var(--i)*.055s + .2s)}
+.hero.show .catch .ch.last{color:var(--accent)}
+@keyframes drop{
+  0%{opacity:0;transform:translateY(-118%)}
+  45%{opacity:1;transform:translateY(0)}
+  62%{transform:translateY(-22%)}
+  78%{transform:translateY(0)}
+  90%{transform:translateY(-7%)}
+  100%{opacity:1;transform:translateY(0)}
+}
+.hero-lead{font-size:clamp(13px,1.15vw,15.5px);line-height:2.1;color:var(--ink-2);max-width:540px;margin-top:38px;font-weight:400;opacity:0;transform:translateY(16px);transition:.9s var(--ease) 1.5s}
+.hero.show .hero-lead{opacity:1;transform:none}
+.hero-cta{margin-top:42px;opacity:0;transform:translateY(16px);transition:.9s var(--ease) 1.7s}
+.hero.show .hero-cta{opacity:1;transform:none}
+.scroll-cue{position:absolute;bottom:34px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:12px;font-family:var(--inter);font-size:10px;letter-spacing:.3em;color:var(--mute);opacity:0;transition:opacity 1s ease 2s}
+.hero.show .scroll-cue{opacity:1}
+.scroll-cue .bar{width:1px;height:54px;background:var(--line);position:relative;overflow:hidden}
+.scroll-cue .bar::after{content:"";position:absolute;top:-54px;left:0;width:100%;height:54px;background:var(--ink);animation:cue 2.2s var(--ease) infinite}
+@keyframes cue{0%{transform:translateY(0)}60%,100%{transform:translateY(108px)}}
+
+/* ===== 矢印リンク（READ MORE） ===== */
+.morelink{display:inline-flex;align-items:center;gap:16px;font-family:var(--inter);font-size:12px;letter-spacing:.22em;color:var(--ink);cursor:none}
+.morelink .arw{width:46px;height:46px;border:1px solid var(--ink);border-radius:50%;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;transition:.4s var(--ease)}
+.morelink .arw svg{width:15px;height:15px;transition:transform .45s var(--ease)}
+.morelink:hover .arw{background:var(--ink)}
+.morelink:hover .arw svg{stroke:var(--paper);transform:translateX(34px)}
+.morelink .arw svg.ghost{position:absolute;transform:translateX(-34px)}
+.morelink:hover .arw svg.ghost{transform:translateX(0)}
+
+/* CTAボタン（下線スライド式・ミニマル） */
+.btn-line{display:inline-flex;align-items:center;gap:14px;font-size:15px;font-weight:500;color:var(--ink);padding-bottom:9px;position:relative;cursor:none}
+.btn-line::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:1px;background:var(--ink);transform-origin:left;transition:transform .45s var(--ease)}
+.btn-line .dotarw{width:7px;height:7px;border-radius:50%;background:var(--accent);transition:transform .45s var(--ease)}
+.btn-line:hover .dotarw{transform:translateX(8px)}
+
+/* ===== セクション共通 ===== */
+section{padding:clamp(90px,13vw,200px) 0;position:relative}
+.eyebrow{font-family:var(--inter);font-size:11px;letter-spacing:.34em;color:var(--mute);display:flex;align-items:center;gap:16px;text-transform:uppercase}
+.eyebrow .n{color:var(--ink);font-weight:500}
+.eyebrow::before{content:"";width:40px;height:1px;background:var(--ink)}
+.statement{font-family:var(--serif);font-weight:700;font-size:clamp(26px,4vw,58px);line-height:1.6;letter-spacing:.02em;margin-top:40px}
+.body-col{max-width:560px;font-size:14px;line-height:2.15;color:var(--ink-2);font-weight:400}
+.body-col p+p{margin-top:22px}
+
+/* リビール（行マスク） */
+.rv{opacity:0;transform:translateY(30px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.rv-d1{transition-delay:.08s}.rv-d2{transition-delay:.16s}.rv-d3{transition-delay:.24s}
+
+/* About 2カラム */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:7vw;align-items:start;margin-top:64px}
+
+/* Approach 大見出し英語 */
+.big-en{font-family:var(--inter);font-weight:300;font-size:clamp(40px,8vw,128px);line-height:1.02;letter-spacing:-.01em;color:var(--ink);margin-top:30px}
+.big-en em{font-style:normal;color:var(--accent)}
+
+/* Positions（編集的カード） */
+.pos-list{margin-top:70px;border-top:1px solid var(--line)}
+.pos{display:grid;grid-template-columns:64px 1fr auto;gap:4vw;align-items:center;padding:38px 8px;border-bottom:1px solid var(--line);transition:padding .4s var(--ease),background .4s;position:relative}
+.pos:hover{padding-left:28px;padding-right:28px;background:var(--paper-2)}
+.pos__n{font-family:var(--inter);font-size:13px;color:var(--mute);letter-spacing:.1em}
+.pos__main h3{font-family:var(--serif);font-weight:700;font-size:clamp(20px,2.3vw,30px);letter-spacing:.02em;line-height:1.4}
+.pos__main .tags{display:flex;gap:10px;margin-top:12px;font-family:var(--inter);font-size:11px;letter-spacing:.12em;color:var(--mute)}
+.pos__main .tags span{border:1px solid var(--line);padding:3px 11px;border-radius:40px}
+.pos__sal{font-family:var(--inter);font-weight:500;font-size:clamp(18px,2vw,26px);color:var(--ink);white-space:nowrap;text-align:right}
+.pos__sal small{display:block;font-size:11px;color:var(--mute);font-weight:400;letter-spacing:.06em;margin-top:4px}
+
+/* マーキー（Register） */
+.marquee{padding:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden;background:var(--ink)}
+.marquee a{display:block;padding:clamp(40px,7vw,90px) 0;cursor:none}
+.mq-track{display:flex;white-space:nowrap;width:max-content;animation:mq 26s linear infinite}
+.marquee:hover .mq-track{animation-play-state:paused}
+.mq-track span{font-family:var(--serif);font-weight:700;font-size:clamp(46px,9vw,130px);color:var(--paper);padding:0 .5em;display:flex;align-items:center;gap:.5em}
+.mq-track span::after{content:"→";color:var(--accent);font-family:var(--inter);font-weight:300}
+@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* フッター */
+footer{padding:80px 5vw 44px}
+.foot-top{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:30px;border-bottom:1px solid var(--line);padding-bottom:46px}
+.foot-brand{font-family:var(--inter);font-weight:600;font-size:clamp(28px,5vw,64px);letter-spacing:.16em}
+.foot-nav{display:flex;gap:40px;font-family:var(--inter);font-size:12px;letter-spacing:.16em;color:var(--ink-2)}
+.foot-bottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-top:30px;font-family:var(--inter);font-size:11px;letter-spacing:.1em;color:var(--mute)}
+
+@media(max-width:860px){
+  .split{grid-template-columns:1fr;gap:48px}
+  .pos{grid-template-columns:40px 1fr;gap:18px}
+  .pos__sal{grid-column:2;text-align:left}
+  .hero-idx{display:none}
+  .corner.tr{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .catch .ch{opacity:1;transform:none}
+  .rv{opacity:1;transform:none}
+  body{cursor:auto}.cursor,.cursor-ring{display:none}
+}
+</style>
+</head>
+<body class="t-hide">
+
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="curRing"></div>
+
+<div class="loader" id="loader">
+  <div class="loader-mark"><span>C X O&nbsp;&nbsp;C I R C U I T</span></div>
+</div>
+
+<header id="hdr">
+  <a class="brand" href="#"><span class="pt"></span>CXO CIRCUIT</a>
+  <div class="menu-btn" data-hov><span></span><span></span></div>
+</header>
+
+<div class="corner tr inter" id="cornerT">
+  <div>TOKYO <span class="clk" id="clk">--:--:--</span></div>
+  <div style="margin-top:6px;color:var(--mute)">EXECUTIVE CAREER PLATFORM</div>
+</div>
+<div class="corner bl inter" id="cornerB">N35.69 / E139.76 — by Beyondge</div>
+
+<!-- ===== ヒーロー ===== -->
+<section class="hero" id="hero">
+  <div class="hero-idx">(SINCE 2026)</div>
+  <h1 class="catch" id="catch" aria-label="経営に挑むキャリアは、ここから始まる。">
+    <span class="ln" data-line="経営に挑むキャリアは、"></span>
+    <span class="ln" data-line="ここから始まる。"></span>
+  </h1>
+  <p class="hero-lead">事業責任者・幹部候補から CXO まで。<br>経営層との直接的な接点から生まれる非公開ポジションを、<br>あなたの経歴と志向に合わせてご紹介します。</p>
+  <div class="hero-cta">
+    <a class="btn-line" href="#register" data-hov>経営人材として登録する（無料）<span class="dotarw"></span></a>
+  </div>
+  <div class="scroll-cue"><span>SCROLL</span><span class="bar"></span></div>
+</section>
+
+<!-- ===== 01 About ===== -->
+<section id="about">
+  <div class="wrap">
+    <div class="eyebrow rv"><span class="n">01</span> About</div>
+    <h2 class="statement rv rv-d1">いまの延長線上に、<br>「経営」はあるか。</h2>
+    <div class="split">
+      <div class="body-col rv rv-d2">
+        <p>評価されている自覚はある。けれど、経営ポジションまでの社内ルートは見えない——大手・コンサル・メーカーの中核人材ほど、その壁にぶつかります。</p>
+        <p>CXO CIRCUITは、肩書きの先にある「経営」という選択肢を、現実的なキャリアとして設計する場所です。年齢や業界よりも、経営に近づく意志があるかを大切にしています。</p>
+      </div>
+      <div class="body-col rv rv-d3">
+        <p>いきなり転職するのではなく、副業・顧問として経営に触れる入口から。あるいは、事業責任者・CXO候補として直接挑む道から。あなたの段階に合わせて、二つのルートを用意しています。</p>
+        <div style="margin-top:40px">
+          <a class="morelink" href="#positions" data-hov>VIEW POSITIONS
+            <span class="arw"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 12h15M13 6l6 6-6 6"/></svg><svg class="ghost" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 02 Approach ===== -->
+<section id="approach" style="background:var(--paper-2)">
+  <div class="wrap">
+    <div class="eyebrow rv"><span class="n">02</span> Approach</div>
+    <div class="big-en rv rv-d1">Career,<br>Beyond your <em>title.</em></div>
+    <div class="split" style="margin-top:56px">
+      <div class="body-col rv rv-d2">
+        <p style="font-family:var(--serif);font-weight:600;font-size:19px;color:var(--ink);line-height:1.9">経営ポジション直結の求人紹介。</p>
+        <p>事業責任者候補・次世代幹部候補・CXO直下。投資とコンサルティングで築いた経営層との直接的な接点から、公開求人には載らないポジションを厳選してご紹介します。</p>
+      </div>
+      <div class="body-col rv rv-d3">
+        <p style="font-family:var(--serif);font-weight:600;font-size:19px;color:var(--ink);line-height:1.9">副業・顧問という、もう一つの入口。</p>
+        <p>現職を続けながら経営に関わりたい方へ。登録だけでマッチする副業・顧問案件をお届けします。週1日からの社外CXO・アドバイザリーという選択肢から、経営は始められます。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 03 Positions ===== -->
+<section id="positions">
+  <div class="wrap">
+    <div class="eyebrow rv"><span class="n">03</span> Positions</div>
+    <h2 class="statement rv rv-d1" style="font-size:clamp(24px,3.2vw,46px)">経営に近づく、<br>非公開ポジションの一例。</h2>
+    <div class="pos-list">
+      <a class="pos rv" href="#register" data-hov>
+        <div class="pos__n">01</div>
+        <div class="pos__main"><h3>事業責任者（SaaS・シリーズB）</h3><div class="tags"><span>正社員</span><span>事業責任者</span><span>P/L責任</span></div></div>
+        <div class="pos__sal">¥1,200–1,800<small>万円</small></div>
+      </a>
+      <a class="pos rv" href="#register" data-hov>
+        <div class="pos__n">02</div>
+        <div class="pos__main"><h3>次世代幹部候補（大手メーカー新規事業）</h3><div class="tags"><span>正社員</span><span>経営幹部候補</span></div></div>
+        <div class="pos__sal">¥1,000–1,500<small>万円</small></div>
+      </a>
+      <a class="pos rv" href="#register" data-hov>
+        <div class="pos__n">03</div>
+        <div class="pos__main"><h3>CFO・COO候補（急成長企業・IPO準備）</h3><div class="tags"><span>正社員</span><span>CxO</span><span>上場準備</span></div></div>
+        <div class="pos__sal">¥2,000–3,000<small>万円</small></div>
+      </a>
+      <a class="pos rv" href="#register" data-hov>
+        <div class="pos__n">04</div>
+        <div class="pos__main"><h3>社外CxO・経営顧問（週1日〜）</h3><div class="tags"><span>副業・顧問</span><span>現職継続可</span></div></div>
+        <div class="pos__sal">月額 50–100<small>万円／社</small></div>
+      </a>
+    </div>
+    <p class="inter rv" style="font-size:11px;color:var(--mute);margin-top:26px;letter-spacing:.1em">※ 求人例はイメージです。非公開求人を含む最新ポジションは、ご登録後にご案内します。</p>
+  </div>
+</section>
+
+<!-- ===== マーキー CTA ===== -->
+<div class="marquee" id="register">
+  <a href="#" data-hov>
+    <div class="mq-track">
+      <span>経営人材として登録する</span><span>Start your circuit</span><span>経営人材として登録する</span><span>Start your circuit</span>
+    </div>
+  </a>
+</div>
+
+<!-- ===== フッター ===== -->
+<footer>
+  <div class="foot-top">
+    <div class="foot-brand inter">CXO CIRCUIT</div>
+    <div class="foot-nav"><a href="#about" data-hov>About</a><a href="#approach" data-hov>Approach</a><a href="#positions" data-hov>Positions</a><a href="#register" data-hov>Register</a></div>
+  </div>
+  <div class="foot-bottom">
+    <div>OPERATED BY BEYONDGE INC. — あたらしい世界のその先へ</div>
+    <div>© 2026 Beyondge Inc.</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+  /* 文字分割（キネティック） */
+  document.querySelectorAll('.catch .ln').forEach(function(ln){
+    var t = ln.getAttribute('data-line'), chars=[...t], html='';
+    chars.forEach(function(c){ html+='<span class="ch">'+(c===' '?'&nbsp;':c)+'</span>'; });
+    ln.innerHTML = html;
+  });
+  var chs = document.querySelectorAll('.catch .ch');
+  chs.forEach(function(s,i){ s.style.setProperty('--i', i); });
+  // 最後の一文字（。）を朱に
+  if(chs.length) chs[chs.length-1].classList.add('last');
+
+  /* ローダー → ヒーロー起動 */
+  function start(){
+    document.getElementById('loader').classList.add('done');
+    document.body.classList.remove('t-hide');
+    document.getElementById('hero').classList.add('show');
+    document.getElementById('hdr').classList.add('show');
+    document.getElementById('cornerT').classList.add('show');
+    document.getElementById('cornerB').classList.add('show');
+  }
+  setTimeout(start, reduce?100:1150);
+
+  /* スクロールリビール */
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+  },{threshold:.18,rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('.rv').forEach(function(el){ io.observe(el); });
+
+  /* 東京時計 */
+  function tick(){
+    var d=new Date(), p=function(n){return String(n).padStart(2,'0')};
+    var t=p(d.getHours())+':'+p(d.getMinutes())+':'+p(d.getSeconds());
+    var el=document.getElementById('clk'); if(el) el.textContent=t;
+  }
+  setInterval(tick,1000); tick();
+
+  /* カスタムカーソル */
+  if(!reduce && window.matchMedia('(hover:hover)').matches){
+    var cur=document.getElementById('cur'), ring=document.getElementById('curRing'), rx=0,ry=0,x=0,y=0;
+    window.addEventListener('mousemove',function(e){ x=e.clientX; y=e.clientY; cur.style.left=x+'px'; cur.style.top=y+'px'; });
+    (function loop(){ rx+=(x-rx)*.16; ry+=(y-ry)*.16; ring.style.left=rx+'px'; ring.style.top=ry+'px'; requestAnimationFrame(loop); })();
+    document.querySelectorAll('[data-hov],a,button').forEach(function(el){
+      el.addEventListener('mouseenter',function(){document.body.classList.add('hov')});
+      el.addEventListener('mouseleave',function(){document.body.classList.remove('hov')});
+    });
+  }
+})();
+</script>
+</body>
+</html>

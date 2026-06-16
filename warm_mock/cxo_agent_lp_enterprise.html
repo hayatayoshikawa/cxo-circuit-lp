@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CXO CIRCUIT｜経営人材の採用支援（企業様向け）</title>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;600;700;800&family=Noto+Sans+JP:wght@300;400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --red:#A02929; --red-d:#8B1A1A;
+    --gold:#B58451; --gold-d:#9A7030; --gold-l:#D9C09A;
+    --ivory:#F9F6F0; --white:#fff;
+    --dark:#15120E; --navy:#1A1814; --ink:#2A2622; --muted:#6b6258; --soft:#9a9186;
+    --border:#D8D0C8; --line:#E8E2D8;
+    --serif:'Shippori Mincho B1','Noto Serif JP',serif;
+    --sans:'Noto Sans JP','Inter',sans-serif;
+  }
+  html{scroll-behavior:smooth}
+  body{font-family:var(--sans);background:var(--ivory);color:var(--ink);line-height:1.85;font-size:15px}
+  h1,h2,h3{word-break:keep-all;line-height:1.5}
+  .container{max-width:1080px;margin:0 auto;padding:0 32px}
+  .sec-title{font-family:var(--serif);font-size:32px;font-weight:700;letter-spacing:.04em;margin-bottom:16px}
+  .sec-lead{color:var(--muted);font-size:14.5px;margin-bottom:44px;max-width:700px}
+  section{padding:92px 0}
+
+  .btn{display:inline-block;text-decoration:none;font-weight:700;border-radius:4px;text-align:center;transition:.2s;cursor:pointer;font-family:var(--sans)}
+  .btn-red{background:var(--red);color:#fff;padding:16px 38px;font-size:15px;border:1px solid var(--red);letter-spacing:.06em}
+  .btn-red:hover{background:var(--red-d)}
+  .btn-gold-line{background:transparent;color:#fff;padding:16px 38px;font-size:15px;border:1px solid var(--gold);letter-spacing:.06em}
+  .btn-gold-line:hover{background:rgba(181,132,81,.18)}
+
+  /* Header */
+  header{position:sticky;top:0;z-index:50;background:rgba(21,18,14,.97);backdrop-filter:blur(8px)}
+  .header-top{border-bottom:1px solid rgba(255,255,255,.08)}
+  .header-top-in{max-width:1200px;margin:0 auto;padding:0 28px;height:62px;display:flex;align-items:center}
+  .logo{font-family:'Inter',sans-serif;font-weight:700;font-size:19px;letter-spacing:.18em;color:#fff;text-decoration:none}
+  .logo small{display:block;font-size:8.5px;letter-spacing:.22em;color:var(--gold);font-weight:600;margin-top:-1px}
+  .header-right{margin-left:auto;display:flex;align-items:center;gap:14px}
+  .corp-link{font-size:11.5px;color:rgba(255,255,255,.45);text-decoration:none}
+  .corp-link:hover{color:rgba(255,255,255,.75);text-decoration:underline}
+  .hbtn{font-size:12.5px;font-weight:700;padding:10px 20px;border-radius:3px;text-decoration:none;letter-spacing:.04em}
+  .hbtn.consult{color:var(--gold-l);border:1px solid var(--gold)}
+  .hbtn.consult:hover{background:rgba(181,132,81,.18)}
+  .hbtn.register{color:#fff;background:var(--red);border:1px solid var(--red)}
+  .hbtn.register:hover{background:var(--red-d)}
+  .header-nav{display:flex;justify-content:center;gap:42px;height:46px;align-items:center}
+  .header-nav a{font-size:12.5px;color:rgba(255,255,255,.78);text-decoration:none;font-weight:500;letter-spacing:.12em}
+  .header-nav a:hover{color:var(--gold-l)}
+  .ent-badge{font-size:10px;font-weight:700;background:var(--gold);color:#fff;padding:3px 8px;border-radius:2px;letter-spacing:.08em;margin-left:8px;vertical-align:middle}
+
+  /* Hero */
+  .hero{position:relative;background:var(--dark);color:#fff;padding:150px 0 120px;overflow:hidden}
+  .hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1800&q=60') center 40%/cover no-repeat;opacity:.5;filter:grayscale(20%)}
+  .hero-shade{position:absolute;inset:0;background:linear-gradient(105deg,rgba(21,18,14,.88) 30%,rgba(21,18,14,.45) 70%,rgba(21,18,14,.7))}
+  .hero-in{position:relative;z-index:2}
+  .hero-kicker{font-size:11px;letter-spacing:.28em;color:var(--gold);font-weight:700;margin-bottom:22px;text-transform:uppercase}
+  .hero h1{font-family:var(--serif);font-size:46px;font-weight:700;line-height:1.6;letter-spacing:.05em;margin-bottom:26px}
+  .hero h1 .accent{color:var(--gold-l)}
+  .hero-sub{color:#cfc8bd;font-size:15px;letter-spacing:.03em;max-width:660px;margin-bottom:44px;line-height:1.95}
+  .hero-ctas{display:flex;gap:18px;flex-wrap:wrap;margin-bottom:22px}
+  .hero-note{font-size:12px;color:#8a8174}
+
+  /* ロゴ帯 */
+  .logo-strip-band{background:#fff;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:38px 0}
+  .logo-strip-label{font-size:11px;letter-spacing:.18em;color:var(--soft);font-weight:700;text-align:center;margin-bottom:24px;text-transform:uppercase}
+  .logo-strip-row{display:flex;align-items:center;justify-content:center;gap:48px;flex-wrap:wrap;padding:0 32px}
+  .logo-strip-img{height:26px;width:auto;max-width:110px;object-fit:contain;filter:grayscale(100%) opacity(45%);transition:filter .25s}
+  .logo-strip-img:hover{filter:grayscale(40%) opacity(85%)}
+
+  /* 課題提起 */
+  .pain{background:#fff}
+  .pain-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .pain-card{border-top:2px solid var(--gold);background:var(--ivory);padding:34px 28px}
+  .pain-card h3{font-family:var(--serif);font-size:17px;font-weight:700;margin-bottom:12px;letter-spacing:.02em}
+  .pain-card p{font-size:13px;color:var(--muted);line-height:1.9}
+
+  /* サービス */
+  .svc-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+  .svc-card{background:#fff;border:1px solid var(--border);border-top:3px solid var(--red);padding:38px 34px}
+  .svc-card.gold{border-top-color:var(--gold)}
+  .svc-no{font-size:11px;font-weight:700;letter-spacing:.2em;color:var(--red);margin-bottom:14px}
+  .svc-card.gold .svc-no{color:var(--gold-d)}
+  .svc-card h3{font-family:var(--serif);font-size:20px;font-weight:700;margin-bottom:14px;letter-spacing:.03em}
+  .svc-card p{font-size:13.5px;color:var(--muted);line-height:1.9}
+  .svc-tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+  .svc-tag{font-size:11px;font-weight:700;color:var(--ink);border:1px solid var(--border);padding:4px 14px}
+
+  /* 選ばれる理由 */
+  .reason{background:var(--dark);color:#fff}
+  .reason .sec-title{color:#fff}
+  .reason .sec-lead{color:#9a9186}
+  .reason-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .reason-card{background:#1F1B16;border:1px solid rgba(181,132,81,.22);padding:34px 28px}
+  .reason-no{font-family:'Inter',sans-serif;font-size:34px;font-weight:700;color:rgba(181,132,81,.3);line-height:1;margin-bottom:14px}
+  .reason-card h3{font-family:var(--serif);font-size:17px;font-weight:700;color:#fff;margin-bottom:10px;letter-spacing:.02em}
+  .reason-card p{font-size:13px;color:#9a9186;line-height:1.9}
+
+  /* 実績 */
+  .proof{background:#fff}
+  .proof-cases{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:36px}
+  .proof-case{background:var(--ivory);border:1px solid var(--border);border-left:3px solid var(--gold);padding:26px 30px}
+  .proof-case-role{font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--gold-d);margin-bottom:8px}
+  .proof-case h4{font-family:var(--serif);font-size:17px;font-weight:700;margin-bottom:8px;letter-spacing:.02em}
+  .proof-case p{font-size:12.5px;color:var(--muted);line-height:1.85}
+
+  /* フロー */
+  .flow-grid{display:flex;gap:6px}
+  .flow-step{flex:1;background:#fff;border:1px solid var(--border);border-left:none;border-right:none;padding:28px 26px 28px 42px;position:relative;
+    clip-path:polygon(0 0,calc(100% - 22px) 0,100% 50%,calc(100% - 22px) 100%,0 100%,22px 50%)}
+  .flow-step:first-child{clip-path:polygon(0 0,calc(100% - 22px) 0,100% 50%,calc(100% - 22px) 100%,0 100%);padding-left:28px}
+  .flow-step:last-child{background:#F4E9E2}
+  .flow-no{font-family:'Inter',sans-serif;font-size:12px;font-weight:600;color:#fff;background:var(--red);width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+  .flow-step h3{font-family:var(--serif);font-size:15.5px;font-weight:700;margin-bottom:8px}
+  .flow-step p{font-size:12px;color:var(--muted)}
+
+  /* 料金 */
+  .fee{background:var(--ivory)}
+  .fee-card{background:#fff;border:1px solid var(--border);padding:44px 48px;max-width:720px}
+  .fee-type{font-size:11px;letter-spacing:.2em;color:var(--gold-d);font-weight:700;margin-bottom:10px}
+  .fee-title{font-family:var(--serif);font-size:26px;font-weight:700;margin-bottom:18px;letter-spacing:.03em}
+  .fee-list{list-style:none;display:flex;flex-direction:column;gap:12px}
+  .fee-list li{font-size:14px;color:var(--muted);padding-left:20px;position:relative;line-height:1.75}
+  .fee-list li::before{content:"—";position:absolute;left:0;color:var(--gold)}
+  .fee-note{font-size:12px;color:var(--soft);margin-top:20px;border-top:1px solid var(--line);padding-top:16px}
+
+  /* FAQ */
+  .faq details{background:#fff;border:1px solid var(--border);margin-bottom:12px;overflow:hidden}
+  .faq summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:16px;padding:22px 26px;font-weight:700;font-size:14.5px}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq .q{font-family:var(--serif);color:var(--gold-d);font-weight:700;font-size:16px}
+  .faq .a{padding:0 26px 22px 58px;font-size:13.5px;color:var(--muted)}
+
+  /* Final CTA */
+  .final{background:var(--dark);color:#fff;position:relative;overflow:hidden;padding:100px 0}
+  .final::after{content:"";position:absolute;right:-80px;bottom:-120px;width:420px;height:420px;border:1px solid rgba(181,132,81,.2);border-radius:50%}
+  .final-in{max-width:680px;margin:0 auto;text-align:center;position:relative;z-index:2}
+  .final-kicker{font-size:11px;letter-spacing:.28em;color:var(--gold);font-weight:700;margin-bottom:18px;text-transform:uppercase}
+  .final h2{font-family:var(--serif);font-size:32px;font-weight:700;letter-spacing:.05em;margin-bottom:14px}
+  .final p.lead{color:#9a9186;font-size:14px;margin-bottom:40px;line-height:1.9}
+  .form-card{background:#fff;color:var(--ink);padding:44px 48px;text-align:left;box-shadow:0 16px 48px rgba(0,0,0,.35)}
+  .form-row{margin-bottom:20px}
+  .form-row label{display:block;font-size:13px;font-weight:700;margin-bottom:7px}
+  .form-row label .req{color:var(--red);font-size:11px;margin-left:6px}
+  .form-row input,.form-row select,.form-row textarea{width:100%;border:1px solid var(--border);padding:13px 14px;font-size:14px;font-family:inherit;background:var(--ivory);color:var(--ink)}
+  .form-row textarea{min-height:110px;resize:vertical}
+  .consent{display:flex;align-items:flex-start;gap:10px;font-size:12.5px;color:var(--muted);margin:24px 0}
+  .consent input{margin-top:3px}
+  .consent a{color:var(--red)}
+  .form-card .btn-red{width:100%;font-size:16px;padding:18px}
+  .form-note{text-align:center;font-size:11.5px;color:var(--soft);margin-top:14px}
+
+  footer{background:#0E0C09;color:#7a7268;padding:40px 0}
+  .foot-in{max-width:1080px;margin:0 auto;padding:0 32px;display:flex;align-items:center;gap:26px;font-size:12px;flex-wrap:wrap}
+  .foot-in .flogo{font-family:'Inter',sans-serif;font-weight:700;letter-spacing:.18em;color:#fff;font-size:14px}
+  .foot-in a{color:#7a7268;text-decoration:none}
+  .foot-in a:hover{color:#ccc}
+  .foot-in .copy{margin-left:auto}
+
+  @media(max-width:900px){
+    .pain-grid,.svc-grid,.reason-grid,.proof-cases{grid-template-columns:1fr}
+    .flow-grid{flex-direction:column}
+    .flow-step,.flow-step:first-child{clip-path:none;padding:26px}
+    .hero h1{font-size:30px}
+    .header-nav{display:none}
+    .corp-link{display:none}
+    .fee-card{padding:28px}
+    .form-card{padding:28px}
+    .logo-strip-row{gap:30px}
+    .logo-strip-img{height:20px}
+  }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+  <div class="header-top">
+    <div class="header-top-in">
+      <a class="logo" href="index.html">CXO CIRCUIT<small>EXECUTIVE CAREER PLATFORM</small></a>
+      <div class="header-right">
+        <a class="corp-link" href="index.html">転職・副業をお探しの方はこちら →</a>
+        <a class="hbtn consult" href="#contact">採用事例を聞く</a>
+        <a class="hbtn register" href="#contact">採用相談を申し込む（無料）</a>
+      </div>
+    </div>
+  </div>
+  <nav class="header-nav">
+    <a href="#pain">課題</a>
+    <a href="#service">サービス</a>
+    <a href="#reason">選ばれる理由</a>
+    <a href="#proof">採用実績</a>
+    <a href="#flow">フロー</a>
+    <a href="#fee">費用</a>
+    <a href="#faq">FAQ</a>
+  </nav>
+</header>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-shade"></div>
+  <div class="container hero-in">
+    <div class="hero-kicker">FOR COMPANIES — EXECUTIVE HIRING</div>
+    <h1>経営を担う人材を、<br><span class="accent">いますぐ探す。</span></h1>
+    <p class="hero-sub">CFO・COO・CMO・事業責任者など、公開求人に出せないCXO採用を支援します。<br>Beyondgeが保有する経営人材データベースと、経営層との直接ネットワークから、<br>あなたの会社に本当に合った人材をご紹介します。</p>
+    <div class="hero-ctas">
+      <a class="btn btn-red" href="#contact">採用相談を申し込む（無料）</a>
+      <a class="btn btn-gold-line" href="#service">サービス詳細を見る</a>
+    </div>
+    <div class="hero-note">相談・初回ヒアリングは無料。成功報酬型のため、採用が決まるまで費用は発生しません。</div>
+  </div>
+</div>
+
+<!-- ロゴ帯 -->
+<div class="logo-strip-band">
+  <div class="logo-strip-label">支援実績企業（一部）</div>
+  <div class="logo-strip-row">
+    <img class="logo-strip-img" src="cxo_agent_assets/logos/jr-west.png" alt="JR西日本">
+    <img class="logo-strip-img" src="cxo_agent_assets/logos/honda.png" alt="HONDA">
+    <img class="logo-strip-img" src="cxo_agent_assets/logos/nttdata.png" alt="NTT DATA">
+    <img class="logo-strip-img" src="cxo_agent_assets/logos/cyberagent.png" alt="CyberAgent">
+    <img class="logo-strip-img" src="cxo_agent_assets/logos/dxc.png" alt="DXC Technology">
+    <img class="logo-strip-img" src="cxo_agent_assets/logos/newone.png" alt="NEWONE">
+    <img class="logo-strip-img" src="cxo_agent_assets/logos/gixo.png" alt="GiXo">
+    <img class="logo-strip-img" src="cxo_agent_assets/logos/prtable.png" alt="PR Table">
+    <img class="logo-strip-img" src="cxo_agent_assets/logos/trailblazer.png" alt="TRAILBLAZER">
+    <img class="logo-strip-img" src="cxo_agent_assets/logos/senxeed.jpg" alt="Senxeed Robotics">
+  </div>
+</div>
+
+<!-- 課題提起 -->
+<section class="pain" id="pain">
+  <div class="container">
+    <h2 class="sec-title">経営人材の採用は、<wbr>なぜ難しいのか。</h2>
+    <p class="sec-lead">CFO・COO・事業責任者クラスの採用は、一般の求人媒体では思うように進みません。</p>
+    <div class="pain-grid">
+      <div class="pain-card">
+        <h3>求人票を出しても、<wbr>優秀な人材が来ない</h3>
+        <p>本当に経営を担える人材は、転職サイトを見ていません。ビズリーチに登録はあっても、スカウトメールに反応しない層が大半です。</p>
+      </div>
+      <div class="pain-card">
+        <h3>エージェントから来るのは、<wbr>ミスマッチばかり</h3>
+        <p>「CXO候補」と紹介されても、実際は管理職経験が浅かったり、事業フェーズが合わない人材が多い。採用コストだけが嵩んでいく。</p>
+      </div>
+      <div class="pain-card">
+        <h3>入社後のミスマッチが、<wbr>最大のリスク</h3>
+        <p>採用できても、経営スタイルが合わず半年で離職。CXO採用の失敗は事業の停滞に直結します。マッチ度の精度こそが最重要です。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- サービス内容 -->
+<section id="service">
+  <div class="container">
+    <h2 class="sec-title">CXO CIRCUITの採用支援</h2>
+    <p class="sec-lead">転職希望者の紹介だけでなく、「経営に参画したい意志のある人材」をデータベースから直接ご提案します。</p>
+    <div class="svc-grid">
+      <div class="svc-card">
+        <div class="svc-no">SERVICE 01</div>
+        <h3>正社員CXO・経営幹部の採用支援</h3>
+        <p>CFO・COO・CMO・CTO・事業責任者など、経営直下ポジションへの正社員採用を支援します。Beyondgeが保有する経営人材データベースから、フェーズ・カルチャー・経営スタイルの適合度を精査してご紹介します。</p>
+        <div class="svc-tags">
+          <span class="svc-tag">CFO</span>
+          <span class="svc-tag">COO</span>
+          <span class="svc-tag">CMO</span>
+          <span class="svc-tag">CTO</span>
+          <span class="svc-tag">事業責任者</span>
+          <span class="svc-tag">経営幹部候補</span>
+        </div>
+      </div>
+      <div class="svc-card gold">
+        <div class="svc-no">SERVICE 02</div>
+        <h3>社外CXO・顧問・業務委託での参画</h3>
+        <p>正社員採用のハードルを下げたい、まずは試したい、という場合には社外CXO・顧問・業務委託での参画もご提案できます。週1〜2日から経営に関わる人材をご紹介し、採用後の正社員転換も視野に入れた支援を行います。</p>
+        <div class="svc-tags">
+          <span class="svc-tag">社外CXO</span>
+          <span class="svc-tag">顧問</span>
+          <span class="svc-tag">業務委託</span>
+          <span class="svc-tag">週1〜2日</span>
+          <span class="svc-tag">試用後正社員化</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 選ばれる理由 -->
+<section class="reason" id="reason">
+  <div class="container">
+    <h2 class="sec-title">なぜ、CXO CIRCUITが<wbr>選ばれるのか。</h2>
+    <p class="sec-lead">経営人材の採用に特化しているからこそ、一般エージェントにはできないご支援があります。</p>
+    <div class="reason-grid">
+      <div class="reason-card">
+        <div class="reason-no">01</div>
+        <h3>経営層との直接ネットワーク</h3>
+        <p>投資・コンサルティング事業で構築した経営者・CXO層との直接的な関係から、市場に出ていない人材をアプローチできます。「知人紹介」に近い精度で候補者を探索します。</p>
+      </div>
+      <div class="reason-card">
+        <div class="reason-no">02</div>
+        <h3>事業フェーズとのマッチ精査</h3>
+        <p>シード期なのかPMF後なのか、オーナー経営なのかファンドバックなのか。事業フェーズとカルチャーに合った人材かどうかを、経営経験者の視点で精査します。</p>
+      </div>
+      <div class="reason-card">
+        <div class="reason-no">03</div>
+        <h3>入社後の伴走まで責任を持つ</h3>
+        <p>ご紹介して終わりではありません。入社後の参画定着まで伴走し、ミスマッチが起きた場合のフォローも含めて対応します。経営人材採用の「その後」を一緒に考えます。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 採用実績 -->
+<section class="proof" id="proof">
+  <div class="container">
+    <h2 class="sec-title">採用支援の実績</h2>
+    <p class="sec-lead">スタートアップから成長企業まで、経営人材の参画を多数実現してきました。</p>
+    <div class="proof-cases">
+      <div class="proof-case">
+        <div class="proof-case-role">代表CSO就任・IPO準備</div>
+        <h4>NEWONE</h4>
+        <p>資本政策の設計段階からCSOとして参画。IPO準備の全体設計と推進を担当する人材をご紹介。</p>
+      </div>
+      <div class="proof-case">
+        <div class="proof-case-role">代表COO・Co-Founder就任</div>
+        <h4>Senxeed Robotics</h4>
+        <p>創業期よりCOOとして経営参画。組織・オペレーション体制の立ち上げを主導できる人材を採用。</p>
+      </div>
+      <div class="proof-case">
+        <div class="proof-case-role">代表CEO参画・M&amp;A</div>
+        <h4>PONTELY</h4>
+        <p>CEOとして経営全体を担い、M&amp;Aを通じた事業規模の拡大を実現した人材をご支援。</p>
+      </div>
+      <div class="proof-case">
+        <div class="proof-case-role">社外取締役・IPO戦略支援</div>
+        <h4>REVORF</h4>
+        <p>独立役員として参画。ガバナンス体制整備と資本政策の策定を上場準備期から支援できる人材を採用。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 採用フロー -->
+<section id="flow">
+  <div class="container">
+    <h2 class="sec-title">採用支援の流れ</h2>
+    <p class="sec-lead">初回相談から最短2〜4週間で候補者をご提案します。</p>
+    <div class="flow-grid">
+      <div class="flow-step">
+        <div class="flow-no">1</div>
+        <h3>無料ヒアリング</h3>
+        <p>求めるポジション・事業フェーズ・組織課題をオンラインで伺います。</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-no">2</div>
+        <h3>要件定義</h3>
+        <p>ミッション・スキル要件・カルチャーフィットの観点から採用要件を共同で設計します。</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-no">3</div>
+        <h3>候補者のご提案</h3>
+        <p>データベース検索・直接アプローチにより厳選した候補者をご提案します。</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-no">4</div>
+        <h3>選考・採用決定</h3>
+        <p>面談調整から条件交渉まで伴走。入社後のフォローアップも継続します。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 料金 -->
+<section class="fee" id="fee">
+  <div class="container">
+    <h2 class="sec-title">費用について</h2>
+    <div class="fee-card">
+      <div class="fee-type">PRICING</div>
+      <div class="fee-title">成功報酬型。採用決定まで費用は発生しません。</div>
+      <ul class="fee-list">
+        <li>初回相談・ヒアリング・候補者提案まで、すべて無料です。</li>
+        <li>ご採用決定時に、初年度理論年収をベースとした成功報酬をいただきます（レート・詳細は個別ご相談）。</li>
+        <li>社外CXO・顧問・業務委託での参画の場合は、別途ご相談ください。</li>
+        <li>採用後の定着支援（入社後フォロー）も含まれます。</li>
+      </ul>
+      <div class="fee-note">※ 具体的なレートは採用ポジション・条件により異なります。まずはご相談ください。</div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <div class="container">
+    <h2 class="sec-title">よくあるご質問</h2>
+    <div style="margin-top:36px">
+      <details open>
+        <summary><span class="q">Q</span>どのような規模・フェーズの企業が対象ですか？</summary>
+        <div class="a">スタートアップ（シード〜シリーズC）から成長企業・中堅企業まで幅広く対応しています。採用するポジションの要件と事業フェーズを合わせてご相談ください。</div>
+      </details>
+      <details>
+        <summary><span class="q">Q</span>採用決定までどのくらいかかりますか？</summary>
+        <div class="a">要件と候補者の状況によりますが、初回ヒアリングから候補者提案まで2〜4週間を目安としています。マッチ度を重視するため、スピードより精度を優先しています。</div>
+      </details>
+      <details>
+        <summary><span class="q">Q</span>正社員ではなく顧問・業務委託でのマッチングも可能ですか？</summary>
+        <div class="a">可能です。週1〜2日の社外CXO・顧問・業務委託といった形から始めて、実績を見てから正社員採用に切り替えるケースも多くご支援しています。</div>
+      </details>
+      <details>
+        <summary><span class="q">Q</span>どのような職種・ポジションを扱っていますか？</summary>
+        <div class="a">CFO・COO・CMO・CTO・CSO・CHROなどのCXOポジション、および事業部長・事業責任者・幹部候補クラスを中心に扱っています。ご要件に応じてご相談ください。</div>
+      </details>
+      <details>
+        <summary><span class="q">Q</span>守秘義務は守られますか？</summary>
+        <div class="a">はい。採用要件・候補者情報ともに厳重に管理します。ご成約前の情報開示範囲についても、貴社の方針に合わせて対応します。</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- Final CTA + Form -->
+<section class="final" id="contact">
+  <div class="container">
+    <div class="final-in">
+      <div class="final-kicker">FREE CONSULTATION</div>
+      <h2>まず、相談してみてください。</h2>
+      <p class="lead">採用要件が固まっていなくても構いません。「こういう人材がいたら」というレベルから<br>一緒に考えます。初回ヒアリングは無料です。</p>
+      <div class="form-card">
+        <div class="form-row">
+          <label>会社名<span class="req">必須</span></label>
+          <input type="text" placeholder="株式会社〇〇">
+        </div>
+        <div class="form-row">
+          <label>お名前<span class="req">必須</span></label>
+          <input type="text" placeholder="山田 太郎">
+        </div>
+        <div class="form-row">
+          <label>メールアドレス<span class="req">必須</span></label>
+          <input type="email" placeholder="yamada@example.com">
+        </div>
+        <div class="form-row">
+          <label>採用したいポジション<span class="req">必須</span></label>
+          <select>
+            <option>選択してください</option>
+            <option>CFO（最高財務責任者）</option>
+            <option>COO（最高執行責任者）</option>
+            <option>CMO（最高マーケティング責任者）</option>
+            <option>CTO（最高技術責任者）</option>
+            <option>事業責任者・事業部長クラス</option>
+            <option>社外CXO・顧問・業務委託</option>
+            <option>その他・まだ決まっていない</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label>採用の背景・課題（任意）</label>
+          <textarea placeholder="会社のフェーズ、現在の課題、求める人物像など、自由にご記入ください。"></textarea>
+        </div>
+        <label class="consent">
+          <input type="checkbox">
+          <span><a href="#">プライバシーポリシー</a>および<a href="#">利用規約</a>に同意します。</span>
+        </label>
+        <a class="btn btn-red" href="javascript:void(0)" onclick="alert('実装時にGoogleフォームと接続します')">採用相談を申し込む（無料）</a>
+        <div class="form-note">※ 通常2営業日以内にご返信します。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-in">
+    <span class="flogo">CXO CIRCUIT</span>
+    <a href="index.html">求職者の方はこちら</a>
+    <a href="#service">サービス</a>
+    <a href="#proof">採用実績</a>
+    <a href="#fee">費用</a>
+    <a href="#faq">FAQ</a>
+    <a href="#">プライバシーポリシー</a>
+    <a href="#">利用規約</a>
+    <span class="copy">© 2026 Beyondge Inc.</span>
+  </div>
+</footer>
+
+</body>
+</html>
