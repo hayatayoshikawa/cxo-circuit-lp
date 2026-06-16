@@ -6,12 +6,13 @@
 <title>CXO CIRCUIT｜経営に挑むキャリアは、ここから始まる。</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Space+Mono:wght@400;700&family=Caveat:wght@600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Space+Mono:wght@400;700&family=Barlow+Condensed:wght@600;700;800&family=Cormorant+Garamond:ital,wght@1,600&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#0A0B0E; --bg-2:#0E1014; --ink:#F4F4F0; --mute:#9AA0A8;
   --lime:#C7F046; --blue:#5B8CFF; --line:rgba(255,255,255,.16);
-  --arch:'Archivo',sans-serif; --mono:'Space Mono',monospace; --hand:'Caveat',cursive; --jp:'Noto Sans JP',sans-serif;
+  --arch:'Archivo',sans-serif; --mono:'Space Mono',monospace; --jp:'Noto Sans JP',sans-serif;
+  --cond:'Barlow Condensed',sans-serif; --serif:'Cormorant Garamond',serif;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:var(--bg);color:var(--ink);font-family:var(--jp);overflow-x:hidden}
@@ -78,8 +79,8 @@ nav a:hover{color:var(--lime)}
 .lug .top{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1.5px dashed #16140f;padding-bottom:9px}
 .lug .flt{font-family:var(--arch);font-weight:800;font-size:13px;letter-spacing:.02em}
 .lug .cls{font-family:var(--mono);font-size:9px;letter-spacing:.1em}
-.lug .dest{font-family:var(--arch);font-weight:900;font-size:30px;line-height:1;margin-top:10px;letter-spacing:-.01em}
-.lug .destjp{font-family:var(--jp);font-weight:700;font-size:13px;margin-top:3px}
+.lug .dest{font-family:var(--cond);font-weight:800;font-size:32px;line-height:1;margin-top:10px;letter-spacing:.04em;text-transform:uppercase}
+.lug .destsub{font-family:var(--cond);font-weight:600;font-size:11px;margin-top:4px;letter-spacing:.14em;text-transform:uppercase;opacity:.75}
 .lug .code{height:34px;margin-top:11px;background:repeating-linear-gradient(90deg,#16140f 0 2px,transparent 2px 4px,#16140f 4px 5px,transparent 5px 9px,#16140f 9px 11px,transparent 11px 14px);border-radius:1px}
 .lug .no{font-family:var(--mono);font-size:8.5px;letter-spacing:.08em;margin-top:7px}
 
@@ -94,21 +95,21 @@ nav a:hover{color:var(--lime)}
 /* ネオン緑バッジ（NEXT STOP 経営行き） */
 .badge{--r:-6deg;bottom:12%;right:30%;width:122px;height:122px;border-radius:50%;background:var(--lime);color:#10130a;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;transform:rotate(var(--r));box-shadow:0 18px 44px rgba(199,240,70,.3)}
 .badge .t1{font-family:var(--mono);font-size:9px;letter-spacing:.16em;font-weight:700}
-.badge .t2{font-family:var(--arch);font-weight:900;font-size:15px;line-height:1.05;margin:4px 0}
-.badge .t3{font-family:var(--jp);font-weight:700;font-size:13px}
+.badge .t2{font-family:var(--cond);font-weight:800;font-size:17px;line-height:1;margin:4px 0;letter-spacing:.06em;text-transform:uppercase}
+.badge .t3{font-family:var(--cond);font-weight:600;font-size:12px;letter-spacing:.1em;text-transform:uppercase}
 
 /* ホログラム箔ラベル */
 .holo{--r:7deg;bottom:20%;right:5%;padding:13px 20px;border-radius:40px;transform:rotate(var(--r));color:#10130a;
   background:linear-gradient(115deg,#a0e9ff,#c7f046 28%,#ffa6df 52%,#9bb8ff 78%,#a0e9ff);background-size:280% 100%;
   animation:float 10s ease-in-out infinite,holo 5s linear infinite;box-shadow:0 16px 40px rgba(150,180,255,.3)}
 @keyframes holo{to{background-position:280% 0}}
-.holo .t{font-family:var(--hand);font-weight:700;font-size:20px;line-height:.95;text-align:center}
+.holo .t{font-family:var(--serif);font-weight:600;font-style:italic;font-size:20px;line-height:.95;text-align:center}
 .holo .s{font-family:var(--mono);font-size:8px;letter-spacing:.12em;text-align:center;margin-top:1px}
 
 /* 入国スタンプ風（経営行き） */
 .stamp{--r:-14deg;top:30%;right:31%;width:96px;height:96px;border:2px solid var(--lime);border-radius:50%;display:flex;align-items:center;justify-content:center;transform:rotate(var(--r));opacity:.92}
 .stamp .in{width:74px;height:74px;border:1px solid var(--lime);border-radius:50%;display:flex;align-items:center;justify-content:center;position:relative}
-.stamp .jp{font-family:var(--jp);font-weight:700;font-size:19px;color:var(--lime);letter-spacing:.1em}
+.stamp .jp{font-family:var(--cond);font-weight:800;font-size:15px;color:var(--lime);letter-spacing:.12em;text-transform:uppercase}
 .stamp svg{position:absolute;inset:0}
 .stamp .ring-txt{font-family:var(--mono);font-size:7px;letter-spacing:.2em;fill:var(--lime)}
 
@@ -280,22 +281,22 @@ footer.ft{position:relative;z-index:5;background:var(--bg);border-top:1px solid 
   <div class="stk lug">
     <span class="hole"></span>
     <div class="top"><span class="flt">CXO 2026</span><span class="cls">ONE WAY</span></div>
-    <div class="dest">TO: 経営</div>
-    <div class="destjp">行き先：ボードルーム</div>
+    <div class="dest">TO: C-SUITE</div>
+    <div class="destsub">DESTINATION: BOARDROOM</div>
     <div class="code"></div>
     <div class="no">CXO-CIRCUIT / NO.0614 / NEXT</div>
   </div>
 
   <div class="stk pass s2">
     <div class="ph">BOARDING PASS</div>
-    <div class="pr"><span class="a">現在地</span><span class="ar">———→</span><span class="a">経営</span></div>
+    <div class="pr"><span class="a">ORIGIN</span><span class="ar">———→</span><span class="a">C-SUITE</span></div>
     <div class="meta2"><span>GATE / NEXT</span><span>SEAT / 01A</span><span>2026</span></div>
   </div>
 
   <div class="stk badge s3">
     <div class="t1">NEXT STOP</div>
-    <div class="t2">経営</div>
-    <div class="t3">行き</div>
+    <div class="t2">C-SUITE</div>
+    <div class="t3">BOUND</div>
   </div>
 
   <div class="stk holo s4">
@@ -304,7 +305,7 @@ footer.ft{position:relative;z-index:5;background:var(--bg);border-top:1px solid 
   </div>
 
   <div class="stk stamp s2">
-    <div class="in"><span class="jp">経営行</span></div>
+    <div class="in"><span class="jp">C-SUITE</span></div>
     <svg viewBox="0 0 96 96" aria-hidden="true">
       <defs><path id="sp" d="M48,48 m-40,0 a40,40 0 1,1 80,0 a40,40 0 1,1 -80,0"/></defs>
       <text class="ring-txt"><textPath href="#sp">· DEPARTURE · CXO CIRCUIT · 2026 · EXECUTIVE </textPath></text>
