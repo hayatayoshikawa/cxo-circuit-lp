@@ -115,189 +115,255 @@
     }
     .nav-cta:hover { opacity: .88; transform: translateY(-1px); }
 
-    /* ── HERO ── */
+    /* ── HERO（ポスター調） ── */
     .hero {
       position: relative;
       width: 100vw;
-      height: 100vh;
+      min-height: 100vh;
       overflow: hidden;
-      background: #0A0507;
+      background: #F4F0E8;
+      isolation: isolate;
     }
-
-    /* スライドショー */
-    .hero-slides { position: absolute; inset: 0; z-index: 0; }
-    .hero-slide {
-      position: absolute; inset: 0;
-      background-size: cover; background-position: center;
-      opacity: 0; transform: scale(1.07);
-      transition: opacity .55s ease-in-out, transform 4s ease-out;
-    }
-    .hero-slide.active { opacity: 1; transform: scale(1); }
-
-    /* オーバーレイ：左暗・中央抜き・右暗 */
-    .hero-overlay {
-      position: absolute; inset: 0; z-index: 1; pointer-events: none;
+    /* 紙テクスチャ風のうっすらノイズ */
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0; z-index: 0;
       background:
-        linear-gradient(to right,
-          rgba(8,3,5,.96) 0%,
-          rgba(60,10,22,.82) 22%,
-          rgba(20,5,10,.52) 45%,
-          rgba(10,4,7,.65) 72%,
-          rgba(8,3,5,.92) 100%);
-    }
-    .hero-overlay::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: linear-gradient(to bottom,
-        rgba(8,3,5,.60) 0%, transparent 20%,
-        transparent 72%, rgba(8,3,5,.80) 100%);
-    }
-    /* 左端えんじライン */
-    .hero-overlay::after {
-      content: '';
-      position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
-      background: linear-gradient(to bottom, transparent, var(--enja), transparent);
+        radial-gradient(circle at 78% 42%, rgba(216,12,24,.05), transparent 55%),
+        radial-gradient(circle at 15% 80%, rgba(0,0,0,.04), transparent 50%);
+      pointer-events: none;
     }
 
-    /* 速線 */
-    .speed-layer { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
-    .speed-layer line { animation: rush 1.1s cubic-bezier(.22,.9,.36,1) both; }
-    @keyframes rush {
-      from { stroke-dashoffset: 2000; }
-      to   { stroke-dashoffset: 0; }
-    }
+    /* 上下の破れた黒インクの帯 */
+    .torn { position: absolute; left: 0; width: 100%; z-index: 9; pointer-events: none; }
+    .torn-top { top: -2px; }
+    .torn-bottom { bottom: -2px; transform: scaleY(-1); }
+    .torn svg { display: block; width: 100%; height: 90px; }
+    @media (max-width: 700px){ .torn svg { height: 54px; } }
 
-    /* カーソルグロー */
-    .cursor-glow {
-      position: absolute; width: 480px; height: 480px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(255,255,255,.06) 0%, transparent 65%);
-      pointer-events: none; z-index: 4;
-      transform: translate(-50%, -50%);
-      transition: left .18s ease, top .18s ease;
-      opacity: 0;
-    }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(32px); }
-      to   { opacity: 1; transform: none; }
-    }
-
-    /* ── 巨大テキスト（左） ── */
-    .big-text {
+    /* 巨大な赤テキスト（背面レイヤー） */
+    .poster-text {
       position: absolute;
-      left: -2vw;
-      top: 50%;
-      transform: translateY(-50%);
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
       font-family: var(--zen);
       font-weight: 900;
-      font-size: clamp(72px, 17vw, 256px);
-      line-height: 1.05;
-      letter-spacing: -.025em;
-      color: #fff;
-      white-space: nowrap;
-      pointer-events: none;
-      user-select: none;
-      z-index: 5;
-      opacity: 0;
-      animation: fadeUp .9s .25s cubic-bezier(.22,.9,.36,1) forwards;
+      color: #D80C18;
+      letter-spacing: -.03em;
+      line-height: .92;
+      word-break: keep-all;
     }
+    .poster-text span {
+      position: absolute;
+      white-space: nowrap;
+      display: block;
+      opacity: 0;
+      transform: translateY(24px);
+      animation: fadeUp .8s cubic-bezier(.22,.9,.36,1) forwards;
+      text-shadow: 0 2px 0 rgba(150,8,16,.18);
+    }
+    .pt1 { top: 9%;  left: 2.5%; font-size: clamp(46px, 9.5vw, 150px); animation-delay: .15s; }
+    .pt2 { top: 33%; left: 2.5%; font-size: clamp(40px, 8.4vw, 132px); animation-delay: .28s; }
+    .pt3 { top: 33%; right: 8%;  font-size: clamp(40px, 8.4vw, 132px); animation-delay: .40s; }
+    .pt4 { bottom: 9%; left: 1.5%; font-size: clamp(58px, 13vw, 210px); animation-delay: .52s; }
 
-    /* ── 人物（中央） ── */
+    /* 人物（前面） */
     .hero-person {
       position: absolute;
       bottom: 0;
       left: 50%;
-      transform: translateX(-48%);
-      height: 100%;
-      width: 54vw;
-      max-width: 820px;
-      z-index: 8;
+      transform: translateX(-50%);
+      height: 96%;
+      z-index: 4;
       pointer-events: none;
       opacity: 0;
-      animation: fadeUp 1s .55s cubic-bezier(.22,.9,.36,1) forwards;
+      animation: fadeUpBig 1s .35s cubic-bezier(.22,.9,.36,1) forwards;
+      filter: drop-shadow(0 20px 40px rgba(0,0,0,.28)) contrast(1.06);
     }
     .hero-person img {
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
       height: 100%;
       width: auto;
       max-width: none;
-      object-position: top center;
-      -webkit-mask-image:
-        linear-gradient(to right, transparent 0%, rgba(0,0,0,.8) 16%, black 36%, black 64%, rgba(0,0,0,.55) 82%, transparent 100%),
-        linear-gradient(to bottom, rgba(0,0,0,.85) 0%, black 12%, black 68%, transparent 96%);
-      mask-image:
-        linear-gradient(to right, transparent 0%, rgba(0,0,0,.8) 16%, black 36%, black 64%, rgba(0,0,0,.55) 82%, transparent 100%),
-        linear-gradient(to bottom, rgba(0,0,0,.85) 0%, black 12%, black 68%, transparent 96%);
-      -webkit-mask-composite: destination-in;
-      mask-composite: intersect;
+      object-fit: contain;
+      object-position: bottom center;
     }
 
-    /* ── 右：差別化メッセージカラム ── */
-    .info-col {
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: none; }
+    }
+    @keyframes fadeUpBig {
+      from { opacity: 0; transform: translate(-50%, 36px); }
+      to   { opacity: 1; transform: translate(-50%, 0); }
+    }
+    @keyframes popIn {
+      0%   { opacity: 0; transform: scale(.82) rotate(var(--rot, 0deg)); }
+      70%  { transform: scale(1.04) rotate(var(--rot, 0deg)); }
+      100% { opacity: 1; transform: scale(1) rotate(var(--rot, 0deg)); }
+    }
+
+    /* 左上：黒インクのバッジ */
+    .badge-tl {
       position: absolute;
-      right: 3%;
-      top: 50%;
-      transform: translateY(-50%);
-      z-index: 15;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      max-width: 300px;
+      top: 8%; left: 2.5%;
+      z-index: 6;
+      background: #111;
+      color: #fff;
+      padding: 14px 26px 16px;
+      transform: rotate(-1.5deg);
+      box-shadow: 6px 8px 0 rgba(0,0,0,.12);
+      clip-path: polygon(2% 8%, 98% 0, 100% 88%, 1% 100%);
       opacity: 0;
-      animation: fadeUp .7s .80s cubic-bezier(.22,.9,.36,1) forwards;
+      animation: popIn .6s .9s cubic-bezier(.22,1.2,.4,1) forwards;
     }
-    .info-label {
-      font-family: var(--arch);
-      font-size: 10px; font-weight: 700;
-      letter-spacing: .22em; text-transform: uppercase;
-      color: rgba(255,255,255,.48);
-      margin-bottom: 14px; text-align: right;
-    }
-    .info-main {
+    .badge-tl b {
+      display: block;
       font-family: var(--jp);
       font-weight: 700;
-      font-size: clamp(14px, 1.5vw, 20px);
-      line-height: 1.65; text-align: right;
-      word-break: keep-all; margin-bottom: 20px;
+      font-size: clamp(13px, 1.5vw, 19px);
+      line-height: 1.5;
+      word-break: keep-all;
     }
-    .info-main em {
-      font-style: normal; display: block;
-      font-size: .72em; font-weight: 400;
-      color: rgba(255,255,255,.60); margin-top: 4px;
+    .badge-tl b em { font-style: normal; color: #FF3040; }
+
+    /* 右：円形バッジ */
+    .badge-circle {
+      position: absolute;
+      top: 30%; right: 3.5%;
+      z-index: 6;
+      width: clamp(118px, 13vw, 170px);
+      height: clamp(118px, 13vw, 170px);
+      border-radius: 50%;
+      background: #D80C18;
+      color: #fff;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      padding: 14px;
+      box-shadow: 0 14px 30px rgba(216,12,24,.35);
+      transform: rotate(3deg);
+      --rot: 3deg;
+      opacity: 0;
+      animation: popIn .6s 1.05s cubic-bezier(.22,1.2,.4,1) forwards;
     }
-    .divider { width: 100%; height: 1px; background: rgba(255,255,255,.22); margin: 18px 0; }
-    .agent-tags { display: flex; flex-direction: column; gap: 8px; align-items: flex-end; margin-bottom: 26px; }
-    .agent-tag {
-      font-family: var(--jp); font-size: 12px; font-weight: 500;
-      color: rgba(255,255,255,.80);
-      background: rgba(255,255,255,.11); border: 1px solid rgba(255,255,255,.18);
-      padding: 5px 14px; border-radius: 40px; white-space: nowrap;
+    .badge-circle .bc-main {
+      font-family: var(--zen); font-weight: 900;
+      font-size: clamp(15px, 1.7vw, 22px);
+      line-height: 1.28; word-break: keep-all;
     }
-    .cta-btn {
-      position: relative;
-      display: inline-flex; align-items: center; gap: 8px;
-      background: #fff; color: var(--enja);
-      font-weight: 700; font-size: clamp(13px, 1.1vw, 15px);
-      padding: 14px 28px; border-radius: 40px;
-      overflow: hidden;
+    .badge-circle .bc-main em { font-style: normal; font-size: .72em; }
+    .badge-circle .bc-sub {
+      font-family: var(--jp); font-weight: 500;
+      font-size: clamp(9px, .9vw, 11px);
+      margin-top: 7px; line-height: 1.5; opacity: .92;
+    }
+
+    /* 右下：チェック項目 */
+    .checks {
+      position: absolute;
+      right: 2.5%; bottom: 21%;
+      z-index: 6;
+      display: flex; flex-direction: column; gap: 10px;
+      width: clamp(240px, 24vw, 300px);
+    }
+    .check-item {
+      display: flex; align-items: center; gap: 11px;
+      background: #111;
+      color: #fff;
+      padding: 11px 26px 11px 14px;
+      clip-path: polygon(1% 6%, 99% 0, 100% 92%, 0% 100%);
+      opacity: 0;
+      transform: translateX(28px);
+      animation: slideInR .55s cubic-bezier(.22,.9,.36,1) forwards;
+    }
+    .checks .check-item:nth-child(1){ animation-delay: 1.15s; }
+    .checks .check-item:nth-child(2){ animation-delay: 1.28s; }
+    .checks .check-item:nth-child(3){ animation-delay: 1.41s; }
+    @keyframes slideInR {
+      to { opacity: 1; transform: none; }
+    }
+    .check-mark {
+      flex-shrink: 0;
+      width: 22px; height: 22px; border-radius: 50%;
+      background: #D80C18;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .check-mark svg { width: 12px; height: 12px; }
+    .check-item span {
+      font-family: var(--jp); font-weight: 700;
+      font-size: clamp(11px, 1.1vw, 13.5px);
+      line-height: 1.4; word-break: keep-all;
+    }
+
+    /* 下部バー：ロゴ＋CTA */
+    .hero-bar {
+      position: absolute;
+      left: 50%; bottom: 5.5%;
+      transform: translateX(-50%);
+      z-index: 8;
+      width: min(92%, 980px);
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 24px;
+      background: rgba(255,255,255,.78);
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(0,0,0,.08);
+      border-radius: 8px;
+      padding: 14px 16px 14px 22px;
+      box-shadow: 0 18px 40px rgba(0,0,0,.14);
+      opacity: 0;
+      animation: barIn .7s 1.3s cubic-bezier(.22,.9,.36,1) forwards;
+    }
+    @keyframes barIn {
+      from { opacity: 0; transform: translate(-50%, 24px); }
+      to   { opacity: 1; transform: translate(-50%, 0); }
+    }
+    .hero-bar-brand { display: flex; align-items: center; gap: 14px; }
+    .hero-bar-brand img { height: clamp(34px, 4vw, 46px); width: auto; }
+    .hero-bar-brand .hbb-txt { line-height: 1.25; }
+    .hero-bar-brand .hbb-name {
+      font-family: var(--zen); font-weight: 900;
+      font-size: clamp(17px, 2vw, 26px); color: #111;
+      letter-spacing: -.01em;
+    }
+    .hero-bar-brand .hbb-tag {
+      font-family: var(--jp); font-weight: 500;
+      font-size: clamp(10px, 1vw, 12.5px); color: #555;
+      margin-top: 2px;
+    }
+    .hero-bar-cta {
+      position: relative; overflow: hidden;
+      flex-shrink: 0;
+      background: #D80C18; color: #fff;
+      font-family: var(--jp); font-weight: 700;
+      font-size: clamp(14px, 1.4vw, 18px);
+      padding: 15px 30px; border-radius: 6px;
+      display: inline-flex; align-items: center; gap: 10px;
       transition: transform .2s, box-shadow .2s;
     }
-    .cta-btn::before {
+    .hero-bar-cta::before {
       content: ''; position: absolute; inset: 0;
-      background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,.5) 50%, transparent 70%);
+      background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,.45) 50%, transparent 70%);
       transform: translateX(-100%); transition: transform .5s;
     }
-    .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(0,0,0,.25); }
-    .cta-btn:hover::before { transform: translateX(100%); }
+    .hero-bar-cta:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(216,12,24,.4); }
+    .hero-bar-cta:hover::before { transform: translateX(100%); }
 
-    .foot-note {
-      position: absolute; bottom: 5%; left: 50%; transform: translateX(-50%);
-      z-index: 20; font-size: 11px; color: rgba(255,255,255,.28);
-      white-space: nowrap; letter-spacing: .12em;
-      opacity: 0; animation: fadeUp .6s 1.1s forwards;
+    .foot-note { display: none; }
+
+    /* ヒーロー：レスポンシブ（縦積み） */
+    @media (max-width: 860px) {
+      .hero { min-height: auto; padding: 90px 0 30px; }
+      .poster-text { position: relative; height: auto; padding: 8px 18px 0; }
+      .poster-text span { position: static; display: block; animation: fadeUp .7s forwards; white-space: normal; }
+      .pt1{font-size:13vw;} .pt2{font-size:12vw;} .pt3{font-size:12vw;} .pt4{font-size:18vw;}
+      .hero-person { position: relative; height: auto; left: auto; transform: none; margin: -6vw auto 0; width: 80%; animation: fadeUp .8s .2s forwards; }
+      .hero-person img { width: 100%; height: auto; }
+      .badge-tl { position: relative; top: auto; left: auto; display: inline-block; margin: 0 18px 12px; transform: rotate(-1.5deg); animation: fadeUp .5s forwards; }
+      .badge-circle { position: relative; top: auto; right: auto; margin: 18px auto 0; animation: fadeUp .5s forwards; }
+      .checks { position: relative; right: auto; bottom: auto; margin: 18px auto 0; max-width: 90%; padding: 0 18px; }
+      .check-item { transform: none; animation: fadeUp .5s forwards; }
+      .hero-bar { position: relative; left: auto; bottom: auto; transform: none; margin: 28px auto 0; flex-wrap: wrap; justify-content: center; text-align: center; animation: fadeUp .6s forwards; }
     }
 
     /* ── § 共通 ── */
@@ -787,69 +853,86 @@
   <a class="nav-cta" href="#contact">無料相談する</a>
 </nav>
 
-<!-- § 1 ヒーロー -->
+<!-- § 1 ヒーロー（ポスター調） -->
 <section class="hero" id="hero">
 
-  <!-- スライドショー背景 -->
-  <div class="hero-slides" id="heroSlides">
-    <div class="hero-slide active" style="background-image:url('https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1920&q=80')"></div>
-    <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=1920&q=80')"></div>
-    <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=1920&q=80')"></div>
-    <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=1920&q=80')"></div>
-    <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1560472354-b33ff0c44a43?auto=format&fit=crop&w=1920&q=80')"></div>
-    <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1920&q=80')"></div>
-    <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1920&q=80')"></div>
-    <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1531538606174-0f90ff5dce83?auto=format&fit=crop&w=1920&q=80')"></div>
+  <!-- 上：破れた黒インクの帯 -->
+  <div class="torn torn-top" aria-hidden="true">
+    <svg viewBox="0 0 1440 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <filter id="rough-top"><feTurbulence type="fractalNoise" baseFrequency="0.012 0.04" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="46"/></filter>
+      </defs>
+      <rect x="-20" y="-40" width="1480" height="92" fill="#111" filter="url(#rough-top)"/>
+    </svg>
   </div>
 
-  <!-- オーバーレイ -->
-  <div class="hero-overlay"></div>
+  <!-- 巨大な赤テキスト（背面） -->
+  <div class="poster-text" aria-hidden="true">
+    <span class="pt1">経営の未来は、</span>
+    <span class="pt2">あなたの</span>
+    <span class="pt3">決断で</span>
+    <span class="pt4">動く。</span>
+  </div>
 
-  <!-- カーソルグロー -->
-  <div class="cursor-glow" id="cursorGlow"></div>
+  <!-- 見出し（スクリーンリーダー用） -->
+  <h1 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);">経営の未来は、あなたの決断で動く。エージェント全員がCxOポジション経験者のCXOエージェント。</h1>
 
-  <!-- 速線 -->
-  <svg class="speed-layer" id="speedSvg" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice"
-       xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    <line x1="-200" y1="88"  x2="1800" y2="60"  stroke="white" stroke-width="1.5" opacity=".10" stroke-dasharray="2000" style="animation-delay:.05s"/>
-    <line x1="-200" y1="145" x2="1800" y2="120" stroke="white" stroke-width="3"   opacity=".07" stroke-dasharray="2000" style="animation-delay:.10s"/>
-    <line x1="-200" y1="240" x2="1800" y2="218" stroke="white" stroke-width="1"   opacity=".13" stroke-dasharray="2000" style="animation-delay:.15s"/>
-    <line x1="-200" y1="310" x2="1800" y2="290" stroke="white" stroke-width="4"   opacity=".06" stroke-dasharray="2000" style="animation-delay:.08s"/>
-    <line x1="-200" y1="420" x2="1800" y2="400" stroke="white" stroke-width="1"   opacity=".11" stroke-dasharray="2000" style="animation-delay:.18s"/>
-    <line x1="-200" y1="490" x2="1800" y2="472" stroke="white" stroke-width="2.5" opacity=".08" stroke-dasharray="2000" style="animation-delay:.12s"/>
-    <line x1="-200" y1="570" x2="1800" y2="554" stroke="white" stroke-width="1"   opacity=".14" stroke-dasharray="2000" style="animation-delay:.06s"/>
-    <line x1="-200" y1="650" x2="1800" y2="636" stroke="white" stroke-width="3.5" opacity=".06" stroke-dasharray="2000" style="animation-delay:.20s"/>
-    <line x1="-200" y1="730" x2="1800" y2="718" stroke="white" stroke-width="1"   opacity=".10" stroke-dasharray="2000" style="animation-delay:.14s"/>
-    <line x1="-200" y1="810" x2="1800" y2="800" stroke="white" stroke-width="2"   opacity=".08" stroke-dasharray="2000" style="animation-delay:.09s"/>
-  </svg>
-
-  <!-- 巨大テキスト -->
-  <div class="big-text">全員経営層の<br>エージェントが、<br>あなたのCXO<br>キャリアを<br>支援する。</div>
-
-  <!-- 人物 -->
+  <!-- 人物（前面） -->
   <div class="hero-person">
-    <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=900&q=80" alt="">
+    <img src="assets/person.png" alt="">
   </div>
 
-  <!-- 右：差別化メッセージ -->
-  <div class="info-col">
-    <p class="info-label">WHY CXO AGENT</p>
-    <p class="info-main">
-      経営を経験した人間にしか、<br>経営の転職は語れない。
-      <em>代表・CFO・CTO経験者が<br>直接担当します。</em>
-    </p>
-    <div class="divider"></div>
-    <div class="agent-tags">
-      <span class="agent-tag">スタートアップ代表経験者</span>
-      <span class="agent-tag">M&amp;A・投資実績あり</span>
-      <span class="agent-tag">経営層直結の非公開求人</span>
+  <!-- 左上：黒インクのバッジ -->
+  <div class="badge-tl">
+    <b>エージェント全員が<br><em>CxOポジション</em>経験者</b>
+  </div>
+
+  <!-- 右：円形バッジ -->
+  <div class="badge-circle">
+    <div class="bc-main"><em>CXO特化の</em><br>非公開求人<br>多数</div>
+    <div class="bc-sub">経営の中枢で、<br>次のステージへ。</div>
+  </div>
+
+  <!-- 右下：チェック項目 -->
+  <div class="checks">
+    <div class="check-item">
+      <span class="check-mark"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      <span>スタートアップ代表経験者がサポート</span>
     </div>
-    <a class="cta-btn" href="#contact">無料相談する →</a>
+    <div class="check-item">
+      <span class="check-mark"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      <span>M&amp;A・投資実績のある案件多数</span>
+    </div>
+    <div class="check-item">
+      <span class="check-mark"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      <span>年収1,000万円以上の求人が中心</span>
+    </div>
   </div>
 
-  <p class="foot-note">OPERATED BY BEYONDGE 株式会社 — 登録・相談 完全無料</p>
+  <!-- 下部バー：ロゴ＋CTA -->
+  <div class="hero-bar">
+    <div class="hero-bar-brand">
+      <img src="assets/logo.png" alt="CXOエージェント">
+      <div class="hbb-txt">
+        <div class="hbb-name">CXOエージェント</div>
+        <div class="hbb-tag">経営層のキャリアに、確かな選択肢を。</div>
+      </div>
+    </div>
+    <a class="hero-bar-cta" href="#contact">無料相談する <span>→</span></a>
+  </div>
+
+  <!-- 下：破れた黒インクの帯 -->
+  <div class="torn torn-bottom" aria-hidden="true">
+    <svg viewBox="0 0 1440 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <filter id="rough-bot"><feTurbulence type="fractalNoise" baseFrequency="0.012 0.04" numOctaves="3" seed="3" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="46"/></filter>
+      </defs>
+      <rect x="-20" y="-40" width="1480" height="92" fill="#111" filter="url(#rough-bot)"/>
+    </svg>
+  </div>
 
 </section>
+
 
 <!-- § 2 なぜ経営者がエージェントなのか -->
 <section class="sec sec-why">
@@ -1134,15 +1217,6 @@
 <script>
 (function(){
 
-  /* ── スライドショー ── */
-  var slides = document.querySelectorAll('.hero-slide');
-  var cur = 0;
-  setInterval(function() {
-    slides[cur].classList.remove('active');
-    cur = (cur + 1) % slides.length;
-    slides[cur].classList.add('active');
-  }, 1800);
-
   /* ── スクロール進捗バー ── */
   var bar = document.getElementById('scrollBar');
   var nav = document.getElementById('mainNav');
@@ -1151,32 +1225,31 @@
     var pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
     bar.style.width = pct + '%';
     nav.classList.toggle('scrolled', h.scrollTop > 60);
+
+    /* 人物のスクロールパララックス */
+    if (person) {
+      var off = Math.min(h.scrollTop, window.innerHeight) * 0.12;
+      person.style.translate = '0 ' + off + 'px';
+    }
   }
   window.addEventListener('scroll', onScroll, { passive: true });
 
-  /* ── カーソルグロー（ヒーローのみ） ── */
-  var glow = document.getElementById('cursorGlow');
+  /* ── ヒーロー：マウスパララックス ── */
   var hero = document.getElementById('hero');
-  hero.addEventListener('mousemove', function(e) {
-    var r = hero.getBoundingClientRect();
-    glow.style.left = (e.clientX - r.left) + 'px';
-    glow.style.top  = (e.clientY - r.top)  + 'px';
-    glow.style.opacity = '1';
-  });
-  hero.addEventListener('mouseleave', function() {
-    glow.style.opacity = '0';
-  });
-
-  /* ── 速線マウスパラレックス ── */
-  var svg = document.getElementById('speedSvg');
-  hero.addEventListener('mousemove', function(e) {
-    var cx = e.clientX / window.innerWidth  - 0.5;
-    var cy = e.clientY / window.innerHeight - 0.5;
-    svg.style.transform = 'translate(' + (cx * 14) + 'px,' + (cy * 8) + 'px)';
-  });
-  hero.addEventListener('mouseleave', function() {
-    svg.style.transform = '';
-  });
+  var person = document.querySelector('.hero-person');
+  var poster = document.querySelector('.poster-text');
+  if (hero && window.matchMedia('(min-width: 861px)').matches) {
+    hero.addEventListener('mousemove', function(e) {
+      var cx = e.clientX / window.innerWidth  - 0.5;
+      var cy = e.clientY / window.innerHeight - 0.5;
+      if (poster) poster.style.transform = 'translate(' + (cx * 18) + 'px,' + (cy * 12) + 'px)';
+      if (person) person.style.marginLeft = (cx * -22) + 'px';
+    });
+    hero.addEventListener('mouseleave', function() {
+      if (poster) poster.style.transform = '';
+      if (person) person.style.marginLeft = '';
+    });
+  }
 
   /* ── スクロールリビール ── */
   var io = new IntersectionObserver(function(entries) {
