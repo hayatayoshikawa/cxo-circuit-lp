@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="ja" class="js">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CXO AGENT — 経営層のキャリアに、確かな選択肢を。</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Shippori+Mincho:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <script>document.documentElement.className='js';</script>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --wine:#6E1B2E; --wine-d:#511325; --wine-l:#8a2c41;
+      --cream:#F3ECDB; --cream2:#EAE1CC; --paper:#FBF7EE;
+      --ink:#1F2128; --ink2:#15171C;
+      --gold:#B08628; --gold-l:#C9A24B;
+      --body:#473F36; --mute:#8C8070;
+      --line:rgba(31,33,40,.14); --goldline:rgba(176,134,40,.5);
+      --en:'Marcellus',serif; --mc:'Shippori Mincho',serif; --sans:'Noto Sans JP',sans-serif;
+    }
+    html,body{scroll-behavior:smooth}
+    body{font-family:var(--mc); background:var(--cream); color:var(--body); overflow-x:hidden; line-height:1.9; -webkit-font-smoothing:antialiased}
+    a{text-decoration:none;color:inherit}
+    img{display:block;max-width:100%}
+    ::selection{background:var(--wine);color:var(--cream)}
+
+    /* reveal */
+    .rv{}
+    .js .rv{opacity:0;transform:translateY(26px);transition:opacity .9s cubic-bezier(.2,.8,.3,1),transform .9s cubic-bezier(.2,.8,.3,1)}
+    .js .rv.in{opacity:1;transform:none}
+    .d1{transition-delay:.1s}.d2{transition-delay:.22s}.d3{transition-delay:.34s}.d4{transition-delay:.46s}
+
+    /* section title (English serif + JP sub) */
+    .eyebrow{font-family:var(--en);font-size:clamp(22px,2.6vw,34px);letter-spacing:.04em;color:var(--wine);text-align:center}
+    .eyebrow.light{color:var(--gold-l)}
+    .eyebrow-rule{width:46px;height:1px;background:var(--gold);margin:18px auto 0}
+    .sec{padding:clamp(72px,9vw,128px) clamp(20px,5vw,56px);position:relative}
+    .inner{max-width:1120px;margin:0 auto}
+
+    /* NAV */
+    nav{position:fixed;inset:0 0 auto 0;height:70px;display:flex;align-items:center;justify-content:space-between;
+      padding:0 clamp(20px,5vw,52px);z-index:100;background:rgba(243,236,219,.85);backdrop-filter:blur(10px);
+      -webkit-backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:border-color .3s,background .3s}
+    nav.scrolled{border-color:var(--goldline)}
+    .brand{font-family:var(--en);font-size:21px;letter-spacing:.14em;color:var(--ink)}
+    .brand small{display:block;font-family:var(--mc);font-size:9.5px;letter-spacing:.18em;color:var(--mute);margin-top:1px}
+    .nav-links{list-style:none;display:flex;gap:30px}
+    .nav-links a{font-family:var(--mc);font-size:13px;color:var(--body);transition:color .2s;position:relative}
+    .nav-links a:hover{color:var(--wine)}
+    .nav-cta{font-family:var(--mc);font-size:13px;color:var(--cream);background:var(--wine);padding:11px 24px;letter-spacing:.04em;transition:background .25s}
+    .nav-cta:hover{background:var(--wine-d)}
+
+    /* HERO */
+    .hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden}
+    .hero-bg{position:absolute;inset:0;z-index:0;background:url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat}
+    .hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(21,16,18,.78),rgba(50,18,28,.74) 55%,rgba(21,16,18,.85))}
+    .hero-frame{position:absolute;inset:clamp(16px,2.4vw,34px);border:1px solid rgba(201,162,75,.45);z-index:2;pointer-events:none}
+    .hero-content{position:relative;z-index:3;padding:90px 24px;max-width:780px}
+    .hero-kicker{font-family:var(--mc);font-size:clamp(11px,1.1vw,13px);letter-spacing:.42em;color:var(--gold-l);text-transform:uppercase}
+    .hero h1{font-family:var(--en);font-size:clamp(46px,8vw,104px);letter-spacing:.1em;color:var(--cream);line-height:1.05;margin:22px 0 6px}
+    .hero-tag{font-family:var(--mc);font-weight:500;font-size:clamp(16px,2vw,24px);color:var(--cream);line-height:1.9;letter-spacing:.04em;word-break:keep-all}
+    .hero-rule{width:60px;height:1px;background:var(--gold);margin:30px auto}
+    .hero-sub{font-size:clamp(13px,1.2vw,15px);color:rgba(243,236,219,.8);line-height:2;margin-bottom:36px;word-break:keep-all}
+    .btn-gold{display:inline-flex;align-items:center;gap:12px;font-family:var(--mc);font-size:15px;letter-spacing:.06em;
+      color:var(--ink);background:var(--gold);padding:16px 40px;transition:background .25s,transform .25s}
+    .btn-gold:hover{background:var(--gold-l);transform:translateY(-2px)}
+    .btn-outline{display:inline-flex;align-items:center;gap:10px;font-family:var(--mc);font-size:14px;letter-spacing:.05em;color:var(--cream);border:1px solid rgba(201,162,75,.55);padding:15px 32px;transition:background .25s,border-color .25s}
+    .btn-outline:hover{background:rgba(201,162,75,.12);border-color:var(--gold)}
+    .js .hero-content>*{opacity:0;transform:translateY(22px);animation:up 1s cubic-bezier(.2,.8,.3,1) forwards}
+    .js .hero-content>*:nth-child(1){animation-delay:.25s}
+    .js .hero-content>*:nth-child(2){animation-delay:.4s}
+    .js .hero-content>*:nth-child(3){animation-delay:.55s}
+    .js .hero-content>*:nth-child(4){animation-delay:.7s}
+    .js .hero-content>*:nth-child(5){animation-delay:.82s}
+    .js .hero-content>*:nth-child(6){animation-delay:.94s}
+    @keyframes up{to{opacity:1;transform:none}}
+
+    /* MANAGEMENT EXPERIENCE */
+    .me-lead{text-align:center;max-width:680px;margin:46px auto 56px;font-size:clamp(15px,1.3vw,17px);line-height:2.15;color:var(--body);word-break:keep-all}
+    .me-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(28px,4vw,56px);align-items:center}
+    .me-photos{position:relative}
+    .me-photos img{width:100%;filter:grayscale(.2) contrast(1.02)}
+    .me-photos .p1{aspect-ratio:4/3;object-fit:cover;box-shadow:0 24px 50px rgba(31,18,22,.22)}
+    .me-photos .p2{position:absolute;right:-6%;bottom:-14%;width:48%;aspect-ratio:3/4;object-fit:cover;border:6px solid var(--cream);box-shadow:0 18px 40px rgba(31,18,22,.28)}
+    .me-points{display:flex;flex-direction:column;gap:2px}
+    .me-point{background:var(--ink);color:var(--cream);padding:26px 30px;display:flex;gap:20px;align-items:flex-start}
+    .me-point .no{font-family:var(--en);font-size:22px;color:var(--gold-l);line-height:1.2;flex-shrink:0}
+    .me-point h3{font-family:var(--mc);font-weight:600;font-size:clamp(16px,1.4vw,19px);color:#fff;margin-bottom:8px;letter-spacing:.02em}
+    .me-point p{font-size:13.5px;line-height:1.95;color:rgba(243,236,219,.72)}
+
+    /* PHILOSOPHY (dark band) */
+    .philo{background:var(--ink2);color:var(--cream)}
+    .philo .eyebrow{color:var(--gold-l)}
+    .philo-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(32px,5vw,72px);align-items:center;margin-top:54px}
+    .philo-photo{aspect-ratio:4/5;object-fit:cover;width:100%;filter:grayscale(.3) contrast(1.05);border:1px solid rgba(201,162,75,.3)}
+    .philo-body h2{font-family:var(--mc);font-weight:700;font-size:clamp(22px,2.8vw,38px);line-height:1.55;color:#fff;letter-spacing:.02em;word-break:keep-all;margin-bottom:26px}
+    .philo-body h2 em{font-style:normal;color:var(--gold-l)}
+    .philo-body p{font-size:clamp(14px,1.2vw,16px);line-height:2.2;color:rgba(243,236,219,.78);margin-bottom:18px;word-break:keep-all}
+
+    /* JOB LISTINGS */
+    .jobs{background:var(--paper)}
+    .job-list{margin-top:50px;display:flex;flex-direction:column}
+    .job-row{display:grid;grid-template-columns:1.4fr 1fr auto;gap:24px;align-items:center;padding:24px 8px;border-bottom:1px solid var(--line);transition:background .25s}
+    .job-row:first-child{border-top:1px solid var(--line)}
+    .job-row:hover{background:var(--cream2)}
+    .job-pos{font-family:var(--mc);font-weight:600;font-size:clamp(16px,1.4vw,19px);color:var(--ink)}
+    .job-pos small{display:block;font-weight:400;font-size:12px;color:var(--mute);margin-top:3px}
+    .job-sal{font-family:var(--en);font-size:clamp(15px,1.4vw,18px);color:var(--wine);letter-spacing:.02em}
+    .job-btn{font-family:var(--mc);font-size:12.5px;color:var(--cream);background:var(--wine);padding:9px 20px;white-space:nowrap;transition:background .25s}
+    .job-btn:hover{background:var(--wine-d)}
+    .jobs-note{text-align:center;font-size:12px;color:var(--mute);margin-top:30px}
+
+    /* SERVICE FLOW */
+    .flow{background:var(--cream2)}
+    .flow-grid{margin-top:54px;display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(20px,2.5vw,36px)}
+    .flow-step{text-align:center;position:relative}
+    .flow-ic{width:74px;height:74px;border:1px solid var(--goldline);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 22px;color:var(--wine);background:var(--cream)}
+    .flow-ic svg{width:32px;height:32px}
+    .flow-en{font-family:var(--en);font-size:17px;color:var(--ink);letter-spacing:.03em;margin-bottom:6px}
+    .flow-step h4{font-family:var(--mc);font-weight:600;font-size:14px;color:var(--wine);margin-bottom:12px}
+    .flow-step p{font-size:13px;line-height:1.95;color:var(--body)}
+    .flow-step:not(:last-child)::after{content:'';position:absolute;top:37px;left:calc(50% + 50px);width:calc(100% - 100px);height:1px;background:var(--goldline)}
+
+    /* SUCCESS STORIES */
+    .stories{background:var(--paper)}
+    .story-grid{margin-top:54px;display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,3vw,40px)}
+    .story{text-align:center;padding:0 6px}
+    .story-ph{width:96px;height:96px;border-radius:50%;object-fit:cover;margin:0 auto 22px;filter:grayscale(.25);border:1px solid var(--goldline)}
+    .story q{display:block;font-family:var(--mc);font-style:italic;font-size:14.5px;line-height:2.05;color:var(--body);quotes:"“" "”";word-break:keep-all}
+    .story .nm{font-family:var(--en);font-size:15px;color:var(--wine);margin-top:18px;letter-spacing:.03em}
+    .story .role{font-size:11.5px;color:var(--mute);margin-top:3px}
+    .stories-dots{display:flex;gap:8px;justify-content:center;margin-top:44px}
+    .stories-dots i{width:7px;height:7px;border-radius:50%;background:var(--line)}
+    .stories-dots i:first-child{background:var(--gold)}
+
+    /* FAQ */
+    .faqs{background:var(--cream)}
+    .faq-list{max-width:840px;margin:50px auto 0}
+    details.q{border-bottom:1px solid var(--goldline)}
+    .q summary{display:flex;justify-content:space-between;align-items:center;gap:24px;padding:24px 6px;cursor:pointer;list-style:none;
+      font-family:var(--mc);font-weight:500;font-size:clamp(14px,1.2vw,16px);color:var(--ink)}
+    .q summary::-webkit-details-marker{display:none}
+    .q .ic{flex-shrink:0;width:22px;height:22px;position:relative}
+    .q .ic::before,.q .ic::after{content:'';position:absolute;background:var(--wine);top:50%;left:50%;transform:translate(-50%,-50%);transition:opacity .25s}
+    .q .ic::before{width:14px;height:1.5px}
+    .q .ic::after{width:1.5px;height:14px}
+    details[open] .q .ic::after{opacity:0}
+    .q-a{padding:0 6px 26px;font-size:14px;line-height:2.05;color:var(--body);max-width:720px;word-break:keep-all}
+
+    /* FINAL CTA */
+    .cta{background:var(--ink2);color:var(--cream);position:relative;overflow:hidden}
+    .cta::before{content:'';position:absolute;inset:0;background:linear-gradient(120deg,rgba(110,27,46,.55),transparent 60%);pointer-events:none}
+    .cta-grid{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:clamp(36px,5vw,72px);align-items:center}
+    .cta-copy h2{font-family:var(--mc);font-weight:700;font-size:clamp(24px,2.8vw,38px);line-height:1.7;color:#fff;letter-spacing:.02em;word-break:keep-all}
+    .cta-copy h2 em{font-style:normal;color:var(--gold-l)}
+    .cta-copy p{font-size:14px;line-height:2;color:rgba(243,236,219,.72);margin-top:22px}
+    form{display:flex;flex-direction:column;gap:14px}
+    .frow{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .fld label{display:block;font-size:11px;letter-spacing:.08em;color:var(--gold-l);margin-bottom:6px;font-family:var(--mc)}
+    .fld input,.fld textarea{width:100%;background:rgba(243,236,219,.06);border:1px solid rgba(201,162,75,.28);
+      padding:13px 15px;font-size:14px;font-family:var(--mc);color:var(--cream);outline:none;transition:border-color .25s}
+    .fld input::placeholder,.fld textarea::placeholder{color:rgba(243,236,219,.32)}
+    .fld input:focus,.fld textarea:focus{border-color:var(--gold)}
+    .fld textarea{resize:vertical;min-height:104px}
+    .submit{margin-top:6px;background:var(--gold);color:var(--ink);border:none;font-family:var(--mc);font-size:15px;letter-spacing:.06em;padding:16px;cursor:pointer;transition:background .25s}
+    .submit:hover{background:var(--gold-l)}
+    .fnote{font-size:11px;color:rgba(243,236,219,.5);line-height:1.8;margin-top:10px}
+
+    /* FOOTER */
+    footer{background:var(--ink2);color:rgba(243,236,219,.6);padding:64px clamp(20px,5vw,56px) 40px;border-top:1px solid rgba(201,162,75,.2)}
+    .ft-inner{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px}
+    .ft-brand{font-family:var(--en);font-size:22px;letter-spacing:.14em;color:var(--cream)}
+    .ft-brand small{display:block;font-family:var(--mc);font-size:11px;color:var(--mute);margin-top:8px;letter-spacing:.04em;line-height:1.8}
+    .ft-col h5{font-family:var(--en);font-size:13px;letter-spacing:.08em;color:var(--gold-l);margin-bottom:16px}
+    .ft-col a{display:block;font-size:12.5px;color:rgba(243,236,219,.6);margin-bottom:10px;transition:color .2s}
+    .ft-col a:hover{color:var(--gold-l)}
+    .ft-copy{max-width:1120px;margin:44px auto 0;padding-top:24px;border-top:1px solid rgba(243,236,219,.1);font-family:var(--en);font-size:11px;letter-spacing:.06em;color:rgba(243,236,219,.4)}
+
+    @media (max-width:920px){
+      .nav-links{display:none}
+      .me-grid,.philo-grid,.cta-grid{grid-template-columns:1fr}
+      .me-photos{max-width:520px;margin:0 auto}
+      .me-photos .p2{position:relative;right:auto;bottom:auto;width:60%;margin:-12% 0 0 auto;border-width:5px}
+      .flow-grid{grid-template-columns:1fr 1fr;gap:40px 24px}
+      .flow-step:not(:last-child)::after{display:none}
+      .story-grid{grid-template-columns:1fr;max-width:480px;margin-left:auto;margin-right:auto}
+      .ft-inner{grid-template-columns:1fr 1fr}
+    }
+    @media (max-width:560px){
+      .job-row{grid-template-columns:1fr auto;gap:8px 16px}
+      .job-sal{grid-column:1;font-size:15px}
+      .frow{grid-template-columns:1fr}
+      .ft-inner{grid-template-columns:1fr}
+      .hero-frame{inset:12px}
+    }
+    @media (prefers-reduced-motion:reduce){
+      *,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important}
+      .js .rv,.js .hero-content>*{opacity:1;transform:none}
+    }
+  </style>
+</head>
+<body>
+
+<nav id="nav">
+  <a class="brand" href="#">CXO AGENT<small>経営層のキャリアに、確かな選択肢を。</small></a>
+  <ul class="nav-links">
+    <li><a href="#about">運営</a></li>
+    <li><a href="#philosophy">理念</a></li>
+    <li><a href="#jobs">求人</a></li>
+    <li><a href="#flow">ご利用の流れ</a></li>
+    <li><a href="#faq">FAQ</a></li>
+  </ul>
+  <a class="nav-cta" href="#contact">無料相談</a>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="top">
+  <div class="hero-bg"></div>
+  <div class="hero-frame"></div>
+  <div class="hero-content">
+    <p class="hero-kicker">Executive Career Agent</p>
+    <h1>CXO AGENT</h1>
+    <p class="hero-tag">経営を知る者が、<br>あなたの次の経営キャリアを導く。</p>
+    <div class="hero-rule"></div>
+    <p class="hero-sub">エージェント全員が、代表・CFO・COO・CTOなどの経営経験者。<br>経営層・幹部、そしてその候補者に特化した、招待制の人材紹介。</p>
+    <a class="btn-gold" href="#contact">無料相談を申し込む</a>
+  </div>
+</header>
+
+<!-- MANAGEMENT EXPERIENCE -->
+<section class="sec" id="about">
+  <div class="inner">
+    <p class="eyebrow rv">Management Experience</p>
+    <div class="eyebrow-rule rv"></div>
+    <p class="me-lead rv d1">CXO AGENTを運営するBeyondge株式会社には、代表・COOをはじめとするCxO経験者が多数在籍しています。社外から集めたフリーランスの集まりではなく、経営の現場に立ってきた一つの組織として、あなたのキャリアに向き合います。</p>
+    <div class="me-grid">
+      <div class="me-photos rv d1">
+        <img class="p1" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=900&q=80" alt="経営者同士の対話">
+        <img class="p2" src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=600&q=80" alt="エグゼクティブ">
+      </div>
+      <div class="me-points rv d2">
+        <div class="me-point"><span class="no">I</span><div><h3>「行くべき会社」を経営目線で見極める</h3><p>フェーズ感、経営チームの質、事業の実態。一般のエージェントには見えないものを、経営を経験した私たちが読み解き、本音でお話しします。</p></div></div>
+        <div class="me-point"><span class="no">II</span><div><h3>組織のネットワークから、非公開求人を</h3><p>Beyondgeが組織として築いた、経営者・投資家・社外取締役とのつながり。表に出ない経営ポジションをご紹介します。</p></div></div>
+        <div class="me-point"><span class="no">III</span><div><h3>経営ポジションへの最短ルートを設計</h3><p>今すぐCxOでなくとも、そこへ向かう道筋がある。実際に経営してきたからこそ、現実的なキャリアを一緒に描けます。</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section class="sec philo" id="philosophy">
+  <div class="inner">
+    <p class="eyebrow light rv">Philosophy</p>
+    <div class="eyebrow-rule rv"></div>
+    <div class="philo-grid">
+      <img class="philo-photo rv d1" src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=800&q=80" alt="経営者">
+      <div class="philo-body rv d2">
+        <h2>経営の意思決定を知る者にしか、<br><em>経営の転職</em>は導けない。</h2>
+        <p>年収や肩書きの条件を並べるだけの紹介に、私たちは価値を感じません。経営チームの一員として何を期待され、どんな景色を見ることになるのか。そこまで踏み込んで語れるのは、自らも経営の現場に立ってきたからです。</p>
+        <p>だからこそ私たちは、急かしません。「まだ動くか分からない」「市場価値を確かめたい」という段階から、一人の経営者として、あなたのキャリアに向き合います。経営層のキャリアに、確かな選択肢を。それが私たちの仕事です。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JOB LISTINGS -->
+<section class="sec jobs" id="jobs">
+  <div class="inner">
+    <p class="eyebrow rv">Job Listings</p>
+    <div class="eyebrow-rule rv"></div>
+    <div class="job-list rv d1">
+      <div class="job-row"><div class="job-pos">CFO 候補<small>製造業（売上300億規模）／ 非公開</small></div><div class="job-sal">1,800–2,400万</div><a class="job-btn" href="#contact">詳細を聞く</a></div>
+      <div class="job-row"><div class="job-pos">COO<small>ITスタートアップ（Series B）／ 東京</small></div><div class="job-sal">1,200–1,800万</div><a class="job-btn" href="#contact">詳細を聞く</a></div>
+      <div class="job-row"><div class="job-pos">事業本部長<small>消費財メーカー（上場）／ 非公開</small></div><div class="job-sal">1,500–2,200万</div><a class="job-btn" href="#contact">詳細を聞く</a></div>
+      <div class="job-row"><div class="job-pos">CTO<small>DXコンサルティングファーム ／ 非公開</small></div><div class="job-sal">2,000–3,000万</div><a class="job-btn" href="#contact">詳細を聞く</a></div>
+      <div class="job-row"><div class="job-pos">CMO<small>D2Cブランド（急成長）／ 非公開</small></div><div class="job-sal">1,200–1,800万</div><a class="job-btn" href="#contact">詳細を聞く</a></div>
+      <div class="job-row"><div class="job-pos">経営企画室長<small>上場グループ持株会社 ／ 非公開</small></div><div class="job-sal">1,400–2,000万</div><a class="job-btn" href="#contact">詳細を聞く</a></div>
+    </div>
+    <p class="jobs-note rv">※ 掲載はイメージです。実際の非公開求人はご登録後にご案内します。</p>
+  </div>
+</section>
+
+<!-- SERVICE FLOW -->
+<section class="sec flow" id="flow">
+  <div class="inner">
+    <p class="eyebrow rv">Service Flow</p>
+    <div class="eyebrow-rule rv"></div>
+    <div class="flow-grid">
+      <div class="flow-step rv d1">
+        <div class="flow-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M8 10h8M8 14h5"/><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M9 22l3-4 3 4"/></svg></div>
+        <p class="flow-en">Consultation</p><h4>初回相談</h4><p>経歴・希望・方向性をオンラインで丁寧にうかがいます。情報収集だけでも構いません。</p>
+      </div>
+      <div class="flow-step rv d2">
+        <div class="flow-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg></div>
+        <p class="flow-en">Matching</p><h4>候補マッチング</h4><p>組織のネットワークから、非公開ポジションを中心に厳選してご提案します。</p>
+      </div>
+      <div class="flow-step rv d3">
+        <div class="flow-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M9 11l2 2 4-4"/><rect x="4" y="3" width="16" height="18" rx="2"/></svg></div>
+        <p class="flow-en">Management</p><h4>選考マネジメント</h4><p>面接対策から年収・役職の交渉まで、経営目線で伴走します。</p>
+      </div>
+      <div class="flow-step rv d4">
+        <div class="flow-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 15a4 4 0 100-8 4 4 0 000 8z"/><path d="M8 21l4-3 4 3M8 4l4 3 4-3"/></svg></div>
+        <p class="flow-en">Placement</p><h4>内定・入社支援</h4><p>条件のすり合わせから入社後のフォローまで、長く伴走します。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SUCCESS STORIES -->
+<section class="sec stories">
+  <div class="inner">
+    <p class="eyebrow rv">Success Stories</p>
+    <div class="eyebrow-rule rv"></div>
+    <div class="story-grid">
+      <div class="story rv d1">
+        <img class="story-ph" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=300&q=80" alt="">
+        <q>条件の話で終わらず、経営チームの実態まで踏み込んで話してくれた。納得して意思決定できました。</q>
+        <p class="nm">A. S.</p><p class="role">メーカー → スタートアップ CFO</p>
+      </div>
+      <div class="story rv d2">
+        <img class="story-ph" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80" alt="">
+        <q>表に出ないポジションを、経営の文脈で説明してもらえた。自分一人では出会えない求人でした。</q>
+        <p class="nm">K. M.</p><p class="role">事業会社 → 上場企業 事業本部長</p>
+      </div>
+      <div class="story rv d3">
+        <img class="story-ph" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=300&q=80" alt="">
+        <q>すぐの転職ではなく、CxOを目指すキャリアの設計から相談に乗ってもらえたのが大きかった。</q>
+        <p class="nm">T. N.</p><p class="role">外資系 → DX企業 COO</p>
+      </div>
+    </div>
+    <div class="stories-dots"><i></i><i></i><i></i></div>
+    <p class="jobs-note rv" style="margin-top:24px">※ ご利用イメージです。</p>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="sec faqs" id="faq">
+  <div class="inner">
+    <p class="eyebrow rv">FAQ</p>
+    <div class="eyebrow-rule rv"></div>
+    <div class="faq-list rv d1">
+      <details class="q"><summary>利用料金はかかりますか？<span class="ic"></span></summary><p class="q-a">求職者の方への費用は一切かかりません。登録・相談・求人紹介・選考サポートまで、すべて無料です。</p></details>
+      <details class="q"><summary>今すぐ転職するつもりがなくても相談できますか？<span class="ic"></span></summary><p class="q-a">もちろんです。「情報収集したい」「市場価値を知りたい」という段階からの相談を歓迎します。経営キャリアは早く動くほど選択肢が広がります。</p></details>
+      <details class="q"><summary>現在の会社に知られる心配はありませんか？<span class="ic"></span></summary><p class="q-a">ありません。ご本人の同意なく企業へ情報を開示することは一切なく、秘密厳守で対応します。</p></details>
+      <details class="q"><summary>経営経験がなくても登録できますか？<span class="ic"></span></summary><p class="q-a">はい。事業会社での深い実績や変革のポテンシャルがあれば、CFO・COO・CTO候補として評価される求人があります。「いつか経営に」という方も歓迎です。</p></details>
+      <details class="q"><summary>地方在住でも利用できますか？<span class="ic"></span></summary><p class="q-a">ご利用いただけます。面談はオンライン対応。リモート前提の求人や地方企業の経営ポジションも取り扱っています。</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="sec cta" id="contact">
+  <div class="inner cta-grid">
+    <div class="cta-copy">
+      <p class="eyebrow light rv" style="text-align:left">Contact</p>
+      <h2 class="rv d1">信頼こそ、<em>私たちの仕事</em>。<br>あなたに、本当に合うキャリアを。</h2>
+      <p class="rv d1">登録・相談は完全無料。「まだ転職するか分からない」という段階でも構いません。担当より3営業日以内にご連絡します。</p>
+    </div>
+    <form class="rv d2" onsubmit="return false;">
+      <div class="frow">
+        <div class="fld"><label>お名前</label><input type="text" placeholder="山田 太郎"></div>
+        <div class="fld"><label>メールアドレス</label><input type="email" placeholder="taro@example.com"></div>
+      </div>
+      <div class="fld"><label>現在の所属・役職</label><input type="text" placeholder="例：株式会社〇〇 事業部長"></div>
+      <div class="fld"><label>ご相談内容（任意）</label><textarea placeholder="目指すポジション、転職のタイムラインなど"></textarea></div>
+      <button class="submit" type="submit">無料相談を申し込む</button>
+      <p class="fnote">ご登録情報はプライバシーポリシーに基づき適切に管理し、第三者への無断提供は行いません。</p>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-inner">
+    <div>
+      <p class="ft-brand">CXO AGENT<small>運営：Beyondge株式会社<br>経営層のキャリアに、確かな選択肢を。</small></p>
+    </div>
+    <div class="ft-col">
+      <h5>Service</h5>
+      <a href="#about">運営について</a>
+      <a href="#jobs">求人を見る</a>
+      <a href="#flow">ご利用の流れ</a>
+      <a href="#faq">よくある質問</a>
+    </div>
+    <div class="ft-col">
+      <h5>Company</h5>
+      <a href="#">会社概要</a>
+      <a href="#">プライバシーポリシー</a>
+      <a href="#">利用規約</a>
+      <a href="#contact">お問い合わせ</a>
+    </div>
+  </div>
+  <p class="ft-copy">© 2025 Beyondge Inc. — CXO AGENT. ALL RIGHTS RESERVED.</p>
+</footer>
+
+<script>
+(function(){
+  var nav=document.getElementById('nav');
+  addEventListener('scroll',function(){nav.classList.toggle('scrolled',scrollY>40)},{passive:true});
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.14,rootMargin:'0px 0px -5% 0px'});
+  document.querySelectorAll('.rv').forEach(function(el){io.observe(el)});
+})();
+</script>
+
+</body>
+</html>
