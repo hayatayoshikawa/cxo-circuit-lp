@@ -169,6 +169,8 @@
     .agent { flex: 0 0 clamp(214px, 25vw, 272px); scroll-snap-align: start; }
     .agent-ph { width: 100%; aspect-ratio: 3/4; object-fit: cover; object-position: top; background: #ccc; filter: grayscale(1) contrast(1.08) brightness(.97); transition: filter .3s; }
     .agent:hover .agent-ph { filter: grayscale(0) contrast(1.04); }
+    .agent-ph.ph-empty { filter: none; background: #d9d5cc; display: flex; align-items: center; justify-content: center; border: 1px dashed rgba(20,18,15,.22); }
+    .agent-ph.ph-empty span { font-family: var(--jp); font-size: 12px; font-weight: 500; letter-spacing: .08em; color: #8d877c; }
     .agent-meta { padding: 14px 2px 0; border-top: 2px solid var(--ink); margin-top: 12px; }
     .agent-role { font-family: var(--arch); font-size: 11px; font-weight: 800; letter-spacing: .1em; color: var(--red); text-transform: uppercase; }
     .agent-name { font-family: var(--zen); font-weight: 900; font-size: clamp(18px,1.8vw,24px); margin-top: 6px; }
@@ -181,8 +183,8 @@
     .pos p { font-size: clamp(15px,1.2vw,17px); line-height: 2.05; color: rgba(255,255,255,.88); margin-top: 28px; max-width: 52ch; }
     .stats { display: flex; flex-direction: column; gap: clamp(28px,4vw,44px); }
     .stat { border-top: 2px solid rgba(255,255,255,.3); padding-top: 18px; }
-    .stat .n { font-family: var(--arch); font-weight: 900; font-size: clamp(56px,8vw,120px); line-height: .88; letter-spacing: -.04em; color: #fff; }
-    .stat .n span { font-family: var(--jp); font-size: .24em; font-weight: 800; color: rgba(255,255,255,.78); vertical-align: super; margin-left: 6px; }
+    .stat .n { font-family: var(--arch); font-weight: 900; font-size: clamp(52px,6.4vw,92px); line-height: 1; letter-spacing: -.03em; color: #fff; white-space: nowrap; }
+    .stat .n span { font-family: var(--jp); font-size: .26em; font-weight: 800; color: rgba(255,255,255,.82); vertical-align: super; margin-left: 4px; white-space: nowrap; }
     .stat .c { font-size: 13.5px; color: rgba(255,255,255,.82); margin-top: 12px; line-height: 1.7; }
 
     /* ── §5 JOBS（横スクロール カルーセル） ── */
@@ -361,7 +363,6 @@
 
 <!-- ════ §2 DIFFERENCE ════ -->
 <section class="sec" id="difference">
-  <img class="brush-band top" src="assets/brush_2_2.png" alt="" aria-hidden="true">
   <div class="sec-inner">
     <h2 class="h-xl rv">経営経験者が担当するから、<br><span class="mark">話が早い</span>。</h2>
     <p class="lead rv d1">一般的な転職エージェントとは、立っている場所が違います。私たち自身が経営を経験してきたからこそ、あなたの市場価値とキャリアの設計図を、経営目線で一緒に描けます。</p>
@@ -391,8 +392,8 @@
   <div class="sec-inner">
     <div class="strength-grid">
       <div class="strength-copy">
-        <h2 class="h-xl rv">扱うのは、<br><span class="r">経営に効く</span>求人だけ。</h2>
-        <p class="rv d1">年収レンジ、ポジションの質、契約形態の柔軟さ。経営層・幹部候補に特化しているからこそ提供できる、3つの強みがあります。正社員はもちろん、副業・業務委託での経営参画もご相談ください。</p>
+        <h2 class="h-xl rv">扱うのは、<span class="r">CxO人材</span>と<br>その候補を求める求人。</h2>
+        <p class="rv d1">すでにCxO・経営幹部として活躍する方への求人だけでなく、将来のCxO候補を求める求人まで。経営層に直結するポジションを中心に取り扱います。年収・ポジションの質・契約形態の柔軟さにこだわり、正社員はもちろん、副業・業務委託での経営参画もご相談ください。</p>
       </div>
       <ul class="feat-list" aria-label="3つの強み">
         <li class="feat-item fi s1">
@@ -422,23 +423,23 @@
   <div class="sec-inner rv d1">
     <div class="cursor-track" id="agentsTrack">
       <article class="agent">
-        <img class="agent-ph" src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=600&q=80" alt="代表 吉川隼大">
+        <div class="agent-ph ph-empty"><span>写真掲載予定</span></div>
         <div class="agent-meta"><p class="agent-role">代表 / エージェント</p><p class="agent-name">吉川 隼大</p></div>
       </article>
       <article class="agent">
-        <img class="agent-ph" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=600&q=80" alt="">
+        <div class="agent-ph ph-empty"><span>写真掲載予定</span></div>
         <div class="agent-meta"><p class="agent-role">投資家</p><p class="agent-name">野上 隆徳</p></div>
       </article>
       <article class="agent">
-        <img class="agent-ph" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=600&q=80" alt="">
+        <div class="agent-ph ph-empty"><span>写真掲載予定</span></div>
         <div class="agent-meta"><p class="agent-role">CFO経験</p><p class="agent-name">清水 ※担当者</p></div>
       </article>
       <article class="agent">
-        <img class="agent-ph" src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=600&q=80" alt="">
+        <div class="agent-ph ph-empty"><span>写真掲載予定</span></div>
         <div class="agent-meta"><p class="agent-role">事業投資</p><p class="agent-name">石川 ※担当者</p></div>
       </article>
       <article class="agent">
-        <img class="agent-ph" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80" alt="">
+        <div class="agent-ph ph-empty"><span>写真掲載予定</span></div>
         <div class="agent-meta"><p class="agent-role">COO経験</p><p class="agent-name">— ※担当者</p></div>
       </article>
     </div>
