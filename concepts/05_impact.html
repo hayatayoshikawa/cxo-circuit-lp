@@ -13,8 +13,9 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --red:    #D80C18;
-      --red-d:  #A8060F;
+      --red:    #7e0b0a;   /* エンジ（基調） */
+      --red-d:  #5c0807;
+      --red-lt: #a8201d;   /* 暗背景用の明るめエンジ */
       --ink:    #15120F;
       --ink2:   #0A0908;
       --paper:  #F2EFE9;
@@ -60,8 +61,9 @@
     .nav-cta:hover { background: var(--red-d); }
 
     /* ── HERO ── */
-    .hero { position: relative; width: 100vw; min-height: 100vh; overflow: hidden; background: var(--paper); isolation: isolate; }
-    .hero-poster { position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%; object-fit: cover; object-position: left center; }
+    .hero { position: relative; width: 100vw; min-height: 100vh; overflow: hidden; background: var(--ink2); isolation: isolate; }
+    /* ナビ(62px)の下からポスターを始め、ヘッダーで隠れないように */
+    .hero-poster { position: absolute; top: 62px; left: 0; right: 0; bottom: 0; z-index: 1; width: 100%; height: auto; object-fit: cover; object-position: center top; }
     .js .hero-poster { opacity: 0; animation: posterIn 1s .1s cubic-bezier(.16,1,.3,1) forwards; }
     @keyframes posterIn { from { opacity:0; transform: scale(1.04);} to { opacity:1; transform: scale(1);} }
     .hero-person { position: absolute; bottom: 0; right: 2.5%; height: 94%; z-index: 3; pointer-events: none; filter: drop-shadow(-18px 18px 36px rgba(0,0,0,.30)) contrast(1.05); will-change: transform, opacity; }
@@ -137,38 +139,52 @@
     .agent.feat .agent-bio { display: block; max-width: 90%; }
     .agents-note { margin-top: 26px; font-size: 11.5px; color: #8d877c; }
 
-    /* ── §4 POSITIONS（dark + 赤見出し画像） ── */
-    .pos-grid { display: grid; grid-template-columns: 1.05fr 1fr; gap: clamp(40px,6vw,70px); align-items: center; }
-    .pos-headimg { width: 100%; max-width: 500px; }
-    .pos p { font-size: clamp(15px,1.2vw,17px); line-height: 2.05; color: var(--body-w); margin-top: 26px; }
-    .stats { display: flex; gap: clamp(36px,5vw,72px); flex-wrap: wrap; }
-    .stat .n { font-family: var(--arch); font-weight: 900; font-size: clamp(56px,7vw,108px); line-height: .9; letter-spacing: -.04em; color: #fff; }
-    .stat .n span { font-family: var(--jp); font-size: .26em; font-weight: 800; color: var(--red); vertical-align: super; margin-left: 4px; }
-    .stat .c { font-size: 13.5px; color: rgba(255,255,255,.7); margin-top: 14px; line-height: 1.7; }
+    /* ── §4 POSITIONS（エンジ ドレンチ） ── */
+    .drench { background: var(--red); color: #fff; }
+    .drench .h-xl { color: #fff; }
+    .pos-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(40px,6vw,80px); align-items: center; }
+    .pos p { font-size: clamp(15px,1.2vw,17px); line-height: 2.05; color: rgba(255,255,255,.88); margin-top: 28px; max-width: 52ch; }
+    .stats { display: flex; flex-direction: column; gap: clamp(28px,4vw,44px); }
+    .stat { border-top: 2px solid rgba(255,255,255,.3); padding-top: 18px; }
+    .stat .n { font-family: var(--arch); font-weight: 900; font-size: clamp(56px,8vw,120px); line-height: .88; letter-spacing: -.04em; color: #fff; }
+    .stat .n span { font-family: var(--jp); font-size: .24em; font-weight: 800; color: rgba(255,255,255,.78); vertical-align: super; margin-left: 6px; }
+    .stat .c { font-size: 13.5px; color: rgba(255,255,255,.82); margin-top: 12px; line-height: 1.7; }
 
-    /* ── §5 JOBS（paper・主役+脇役） ── */
-    .jobs-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+    /* ── §5 JOBS（横スクロール カルーセル） ── */
+    .jobs { background: var(--paper2); }
+    .jobs-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
     .jobs-note { font-size: 12px; color: #8d877c; }
-    .job-feat { margin-top: clamp(32px,4vw,48px); background: var(--ink); color: #fff; padding: clamp(28px,4vw,48px); display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: center; position: relative; overflow: hidden; }
-    .job-feat .tag { font-family: var(--arch); font-weight: 800; font-size: 11px; letter-spacing: .14em; color: var(--red); }
-    .job-feat .p { font-family: var(--zen); font-weight: 900; font-size: clamp(26px,3.4vw,46px); line-height: 1.1; margin: 8px 0 8px; }
-    .job-feat .ind { font-size: 13.5px; color: rgba(255,255,255,.6); }
-    .job-feat .sal { font-family: var(--arch); font-weight: 900; font-size: clamp(28px,3.6vw,52px); line-height: 1; white-space: nowrap; text-align: right; }
-    .job-feat .sal small { display: block; font-family: var(--jp); font-size: .26em; font-weight: 400; opacity: .6; margin-top: 8px; }
-    .job-list { margin-top: 3px; display: flex; flex-direction: column; }
-    .job-row { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 24px; padding: 26px 6px; border-bottom: 1px solid var(--line); transition: transform .2s, background .2s; }
-    .job-row:first-child { border-top: 1px solid var(--line); }
-    .job-row:hover { background: rgba(216,12,24,.05); transform: translateX(12px); }
-    .job-row .p { font-family: var(--zen); font-weight: 900; font-size: clamp(17px,1.5vw,22px); }
-    .job-row .ind { font-size: 12.5px; color: #6f6a61; margin-top: 4px; }
-    .job-row .sal { font-family: var(--arch); font-weight: 900; font-size: clamp(16px,1.5vw,22px); white-space: nowrap; text-align: right; }
-    .job-row .sal small { display: block; font-family: var(--jp); font-size: .5em; font-weight: 400; color: #8d877c; margin-top: 3px; }
-    .jobs-more { margin-top: 40px; }
+    .jobs-hint { display: inline-flex; align-items: center; gap: 8px; font-family: var(--arch); font-size: 11px; font-weight: 800; letter-spacing: .14em; color: var(--red); margin-top: 18px; }
+    .jobs-hint .ln { display: inline-block; width: 38px; height: 2px; background: var(--red); position: relative; overflow: hidden; }
+    .jobs-hint .ln::after { content: ''; position: absolute; inset: 0; background: var(--paper2); animation: hintSlide 1.8s ease-in-out infinite; }
+    @keyframes hintSlide { 0%{transform:translateX(-100%)} 60%,100%{transform:translateX(100%)} }
+    .jobs-track {
+      display: flex; gap: clamp(16px,2vw,24px); margin-top: clamp(28px,4vw,44px);
+      overflow-x: auto; overflow-y: hidden; padding: 6px 6px 28px; scroll-snap-type: x proximity;
+      cursor: grab; scrollbar-width: none; -ms-overflow-style: none;
+    }
+    .jobs-track::-webkit-scrollbar { display: none; }
+    .jobs-track.grabbing { cursor: grabbing; }
+    .jcard {
+      flex: 0 0 clamp(258px, 28vw, 322px); scroll-snap-align: start;
+      background: #fff; color: var(--ink); padding: 30px 28px 28px;
+      display: flex; flex-direction: column; min-height: 304px; position: relative;
+      box-shadow: 0 4px 20px rgba(0,0,0,.07); border: 1px solid var(--line);
+      transition: transform .3s cubic-bezier(.16,1,.3,1), box-shadow .3s;
+    }
+    .jcard::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 5px; background: var(--red); }
+    .jcard:hover { transform: translateY(-8px); box-shadow: 0 26px 50px rgba(0,0,0,.16); }
+    .jcard .tag { font-family: var(--arch); font-weight: 800; font-size: 10.5px; letter-spacing: .12em; color: var(--red); }
+    .jcard .p { font-family: var(--zen); font-weight: 900; font-size: clamp(24px,2.4vw,30px); line-height: 1.15; margin: 14px 0 10px; }
+    .jcard .ind { font-size: 13px; line-height: 1.8; color: #6f6a61; flex-grow: 1; }
+    .jcard .sal { font-family: var(--arch); font-weight: 900; font-size: clamp(22px,2.2vw,27px); color: var(--red); margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--line); white-space: nowrap; }
+    .jcard .sal small { display: block; font-family: var(--jp); font-size: .42em; font-weight: 400; color: #8d877c; margin-top: 6px; white-space: normal; }
+    .jobs-more { margin-top: 20px; }
     .jobs-more a { font-weight: 700; font-size: 14px; color: var(--ink); border-bottom: 2px solid var(--red); padding-bottom: 4px; }
     .jobs-more a:hover { color: var(--red); }
 
     /* ── §6 PROCESS（番号は正当な連番） ── */
-    .process { background: var(--paper2); }
+    .process { background: var(--paper); }
     .flow { display: grid; grid-template-columns: repeat(4,1fr); gap: clamp(28px,3vw,40px) 0; position: relative; margin-top: clamp(40px,6vw,64px); }
     .step { padding: 0 clamp(14px,2vw,26px); position: relative; }
     .step:not(:last-child)::after { content: ''; position: absolute; top: 30px; right: 0; width: clamp(20px,3vw,40px); height: 2px; background: var(--ink); opacity: .2; }
@@ -378,58 +394,50 @@
   </div>
 </section>
 
-<!-- ════ §4 POSITIONS（dark） ════ -->
-<section class="sec dark" id="positions">
-  <img class="brush-band top" src="assets/brand_3_3.png" style="left:auto;right:-40px;top:-40px;width:340px;height:auto;transform:rotate(180deg);opacity:.85;" alt="" aria-hidden="true">
+<!-- ════ §4 POSITIONS（エンジ ドレンチ） ════ -->
+<section class="sec drench" id="positions">
   <div class="sec-inner">
     <div class="pos-grid">
       <div class="pos">
-        <img class="pos-headimg rv" src="assets/brand_2_3.png" alt="経営ポジションのハイクラス求人をあなたに">
+        <h2 class="h-xl rv">経営者ネットワークから、<br>非公開求人が集まる。</h2>
         <p class="rv d1">私たちが扱う求人の多くは、経営者・投資家・社外取締役のネットワークを通じて集まります。一般の転職媒体には載らない、スタートアップ・成長企業の経営ポジション。このインナーサークルにアクセスできるのは、自分たちも経営者だからです。</p>
       </div>
       <div class="stats rv d1">
         <div class="stat">
           <div class="n" data-count="500" data-suffix="件超">0<span>件超</span></div>
-          <p class="c">経営層・幹部候補の<br>非公開ポジション</p>
+          <p class="c">経営層・幹部候補の非公開ポジション</p>
         </div>
         <div class="stat">
           <div class="n" data-count="1000" data-suffix="万〜">0<span>万〜</span></div>
-          <p class="c">年収レンジ（最高<br>3,000万円規模）</p>
+          <p class="c">年収レンジ（最高 3,000万円規模）</p>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ════ §5 JOBS（paper・主役+脇役） ════ -->
-<section class="sec" id="jobs">
+<!-- ════ §5 JOBS（横スクロール カルーセル） ════ -->
+<section class="sec jobs" id="jobs">
   <div class="sec-inner">
     <div class="jobs-head">
-      <h2 class="h-xl rv">求人イメージ</h2>
+      <div>
+        <h2 class="h-xl rv">求人イメージ</h2>
+        <p class="jobs-hint rv d1"><span class="ln"></span>カーソルを重ねて横にスクロール</p>
+      </div>
       <p class="jobs-note rv d1">※ 掲載はイメージです。実際の非公開求人はご登録後にご案内します。</p>
     </div>
-    <div class="job-feat rv d1">
-      <div>
-        <p class="tag">HIGHEST RANGE</p>
-        <p class="p">CTO</p>
-        <p class="ind">DXコンサルティングファーム ／ 非公開</p>
-      </div>
-      <p class="sal">2,000万〜3,000万<small>想定年収</small></p>
+  </div>
+  <div class="sec-inner rv d1">
+    <div class="jobs-track" id="jobsTrack">
+      <article class="jcard"><p class="tag">技術 / プロダクト</p><p class="p">CTO</p><p class="ind">DXコンサルティングファーム ／ 非公開</p><p class="sal">2,000万〜3,000万<small>想定年収</small></p></article>
+      <article class="jcard"><p class="tag">財務</p><p class="p">CFO 候補</p><p class="ind">製造業（売上300億規模） ／ 非公開</p><p class="sal">1,800万〜2,400万<small>想定年収</small></p></article>
+      <article class="jcard"><p class="tag">事業統括</p><p class="p">事業本部長</p><p class="ind">消費財メーカー（上場） ／ 非公開</p><p class="sal">1,500万〜2,200万<small>想定年収</small></p></article>
+      <article class="jcard"><p class="tag">オペレーション</p><p class="p">COO</p><p class="ind">ITスタートアップ（Series B） ／ 東京</p><p class="sal">1,200万〜1,800万<small>想定年収＋ストックオプション</small></p></article>
+      <article class="jcard"><p class="tag">マーケティング</p><p class="p">CMO</p><p class="ind">D2Cブランド（急成長） ／ 非公開</p><p class="sal">1,200万〜1,800万<small>想定年収</small></p></article>
+      <article class="jcard"><p class="tag">経営企画</p><p class="p">経営企画室長</p><p class="ind">上場グループ持株会社 ／ 非公開</p><p class="sal">1,400万〜2,000万<small>想定年収</small></p></article>
     </div>
-    <div class="job-list">
-      <div class="job-row rv d1">
-        <div><p class="p">CFO 候補</p><p class="ind">製造業（売上300億規模） ／ 非公開</p></div>
-        <p class="sal">1,800万〜2,400万<small>想定年収</small></p>
-      </div>
-      <div class="job-row rv d1">
-        <div><p class="p">事業本部長</p><p class="ind">消費財メーカー（上場） ／ 非公開</p></div>
-        <p class="sal">1,500万〜2,200万<small>想定年収</small></p>
-      </div>
-      <div class="job-row rv d2">
-        <div><p class="p">COO</p><p class="ind">ITスタートアップ（Series B） ／ 東京</p></div>
-        <p class="sal">1,200万〜1,800万<small>想定年収＋ストックオプション</small></p>
-      </div>
-    </div>
+  </div>
+  <div class="sec-inner">
     <div class="jobs-more rv"><a href="#contact">非公開求人を確認する →</a></div>
   </div>
 </section>
@@ -449,7 +457,7 @@
 </section>
 
 <!-- ════ §7 FAQ ════ -->
-<section class="sec">
+<section class="sec" id="faq" style="background:var(--paper2)">
   <div class="sec-inner">
     <h2 class="h-xl rv">よくある質問</h2>
     <div class="faq rv d1">
@@ -544,8 +552,36 @@
       });
     }
   }, {threshold:.5});
-  var pos = document.querySelector('.sec.dark');
+  var pos = document.getElementById('positions');
   if(pos) co.observe(pos);
+
+  /* ── 求人カルーセル：カーソルで横スクロール ── */
+  var track = document.getElementById('jobsTrack');
+  if(track){
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    var target = null, cur = 0, hovering = false;
+    if(fine && !reduce){
+      track.addEventListener('mouseenter', function(){ hovering = true; cur = track.scrollLeft; });
+      track.addEventListener('mousemove', function(e){
+        var r = track.getBoundingClientRect();
+        var ratio = Math.min(Math.max((e.clientX - r.left)/r.width, 0), 1);
+        // 端を少し効かせるイージング
+        var eased = ratio < .5 ? 2*ratio*ratio : 1-Math.pow(-2*ratio+2,2)/2;
+        target = eased * (track.scrollWidth - track.clientWidth);
+      });
+      track.addEventListener('mouseleave', function(){ hovering = false; target = null; });
+      (function raf(){
+        if(hovering && target!=null){ cur += (target - cur)*0.10; track.scrollLeft = cur; }
+        requestAnimationFrame(raf);
+      })();
+    }
+    /* ドラッグでもスクロール可能（補助） */
+    var down=false, sx=0, sl=0;
+    track.addEventListener('pointerdown', function(e){ down=true; sx=e.clientX; sl=track.scrollLeft; track.classList.add('grabbing'); });
+    window.addEventListener('pointerup', function(){ down=false; track.classList.remove('grabbing'); });
+    track.addEventListener('pointermove', function(e){ if(down){ track.scrollLeft = sl - (e.clientX - sx); target=null; } });
+  }
 })();
 </script>
 
