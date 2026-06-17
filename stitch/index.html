@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CXO AGENT｜経営人材のためのキャリアプラットフォーム</title>
+<meta name="description" content="CXO・CFO・COO など経営ポジションに挑む方へ。経営人材に特化したキャリア支援。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;600;700;800&family=Noto+Sans+JP:wght@300;400;500;700&family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --red:#A02929; --red-d:#8B1A1A;
+    --gold:#B58451; --gold-d:#9A7030; --gold-l:#D9C09A;
+    --ivory:#F9F6F0; --cream:#F4EFE6; --white:#fff;
+    --dark:#15120E; --navy:#1A1814; --ink:#2A2622; --muted:#6b6258; --soft:#9a9186;
+    --border:#D8D0C8; --line:#E8E2D8;
+    --serif:'Shippori Mincho B1','Noto Serif JP',serif;
+    --display:'Cormorant Garamond',serif;
+    --sans:'Noto Sans JP','Inter',sans-serif;
+  }
+  html{scroll-behavior:smooth}
+  body{font-family:var(--sans);background:var(--cream);color:var(--ink);line-height:1.9;font-size:15px}
+  h1,h2,h3,h4{word-break:keep-all;line-height:1.55}
+  img{display:block;max-width:100%}
+  a{color:inherit}
+
+  .section-label{font-family:var(--display);font-size:30px;font-weight:600;letter-spacing:.06em;text-align:center;margin-bottom:8px;position:relative;padding-bottom:18px}
+  .section-label::after{content:"";display:block;width:40px;height:1px;background:var(--gold);position:absolute;left:50%;bottom:0;transform:translateX(-50%)}
+  .section-label small{display:block;font-family:var(--sans);font-size:10.5px;letter-spacing:.24em;color:var(--gold-d);font-weight:700;margin-top:8px}
+
+  /* ===== Header ===== */
+  header{position:sticky;top:0;z-index:60;background:rgba(21,18,14,.96);backdrop-filter:blur(10px);border-bottom:1px solid rgba(181,132,81,.22)}
+  .hd-in{max-width:1180px;margin:0 auto;padding:0 28px;height:66px;display:flex;align-items:center;gap:20px}
+  .brand{text-decoration:none;line-height:1}
+  .brand b{font-family:var(--display);font-weight:700;font-size:23px;letter-spacing:.18em;color:#fff}
+  .brand small{display:block;font-size:8px;letter-spacing:.34em;color:var(--gold);font-weight:700;margin-top:2px}
+  .hd-nav{margin-left:auto;display:flex;gap:34px}
+  .hd-nav a{font-size:12.5px;color:rgba(255,255,255,.74);text-decoration:none;font-weight:500;letter-spacing:.1em}
+  .hd-nav a:hover{color:var(--gold-l)}
+  .hd-cta{font-size:12.5px;font-weight:700;color:#fff;background:var(--red);border:1px solid var(--red);padding:11px 22px;border-radius:3px;text-decoration:none;letter-spacing:.05em}
+  .hd-cta:hover{background:var(--red-d)}
+  .hd-burger{display:none;margin-left:auto;background:none;border:0;color:#fff;font-size:22px;cursor:pointer}
+
+  /* ===== Layout ===== */
+  .wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+  .grid{display:grid;grid-template-columns:1.65fr 1fr;gap:0}
+  .col-main{background:var(--ivory)}
+  .col-side{background:var(--cream);border-left:1px solid var(--line)}
+  .pad-main{padding:0 56px}
+  .pad-side{padding:0 36px}
+
+  /* ===== Hero ===== */
+  .hero{position:relative;min-height:520px;display:flex;align-items:center;justify-content:center;text-align:center;color:#fff;overflow:hidden}
+  .hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1577412647305-991150c7d163?auto=format&fit=crop&w=1400&q=70') center/cover no-repeat;filter:grayscale(8%)}
+  .hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(21,18,14,.62),rgba(21,18,14,.78))}
+  .hero-edge{position:absolute;left:0;top:0;bottom:0;width:8px;background:var(--red)}
+  .hero-in{position:relative;z-index:2;padding:60px 32px}
+  .hero h1{font-family:var(--display);font-size:64px;font-weight:700;letter-spacing:.14em;margin-bottom:22px;text-shadow:0 2px 24px rgba(0,0,0,.4)}
+  .hero p{font-family:var(--serif);font-size:17px;line-height:2.1;color:#ece5da;letter-spacing:.04em;max-width:460px;margin:0 auto 30px}
+  .hero-btn{display:inline-block;font-size:12px;letter-spacing:.18em;font-weight:700;color:var(--gold-l);border:1px solid var(--gold);padding:13px 34px;text-decoration:none;transition:.2s}
+  .hero-btn:hover{background:rgba(181,132,81,.2)}
+
+  /* ===== Block (shared) ===== */
+  .block{padding:78px 0}
+  .lead-jp{font-size:14px;color:var(--muted);line-height:2.05;letter-spacing:.02em}
+
+  /* Management Experience */
+  .me-panel{background:var(--dark);color:#fff;padding:0;position:relative;margin-top:40px}
+  .me-photos{display:grid;grid-template-columns:1fr 1fr}
+  .me-photos img{width:100%;height:150px;object-fit:cover;filter:grayscale(15%)}
+  .me-body{display:grid;grid-template-columns:.9fr 1.1fr;gap:0}
+  .me-card{padding:34px 30px;border-right:1px solid rgba(181,132,81,.2)}
+  .me-card .tag{font-size:10px;letter-spacing:.2em;color:var(--gold);font-weight:700;margin-bottom:16px}
+  .me-card img{width:64px;height:64px;border-radius:50%;object-fit:cover;margin-bottom:16px;border:1px solid rgba(181,132,81,.4)}
+  .me-card p{font-size:12px;color:#b6ada1;line-height:1.95}
+  .me-list{padding:30px 30px 30px 26px;display:flex;flex-direction:column;gap:20px}
+  .me-item{display:flex;gap:16px}
+  .me-no{font-family:var(--display);font-size:22px;font-weight:700;color:var(--gold);line-height:1;min-width:24px}
+  .me-item h4{font-size:13.5px;font-weight:700;color:#fff;margin-bottom:5px;letter-spacing:.03em}
+  .me-item p{font-size:11.5px;color:#9a9186;line-height:1.8}
+
+  /* Philosophy */
+  .phil{padding-top:78px}
+  .phil-photo{position:relative;margin:0 0 34px}
+  .phil-photo img{width:100%;height:300px;object-fit:cover}
+  .phil-photo::before{content:"";position:absolute;left:-18px;top:-18px;width:120px;height:120px;background:var(--red);z-index:-0}
+  .phil-photo{isolation:isolate}
+  .phil-frame{position:relative;z-index:2}
+
+  /* Service Flow */
+  .flow{display:flex;flex-direction:column;gap:34px;margin-top:46px}
+  .flow-row{display:flex;gap:26px;align-items:flex-start}
+  .flow-ico{flex:0 0 auto;width:54px;height:54px;display:flex;align-items:center;justify-content:center;border:1px solid var(--gold);border-radius:50%}
+  .flow-ico svg{width:26px;height:26px;stroke:var(--gold-d);fill:none;stroke-width:1.4}
+  .flow-txt h3{font-family:var(--serif);font-size:19px;font-weight:700;margin-bottom:8px;letter-spacing:.03em}
+  .flow-txt p{font-size:13px;color:var(--muted);line-height:1.9}
+
+  /* ===== Sidebar ===== */
+  .side-block{padding:56px 0}
+  .side-h{font-family:var(--display);font-size:24px;font-weight:600;letter-spacing:.05em;text-align:center;margin-bottom:6px}
+  .side-h small{display:block;font-family:var(--sans);font-size:9.5px;letter-spacing:.22em;color:var(--gold-d);font-weight:700;margin-top:6px;margin-bottom:26px}
+
+  .jobs{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--border)}
+  .job{display:flex;align-items:center;gap:12px;padding:15px 4px;border-bottom:1px solid var(--border)}
+  .job-info{flex:1;min-width:0}
+  .job-info b{font-family:var(--serif);font-size:14px;font-weight:700;display:block;letter-spacing:.02em}
+  .job-info span{font-size:11px;color:var(--gold-d);font-weight:700;letter-spacing:.04em}
+  .job-btn{font-size:10.5px;font-weight:700;color:#fff;background:var(--red);padding:7px 13px;border-radius:2px;text-decoration:none;white-space:nowrap;letter-spacing:.04em}
+  .job-btn:hover{background:var(--red-d)}
+  .job-search{display:flex;margin-top:18px;border:1px solid var(--border);background:#fff}
+  .job-search input{flex:1;border:0;padding:11px 14px;font-size:12.5px;font-family:var(--sans);background:transparent;outline:none}
+  .job-search button{border:0;background:var(--dark);color:var(--gold-l);font-size:11px;padding:0 18px;cursor:pointer;letter-spacing:.08em}
+
+  /* Stories */
+  .story{background:#fff;border:1px solid var(--border);padding:24px 24px;margin-bottom:14px}
+  .story-q{font-family:var(--serif);font-size:13px;line-height:2;color:var(--ink);margin-bottom:16px}
+  .story-q::before{content:"“";font-family:var(--display);color:var(--gold);font-size:28px;line-height:0;margin-right:4px;vertical-align:-8px}
+  .story-by{display:flex;align-items:center;gap:12px;border-top:1px solid var(--line);padding-top:14px}
+  .story-by img{width:42px;height:42px;border-radius:50%;object-fit:cover}
+  .story-by b{font-size:12.5px;font-weight:700;display:block}
+  .story-by span{font-size:10.5px;color:var(--gold-d);letter-spacing:.06em}
+  .dots{display:flex;justify-content:center;gap:8px;margin-top:6px}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--border)}
+  .dot.on{background:var(--gold)}
+
+  /* FAQ */
+  .faq details{border-bottom:1px solid var(--border)}
+  .faq summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:12px;padding:16px 2px;font-size:13px;font-weight:500}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary .qm{font-family:var(--display);color:var(--gold-d);font-weight:700;font-size:15px}
+  .faq summary .chev{margin-left:auto;color:var(--gold-d);transition:.2s;font-size:11px}
+  .faq details[open] summary .chev{transform:rotate(180deg)}
+  .faq .a{padding:0 2px 18px 24px;font-size:12.5px;color:var(--muted);line-height:1.95}
+
+  /* ===== CTA ===== */
+  .cta{background:var(--dark);color:#fff;position:relative;overflow:hidden}
+  .cta-edge{position:absolute;left:0;top:0;bottom:0;width:10px;background:var(--red)}
+  .cta-in{max-width:1180px;margin:0 auto;padding:84px 56px;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;position:relative;z-index:2}
+  .cta-l h2{font-family:var(--serif);font-size:30px;font-weight:700;line-height:1.85;letter-spacing:.05em}
+  .cta-l p{color:#9a9186;font-size:13.5px;margin-top:22px;line-height:1.95}
+  .cta-form{display:flex;flex-direction:column;gap:14px}
+  .cta-form .two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .cta-form input,.cta-form textarea{width:100%;background:#fff;border:0;padding:13px 16px;font-size:13.5px;font-family:var(--sans);outline:none}
+  .cta-form textarea{min-height:96px;resize:vertical}
+  .cta-form button{background:linear-gradient(180deg,#c79a63,#a87a44);color:#fff;border:0;padding:15px;font-size:14px;font-weight:700;letter-spacing:.12em;cursor:pointer;font-family:var(--serif)}
+  .cta-form button:hover{filter:brightness(1.06)}
+
+  /* ===== Footer ===== */
+  footer{background:#100E0B;color:#fff;padding:60px 0 0}
+  .ft-in{max-width:1180px;margin:0 auto;padding:0 56px;display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:48px}
+  .ft-brand b{font-family:var(--display);font-size:24px;letter-spacing:.18em;color:#fff;display:block}
+  .ft-brand small{font-size:8px;letter-spacing:.34em;color:var(--gold);font-weight:700;display:block;margin-top:2px;margin-bottom:18px}
+  .ft-brand p{font-size:12px;color:#8a8174;line-height:1.95}
+  .ft-contact{font-size:12px;color:#b6ada1;margin-top:18px;line-height:1.9}
+  .ft-col h5{font-size:11px;letter-spacing:.16em;color:var(--gold-l);font-weight:700;margin-bottom:18px}
+  .ft-col a{display:block;font-size:12.5px;color:#9a9186;text-decoration:none;margin-bottom:11px}
+  .ft-col a:hover{color:#fff}
+  .ft-social{display:flex;gap:14px;margin-top:6px}
+  .ft-social a{width:32px;height:32px;border:1px solid rgba(181,132,81,.4);border-radius:50%;display:flex;align-items:center;justify-content:center}
+  .ft-social svg{width:15px;height:15px;fill:var(--gold-l)}
+  .ft-bar{margin-top:54px;border-top:1px solid rgba(255,255,255,.08);padding:20px 0;text-align:center;font-size:11px;color:#6b6258;letter-spacing:.06em}
+
+  .totop{position:fixed;right:24px;bottom:24px;width:42px;height:42px;background:var(--dark);color:var(--gold-l);border:1px solid var(--gold);display:flex;align-items:center;justify-content:center;text-decoration:none;opacity:0;pointer-events:none;transition:.3s;z-index:70}
+  .totop.show{opacity:1;pointer-events:auto}
+
+  /* ===== Responsive ===== */
+  @media(max-width:900px){
+    .grid{grid-template-columns:1fr}
+    .col-side{border-left:0;border-top:1px solid var(--line)}
+    .pad-main,.pad-side{padding:0 28px}
+    .hd-nav{display:none}
+    .hd-burger{display:block}
+    .hd-cta{display:none}
+    .cta-in,.ft-in{grid-template-columns:1fr;gap:36px;padding-left:28px;padding-right:28px}
+    .hero h1{font-size:46px}
+    .me-body{grid-template-columns:1fr}
+    .me-card{border-right:0;border-bottom:1px solid rgba(181,132,81,.2)}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hd-in">
+    <a class="brand" href="#"><b>CXO AGENT</b><small>CAREER PLATFORM</small></a>
+    <nav class="hd-nav">
+      <a href="#jobs">求人を見る</a>
+      <a href="#experience">私たちの強み</a>
+      <a href="#stories">事例</a>
+      <a href="#faq">よくある質問</a>
+    </nav>
+    <a class="hd-cta" href="#contact">無料で相談する</a>
+    <button class="hd-burger" aria-label="menu">☰</button>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="grid">
+    <!-- ========== MAIN ========== -->
+    <div class="col-main">
+
+      <!-- Hero -->
+      <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-edge"></div>
+        <div class="hero-in">
+          <h1>CXO AGENT</h1>
+          <p>経営に挑むキャリアは、<wbr>ここから始まる。<br>正しい情報と伴走で、<wbr>あなたを次の経営の場所へ。</p>
+          <a class="hero-btn" href="#jobs">求人を見る</a>
+        </div>
+      </section>
+
+      <!-- Management Experience -->
+      <section class="block pad-main" id="experience">
+        <h2 class="section-label">Management Experience<small>経営人材としての確かな実績</small></h2>
+        <div class="me-panel">
+          <div class="me-photos">
+            <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=600&q=60" alt="">
+            <img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=600&q=60" alt="">
+          </div>
+          <div class="me-body">
+            <div class="me-card">
+              <div class="tag">CXO AGENT</div>
+              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=70" alt="">
+              <p>経営の現場を知るコンサルタントが、あなたのキャリアの解像度を一段引き上げます。数字とロジック、そして経営の機微までを言語化して伴走します。</p>
+            </div>
+            <div class="me-list">
+              <div class="me-item"><span class="me-no">1</span><div><h4>経営ポジションに特化</h4><p>CXO・CFO・COO など、経営の意思決定を担うポジションのみを扱います。</p></div></div>
+              <div class="me-item"><span class="me-no">2</span><div><h4>非公開求人へのアクセス</h4><p>表に出ない経営ポジションを、信頼関係のある企業から直接お預かりしています。</p></div></div>
+              <div class="me-item"><span class="me-no">3</span><div><h4>事業フェーズで見極める</h4><p>成長段階・資本構成・経営課題から、本当に活きる場所を見立てます。</p></div></div>
+              <div class="me-item"><span class="me-no">4</span><div><h4>条件交渉まで伴走</h4><p>報酬・権限・ストックオプションまで、あなたに代わって整えます。</p></div></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Philosophy -->
+      <section class="block pad-main phil">
+        <h2 class="section-label">Philosophy<small>私たちの哲学</small></h2>
+        <div class="phil-photo">
+          <div class="phil-frame">
+            <img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=900&q=70" alt="">
+          </div>
+        </div>
+        <p class="lead-jp">経営人材のキャリアは、求人票の条件だけでは語れません。<br>事業のどこに痛みがあり、どの権限があれば変えられるのか。経営の文脈まで踏み込んで初めて、その一手が意味を持ちます。<br><br>私たちは、転職を急がせません。あなたの経験が最も活きる局面を、企業側の本音とともに見極め、納得のいくタイミングだけをご提案します。<br>キャリアを賭けるに足る一社かどうか。その判断材料を、私たちが揃えます。</p>
+      </section>
+
+      <!-- Service Flow -->
+      <section class="block pad-main">
+        <h2 class="section-label">Service Flow<small>ご相談から就任までの流れ</small></h2>
+        <div class="flow">
+          <div class="flow-row">
+            <div class="flow-ico"><svg viewBox="0 0 24 24"><path d="M3 12l4-2 4 3 4-4 6 2"/><path d="M3 17l4-2 4 3 4-4 6 2"/></svg></div>
+            <div class="flow-txt"><h3>Initial Consultation</h3><p>まずは現状とご志向を伺います。経歴の棚卸しから、めざす経営の像までを一緒に言語化し、進め方をすり合わせます。</p></div>
+          </div>
+          <div class="flow-row">
+            <div class="flow-ico"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M16 16l5 5"/></svg></div>
+            <div class="flow-txt"><h3>Candidate Matching</h3><p>事業フェーズと経営課題から、あなたの経験が最も活きる企業を厳選。非公開の経営ポジションを含めてご紹介します。</p></div>
+          </div>
+          <div class="flow-row">
+            <div class="flow-ico"><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="1"/><path d="M9 3v3h6V3"/><path d="M8 11h8M8 15h5"/></svg></div>
+            <div class="flow-txt"><h3>Process Management</h3><p>面談設定から経営陣との対話、条件交渉まで一貫して伴走。意思決定に必要な情報を、双方向で整えます。</p></div>
+          </div>
+          <div class="flow-row">
+            <div class="flow-ico"><svg viewBox="0 0 24 24"><path d="M4 13l4 4 12-12"/><path d="M4 19h16"/></svg></div>
+            <div class="flow-txt"><h3>Successful Placement</h3><p>就任後も定着まで見届けます。最初の100日を見据え、立ち上がりの設計までご一緒します。</p></div>
+          </div>
+        </div>
+      </section>
+
+    </div><!-- /col-main -->
+
+    <!-- ========== SIDE ========== -->
+    <aside class="col-side">
+
+      <!-- Job Listings -->
+      <section class="side-block pad-side" id="jobs">
+        <h3 class="side-h">Job Listings<small>注目の経営ポジション</small></h3>
+        <div class="jobs">
+          <div class="job"><div class="job-info"><b>CFO候補</b><span>年収 1,200万〜2,000万円</span></div><a class="job-btn" href="#contact">応募する</a></div>
+          <div class="job"><div class="job-info"><b>COO候補</b><span>年収 1,500万〜2,500万円</span></div><a class="job-btn" href="#contact">応募する</a></div>
+          <div class="job"><div class="job-info"><b>事業責任者</b><span>年収 1,000万〜1,800万円</span></div><a class="job-btn" href="#contact">応募する</a></div>
+          <div class="job"><div class="job-info"><b>経営企画 部長</b><span>年収 900万〜1,500万円</span></div><a class="job-btn" href="#contact">応募する</a></div>
+          <div class="job"><div class="job-info"><b>CHRO候補</b><span>年収 1,100万〜1,900万円</span></div><a class="job-btn" href="#contact">応募する</a></div>
+          <div class="job"><div class="job-info"><b>CTO候補</b><span>年収 1,400万〜2,400万円</span></div><a class="job-btn" href="#contact">応募する</a></div>
+        </div>
+        <form class="job-search" onsubmit="return false">
+          <input type="text" placeholder="職種・キーワードで探す">
+          <button type="submit">検索</button>
+        </form>
+      </section>
+
+      <!-- Success Stories -->
+      <section class="side-block pad-side" id="stories">
+        <h3 class="side-h">Success Stories<small>就任された方の声</small></h3>
+        <div class="story">
+          <p class="story-q">事業の数字だけでなく、経営の温度まで見てくれた。条件交渉も任せられたので、最後まで本質的な対話に集中できました。</p>
+          <div class="story-by"><img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=120&q=70" alt=""><div><b>鈴木 雄太</b><span>CFO / Manufacturing</span></div></div>
+        </div>
+        <div class="story">
+          <p class="story-q">表に出ない経営ポジションを、企業の本音とセットで紹介してもらえた。納得して意思決定できたのが何よりでした。</p>
+          <div class="story-by"><img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=120&q=70" alt=""><div><b>田中 健太郎</b><span>COO / SaaS</span></div></div>
+        </div>
+        <div class="dots"><span class="dot on"></span><span class="dot"></span><span class="dot"></span></div>
+      </section>
+
+      <!-- FAQ -->
+      <section class="side-block pad-side faq" id="faq">
+        <h3 class="side-h">FAQ<small>よくあるご質問</small></h3>
+        <details open><summary><span class="qm">Q</span>相談だけでも利用できますか？<span class="chev">▼</span></summary><div class="a">はい。転職の意思が固まっていない段階でのキャリア相談も歓迎しています。費用は一切かかりません。</div></details>
+        <details><summary><span class="qm">Q</span>非公開求人はどのくらいありますか？<span class="chev">▼</span></summary><div class="a">経営ポジションの多くは非公開です。ご経歴と志向を伺ったうえで、適したものを個別にご案内します。</div></details>
+        <details><summary><span class="qm">Q</span>今すぐの転職は考えていません。<span class="chev">▼</span></summary><div class="a">問題ありません。最適な局面が来るまで情報提供を続け、タイミングだけをご提案します。</div></details>
+        <details><summary><span class="qm">Q</span>地方やリモートの求人もありますか？<span class="chev">▼</span></summary><div class="a">あります。勤務地やはたらき方の希望も含め、条件をすり合わせてご紹介します。</div></details>
+        <details><summary><span class="qm">Q</span>登録に費用はかかりますか？<span class="chev">▼</span></summary><div class="a">ご相談・ご紹介はすべて無料です。費用は採用企業側が負担します。</div></details>
+      </section>
+
+    </aside><!-- /col-side -->
+  </div>
+</div>
+
+<!-- ========== CTA ========== -->
+<section class="cta" id="contact">
+  <div class="cta-edge"></div>
+  <div class="cta-in">
+    <div class="cta-l">
+      <h2>信頼こそが、<wbr>私たちの哲学。<br>あなたの次の経営の場所を、<wbr>ここから。</h2>
+      <p>経営ポジションへの挑戦も、まずは情報収集からでも構いません。<br>下記よりお気軽にご相談ください。担当より追ってご連絡します。</p>
+    </div>
+    <form class="cta-form" onsubmit="return false">
+      <div class="two">
+        <input type="text" placeholder="お名前">
+        <input type="email" placeholder="メールアドレス">
+      </div>
+      <input type="text" placeholder="現在の所属（任意）">
+      <textarea placeholder="ご相談内容"></textarea>
+      <button type="submit">無料で相談する</button>
+    </form>
+  </div>
+</section>
+
+<!-- ========== Footer ========== -->
+<footer>
+  <div class="ft-in">
+    <div class="ft-brand">
+      <b>CXO AGENT</b><small>CAREER PLATFORM</small>
+      <p>経営人材のためのキャリアプラットフォーム。<br>CXO・CFO・COO など、経営の意思決定を担うポジションに特化したキャリア支援を行っています。</p>
+      <div class="ft-contact">お問い合わせ：contact@cxo-agent.example<br>受付時間：平日 10:00 – 18:00</div>
+    </div>
+    <div class="ft-col">
+      <h5>COMPANY</h5>
+      <a href="#">ホーム</a>
+      <a href="#experience">私たちの強み</a>
+      <a href="#stories">就任事例</a>
+      <a href="#jobs">求人を見る</a>
+      <a href="#contact">無料相談</a>
+    </div>
+    <div class="ft-col">
+      <h5>LINKS</h5>
+      <a href="#faq">よくある質問</a>
+      <a href="#">利用規約</a>
+      <a href="#">プライバシーポリシー</a>
+      <a href="#">運営会社</a>
+      <div class="ft-social" style="margin-top:18px">
+        <a href="#" aria-label="X"><svg viewBox="0 0 24 24"><path d="M18 2h3l-7 8 8 12h-6l-5-7-5 7H-1l8-9L0 2h6l4 6z" transform="translate(2 0)"/></svg></a>
+        <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M4 4a2 2 0 11-.01 4.01A2 2 0 014 4zM2 9h4v12H2zM9 9h4v2h.1c.6-1 2-2 3.9-2 4 0 5 2.5 5 6v7h-4v-6c0-1.5 0-3.5-2-3.5s-2.5 1.7-2.5 3.4V21H9z"/></svg></a>
+        <a href="#" aria-label="Mail"><svg viewBox="0 0 24 24"><path d="M2 5h20v14H2z" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M3 6l9 7 9-7" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+      </div>
+    </div>
+  </div>
+  <div class="ft-bar">© 2026 CXO AGENT. All rights reserved.</div>
+</footer>
+
+<a href="#" class="totop" id="totop" aria-label="ページ上部へ">↑</a>
+
+<script>
+  const tt=document.getElementById('totop');
+  addEventListener('scroll',()=>{tt.classList.toggle('show',scrollY>500)});
+</script>
+</body>
+</html>
