@@ -149,21 +149,24 @@
     .brush-band.top { top: -34px; height: 80px; }
 
     /* ── §2 DIFFERENCE ── */
-    .reasons { display: grid; grid-template-columns: 1fr 1fr; gap: 0 clamp(40px,6vw,90px); margin-top: clamp(40px,6vw,72px); }
-    .reason { padding: 36px 0 34px; border-top: 3px solid var(--ink); }
-    .reason h3 { font-family: var(--zen); font-weight: 900; font-size: clamp(17px,1.6vw,23px); line-height: 1.45; margin-bottom: 14px; word-break: keep-all; }
-    .reason p { font-size: clamp(14px,1.1vw,15.5px); line-height: 2; color: var(--body); }
-    .reason .key { color: var(--red); }
+    /* 3枚カード（横並び） */
+    .diff-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(16px,2vw,26px); margin-top: clamp(40px,6vw,68px); }
+    .dcard { position: relative; background: #fff; border: 1px solid var(--line); padding: clamp(28px,3vw,38px) clamp(22px,2.4vw,30px) clamp(26px,3vw,34px); transition: transform .3s cubic-bezier(.16,1,.3,1), box-shadow .3s; }
+    .dcard::before { content: ''; position: absolute; top: 0; left: 0; width: 52px; height: 5px; background: var(--red); }
+    .dcard:hover { transform: translateY(-6px); box-shadow: 0 24px 46px rgba(0,0,0,.12); }
+    .dcard h3 { font-family: var(--zen); font-weight: 900; font-size: clamp(18px,1.7vw,24px); line-height: 1.45; margin: 20px 0 14px; word-break: keep-all; }
+    .dcard p { font-size: clamp(13.5px,1.05vw,15px); line-height: 1.95; color: var(--body); }
 
     /* ── 強みバンド ── */
     .strength { background: var(--paper2); }
-    .strength-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: clamp(36px,6vw,72px); align-items: center; }
+    .strength-grid { display: grid; grid-template-columns: minmax(0,0.86fr) minmax(0,1.14fr); gap: clamp(28px,4vw,56px); align-items: center; }
+    .strength-copy .h-xl { font-size: clamp(28px, 4vw, 50px); }
     .strength-copy p { font-size: clamp(15px,1.15vw,17px); line-height: 2; color: var(--body); margin-top: 26px; }
     .feat-list { list-style: none; display: flex; flex-direction: column; gap: 16px; }
-    .feat-item { display: flex; align-items: center; gap: 18px; background: var(--ink); color: #fff; padding: 22px 26px; border-radius: 14px; box-shadow: 0 12px 30px rgba(0,0,0,.16); }
-    .fi-check { flex-shrink: 0; width: 42px; height: 42px; border-radius: 50%; background: var(--red); display: flex; align-items: center; justify-content: center; }
-    .fi-check svg { width: 21px; height: 21px; }
-    .fi-txt { font-family: var(--zen); font-weight: 900; font-size: clamp(16px,1.5vw,21px); line-height: 1.45; word-break: keep-all; }
+    .feat-item { display: flex; align-items: center; gap: 20px; background: var(--ink); color: #fff; padding: 26px 32px; border-radius: 14px; box-shadow: 0 12px 30px rgba(0,0,0,.16); }
+    .fi-check { flex-shrink: 0; width: 46px; height: 46px; border-radius: 50%; background: var(--red); display: flex; align-items: center; justify-content: center; }
+    .fi-check svg { width: 23px; height: 23px; }
+    .fi-txt { font-family: var(--zen); font-weight: 900; font-size: clamp(15px,1.55vw,22px); line-height: 1.3; white-space: nowrap; }
 
     /* ── §3 AGENTS（横スクロール カード） ── */
     .agent { flex: 0 0 clamp(214px, 25vw, 272px); scroll-snap-align: start; }
@@ -172,7 +175,7 @@
     .agent-ph.ph-empty { filter: none; background: #d9d5cc; display: flex; align-items: center; justify-content: center; border: 1px dashed rgba(20,18,15,.22); }
     .agent-ph.ph-empty span { font-family: var(--jp); font-size: 12px; font-weight: 500; letter-spacing: .08em; color: #8d877c; }
     .agent-meta { padding: 14px 2px 0; border-top: 2px solid var(--ink); margin-top: 12px; }
-    .agent-role { font-family: var(--arch); font-size: 11px; font-weight: 800; letter-spacing: .1em; color: var(--red); text-transform: uppercase; }
+    .agent-role { font-family: var(--jp); font-size: 12px; font-weight: 700; letter-spacing: .02em; color: var(--red); line-height: 1.45; }
     .agent-name { font-family: var(--zen); font-weight: 900; font-size: clamp(18px,1.8vw,24px); margin-top: 6px; }
     .agents-note { margin-top: 24px; font-size: 11.5px; color: #8d877c; }
 
@@ -296,9 +299,9 @@
       .s-badge { right: 2%; width: 86px; height: 86px; }
       .s-name { left: -2%; }
       .s-cta { left: 4%; }
-      .reasons { grid-template-columns: 1fr; }
-      .reason { padding: 26px 0; }
+      .diff-cards { grid-template-columns: 1fr; }
       .strength-grid, .pos-grid { grid-template-columns: 1fr; }
+      .fi-txt { white-space: normal; }
       .job-feat { grid-template-columns: 1fr; gap: 14px; }
       .job-feat .sal { text-align: left; }
       .ft-inner { grid-template-columns: 1fr; }
@@ -364,25 +367,21 @@
 <!-- ════ §2 DIFFERENCE ════ -->
 <section class="sec" id="difference">
   <div class="sec-inner">
-    <h2 class="h-xl rv">経営経験者が担当するから、<br><span class="mark">話が早い</span>。</h2>
-    <p class="lead rv d1">一般的な転職エージェントとは、立っている場所が違います。私たち自身が経営を経験してきたからこそ、あなたの市場価値とキャリアの設計図を、経営目線で一緒に描けます。</p>
-    <div class="reasons">
-      <div class="reason rv d1">
-        <h3>「どんな会社に行くべきか」を、<span class="key">経営目線で判断できる</span></h3>
-        <p>スタートアップのフェーズ感、経営チームの質、事業の実態。一般のエージェントには見えないものを、自分たちが経営者だからこそ読める。候補企業について本音で話せます。</p>
-      </div>
-      <div class="reason rv d2">
-        <h3>経営者同士のネットワークから来る、<span class="key">非公開求人がある</span></h3>
-        <p>一般媒体に出ない求人の多くは、経営者間の紹介・口コミで動く。私たち自身がそのネットワークの中にいるから、表に出ないポジションにアクセスできます。</p>
-      </div>
-      <div class="reason rv d1">
-        <h3>「経営ポジションへの最短ルート」を、<span class="key">一緒に描ける</span></h3>
-        <p>今すぐCXOになれなくても、そこへ向かうキャリアの組み立て方がある。実際に経営してきたからこそ、リアルな道筋を一緒に考えられます。</p>
-      </div>
-      <div class="reason rv d2">
-        <h3>相談は完全無料。<span class="key">決めていなくても構わない</span></h3>
-        <p>「まだ動くか分からない」「市場価値を確かめたい」という段階から話を聞きます。経営キャリアは早く動くほど選択肢が広がる。情報収集から始めてください。</p>
-      </div>
+    <h2 class="h-xl rv">経営を知る私たちだから、<br>あなたに<span class="mark">本当に合う</span>求人を。</h2>
+    <p class="lead rv d1">私たち自身が経営を経験してきたからこそ、あなたの市場価値を正しく見立て、本当にマッチする求人・企業をご紹介できます。今すぐでなくても、CxO・経営層を目指すキャリアの実現まで、一緒に伴走します。</p>
+    <div class="diff-cards">
+      <article class="dcard rv d1">
+        <h3>「行くべき会社」を、<br>経営目線で見極める</h3>
+        <p>スタートアップのフェーズ感、経営チームの質、事業の実態。一般のエージェントには見えないものを、自分たちが経営者だからこそ読める。候補企業について本音でお話しします。</p>
+      </article>
+      <article class="dcard rv d2">
+        <h3>経営者ネットワークの、<br>非公開求人にアクセス</h3>
+        <p>一般媒体に出ない求人の多くは、経営者間の紹介・口コミで動く。私たち自身がそのネットワークの中にいるから、表に出ないポジションをご紹介できます。</p>
+      </article>
+      <article class="dcard rv d3">
+        <h3>経営ポジションへの、<br>最短ルートを一緒に設計</h3>
+        <p>今すぐCxOになれなくても、そこへ向かうキャリアの組み立て方がある。実際に経営してきたからこそ、リアルな道筋を一緒に描けます。</p>
+      </article>
     </div>
   </div>
 </section>
@@ -398,15 +397,15 @@
       <ul class="feat-list" aria-label="3つの強み">
         <li class="feat-item fi s1">
           <span class="fi-check"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          <span class="fi-txt">年収1,000万円以上の<br>求人が中心</span>
+          <span class="fi-txt">年収1,000万円以上の求人が中心</span>
         </li>
         <li class="feat-item fi s2">
           <span class="fi-check"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          <span class="fi-txt">CxO特化の<br>非公開求人多数</span>
+          <span class="fi-txt">CxO特化の非公開求人多数</span>
         </li>
         <li class="feat-item fi s3">
           <span class="fi-check"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          <span class="fi-txt">副業・業務委託の<br>案件情報も提供</span>
+          <span class="fi-txt">副業・業務委託の案件情報も提供</span>
         </li>
       </ul>
     </div>
@@ -424,23 +423,23 @@
     <div class="cursor-track" id="agentsTrack">
       <article class="agent">
         <div class="agent-ph ph-empty"><span>写真掲載予定</span></div>
-        <div class="agent-meta"><p class="agent-role">代表 / エージェント</p><p class="agent-name">吉川 隼大</p></div>
+        <div class="agent-meta"><p class="agent-role">株式会社プレイバッカーズ 代表取締役</p><p class="agent-name">吉川 隼大</p></div>
       </article>
       <article class="agent">
         <div class="agent-ph ph-empty"><span>写真掲載予定</span></div>
-        <div class="agent-meta"><p class="agent-role">投資家</p><p class="agent-name">野上 隆徳</p></div>
+        <div class="agent-meta"><p class="agent-role">Beyondge株式会社 代表取締役</p><p class="agent-name">野上 隆徳</p></div>
       </article>
       <article class="agent">
         <div class="agent-ph ph-empty"><span>写真掲載予定</span></div>
-        <div class="agent-meta"><p class="agent-role">CFO経験</p><p class="agent-name">清水 ※担当者</p></div>
+        <div class="agent-meta"><p class="agent-role">Beyondge株式会社 COO</p><p class="agent-name">小高</p></div>
       </article>
       <article class="agent">
         <div class="agent-ph ph-empty"><span>写真掲載予定</span></div>
-        <div class="agent-meta"><p class="agent-role">事業投資</p><p class="agent-name">石川 ※担当者</p></div>
+        <div class="agent-meta"><p class="agent-role">株式会社AntAI 代表取締役</p><p class="agent-name">石川</p></div>
       </article>
       <article class="agent">
-        <div class="agent-ph ph-empty"><span>写真掲載予定</span></div>
-        <div class="agent-meta"><p class="agent-role">COO経験</p><p class="agent-name">— ※担当者</p></div>
+        <div class="agent-ph ph-empty"><span>準備中</span></div>
+        <div class="agent-meta"><p class="agent-role">今後、担当者を追加予定</p><p class="agent-name">—</p></div>
       </article>
     </div>
   </div>
