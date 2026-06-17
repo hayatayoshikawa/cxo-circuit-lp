@@ -67,7 +67,7 @@
     /* ── HERO ── */
     .hero { position: relative; width: 100vw; min-height: 100vh; overflow: hidden; background: var(--ink2); isolation: isolate; }
     /* ナビ(62px)の下からポスターを始め、ヘッダーで隠れないように */
-    .hero-poster { position: absolute; top: 62px; left: 0; right: 0; bottom: 0; z-index: 1; width: 100%; height: auto; object-fit: cover; object-position: center top; }
+    .hero-poster { position: absolute; top: 62px; left: 0; right: 0; bottom: 0; z-index: 1; width: 100%; height: 100%; object-fit: contain; object-position: left center; }
     .js .hero-poster { opacity: 0; animation: posterIn 1s .1s cubic-bezier(.16,1,.3,1) forwards; }
     @keyframes posterIn { from { opacity:0; transform: scale(1.04);} to { opacity:1; transform: scale(1);} }
     .hero-person { position: absolute; bottom: 0; right: -7%; height: 94%; z-index: 3; pointer-events: none; filter: drop-shadow(-18px 18px 36px rgba(0,0,0,.30)) contrast(1.05); will-change: transform, opacity; }
