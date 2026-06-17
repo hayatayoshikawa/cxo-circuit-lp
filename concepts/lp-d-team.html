@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="ja" class="js">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CxOエージェント｜経営者と話せる、キャリアの場</title>
+<meta name="description" content="経営を目指すあなたの次の一手を、経営を経験した私たちと、本音で考える。CxOエージェント（運営：Beyondge株式会社）。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FBF7EF;
+    --cream-deep:#F3ECDB;
+    --paper:#FFFDF8;
+    --crimson:#6E1B2E;
+    --crimson-deep:#561522;
+    --gold:#B08628;
+    --gold-soft:#cbab68;
+    --ink:#241f1b;
+    --ink-soft:#5c544c;
+    --line:rgba(176,134,40,0.30);
+    --line-soft:rgba(176,134,40,0.16);
+    --serif:'Shippori Mincho',serif;
+    --sans:'Noto Sans JP',sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:var(--sans);
+    color:var(--ink);
+    background:var(--cream);
+    line-height:1.85;
+    -webkit-font-smoothing:antialiased;
+    font-size:16px;
+    overflow-x:hidden;
+  }
+  h1,h2,h3{font-family:var(--serif);font-weight:600;word-break:keep-all;line-height:1.4;letter-spacing:.02em;}
+  a{color:inherit;text-decoration:none;}
+  img{display:block;max-width:100%;}
+  .wrap{width:100%;max-width:1180px;margin:0 auto;padding:0 32px;}
+  .crimson{color:var(--crimson);}
+
+  /* ---------- reveal ---------- */
+  .js .rv{opacity:0;transform:translateY(26px);}
+  .rv{transition:opacity .9s cubic-bezier(.16,.84,.44,1),transform .9s cubic-bezier(.16,.84,.44,1);}
+  .rv.in{opacity:1;transform:none;}
+  .rv.d1{transition-delay:.10s;}
+  .rv.d2{transition-delay:.20s;}
+  .rv.d3{transition-delay:.30s;}
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto;}
+    .js .rv{opacity:1;transform:none;}
+    .rv{transition:none;}
+  }
+
+  /* ---------- nav ---------- */
+  header.nav{position:sticky;top:0;z-index:50;background:rgba(251,247,239,0.88);backdrop-filter:blur(12px);border-bottom:1px solid var(--line-soft);}
+  .nav-in{display:flex;align-items:center;justify-content:space-between;height:74px;}
+  .logo{font-family:var(--serif);font-size:21px;font-weight:600;letter-spacing:.04em;color:var(--ink);}
+  .logo span{color:var(--gold);}
+  .nav-links{display:flex;align-items:center;gap:26px;}
+  .nav-links a{font-size:13.5px;color:var(--ink-soft);transition:color .25s;white-space:nowrap;}
+  .nav-links a:hover{color:var(--crimson);}
+  .nav-cta{background:var(--crimson);color:#fff;padding:11px 22px;border-radius:999px;font-size:13.5px;font-weight:500;transition:background .25s,transform .25s;}
+  .nav-cta:hover{background:var(--crimson-deep);transform:translateY(-1px);color:#fff;}
+  .nav-toggle{display:none;background:none;border:none;cursor:pointer;color:var(--ink);font-size:26px;line-height:1;}
+
+  /* ---------- hero ---------- */
+  .hero{position:relative;overflow:hidden;background:linear-gradient(120deg,var(--cream) 0%,var(--cream) 52%,var(--cream-deep) 100%);}
+  .hero-in{display:grid;grid-template-columns:1fr 1.12fr;gap:54px;align-items:center;padding:74px 0 86px;}
+  .hero-label{display:inline-flex;align-items:center;gap:10px;font-size:12.5px;letter-spacing:.22em;color:var(--gold);font-weight:500;margin-bottom:26px;}
+  .hero-label::before{content:"";width:34px;height:1px;background:var(--gold);}
+  .hero h1{font-size:clamp(2.05rem,4.3vw,3.35rem);line-height:1.34;letter-spacing:.01em;}
+  .hero h1 .ln{display:block;}
+  .hero .sub{margin-top:28px;font-size:16.5px;color:var(--ink-soft);line-height:2;max-width:30em;}
+  .hero-actions{margin-top:38px;display:flex;flex-direction:column;align-items:flex-start;gap:16px;}
+  .btn-primary{display:inline-flex;align-items:center;gap:12px;background:var(--crimson);color:#fff;font-size:16px;font-weight:500;padding:17px 38px;border-radius:999px;transition:background .25s,transform .25s,box-shadow .25s;box-shadow:0 12px 30px -14px rgba(110,27,46,.55);}
+  .btn-primary:hover{background:var(--crimson-deep);transform:translateY(-2px);color:#fff;box-shadow:0 18px 38px -14px rgba(110,27,46,.6);}
+  .btn-primary .ar{transition:transform .25s;}
+  .btn-primary:hover .ar{transform:translateX(4px);}
+  .hero-note{font-size:13px;color:var(--ink-soft);display:flex;align-items:center;gap:7px;}
+  .hero-media{position:relative;}
+  .hero-media .frame{position:relative;border-radius:8px;overflow:hidden;box-shadow:0 40px 80px -36px rgba(60,40,20,.45);}
+  .hero-media img{width:100%;height:560px;object-fit:cover;filter:grayscale(38%) sepia(14%) saturate(118%) brightness(1.03) contrast(.97);}
+  .hero-media .frame::after{content:"";position:absolute;inset:0;background:linear-gradient(150deg,rgba(243,236,219,.18),rgba(110,27,46,.10));mix-blend-mode:multiply;}
+  .hero-media .gild{position:absolute;top:-14px;left:-14px;right:32px;bottom:32px;border:1px solid var(--gold);border-radius:8px;z-index:-1;}
+  .hero-tag{position:absolute;bottom:24px;left:24px;background:rgba(251,247,239,.94);backdrop-filter:blur(4px);padding:13px 20px;border-radius:6px;border-left:3px solid var(--crimson);font-family:var(--serif);font-size:14.5px;color:var(--ink);box-shadow:0 14px 30px -16px rgba(0,0,0,.4);}
+
+  /* ---------- section base ---------- */
+  section{padding:96px 0;}
+  .sec-label{font-size:12px;letter-spacing:.24em;color:var(--gold);font-weight:500;margin-bottom:16px;}
+  .sec-title{font-size:clamp(1.55rem,3vw,2.25rem);line-height:1.5;letter-spacing:.02em;}
+  .sec-head{max-width:40em;}
+  .divider-gold{width:46px;height:1px;background:var(--gold);margin:0 0 16px;}
+
+  /* about cards */
+  .about{background:var(--paper);border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft);}
+  .about-grid{margin-top:52px;display:grid;grid-template-columns:repeat(2,1fr);gap:0;border:1px solid var(--line);background:var(--line-soft);}
+  .about-cell{background:var(--paper);padding:38px 40px;position:relative;}
+  .about-cell .ttl{font-family:var(--serif);font-size:18.5px;font-weight:600;color:var(--ink);margin-bottom:13px;display:flex;align-items:baseline;gap:13px;}
+  .about-cell .mk{font-family:var(--serif);font-size:14px;color:var(--gold);font-weight:600;letter-spacing:.05em;flex:0 0 auto;}
+  .about-cell p{font-size:14.5px;color:var(--ink-soft);line-height:1.95;}
+
+  /* members */
+  .members{background:linear-gradient(180deg,var(--cream) 0%,var(--cream-deep) 100%);}
+  .mem-grid{margin-top:54px;display:grid;grid-template-columns:repeat(4,1fr);gap:26px;}
+  .mem{background:var(--paper);border:1px solid var(--line-soft);border-radius:8px;overflow:hidden;transition:transform .3s,box-shadow .3s;}
+  .mem:hover{transform:translateY(-5px);box-shadow:0 24px 46px -26px rgba(60,40,20,.4);}
+  .mem .ph{position:relative;height:230px;overflow:hidden;}
+  .mem .ph img{width:100%;height:100%;object-fit:cover;filter:grayscale(100%) contrast(1.02) brightness(1.02);transition:filter .5s;}
+  .mem:hover .ph img{filter:grayscale(60%) sepia(8%) contrast(1.02);}
+  .mem .ph::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(36,31,27,.12));}
+  .mem .body{padding:22px 22px 26px;}
+  .mem .name{font-family:var(--serif);font-size:19px;font-weight:600;color:var(--ink);}
+  .mem .role{font-size:12.5px;color:var(--crimson);margin-top:6px;letter-spacing:.02em;line-height:1.5;}
+  .mem .role .co{display:block;color:var(--gold);}
+  .mem .desc{font-size:13px;color:var(--ink-soft);margin-top:14px;line-height:1.85;border-top:1px solid var(--line-soft);padding-top:14px;}
+
+  /* can-do */
+  .can{background:var(--paper);border-top:1px solid var(--line-soft);}
+  .can-grid{margin-top:52px;display:grid;grid-template-columns:repeat(2,1fr);gap:30px;}
+  .can-item{display:flex;gap:22px;padding:8px 4px;}
+  .can-ic{flex:0 0 auto;width:54px;height:54px;border-radius:50%;border:1px solid var(--gold);display:flex;align-items:center;justify-content:center;color:var(--crimson);font-size:23px;background:var(--cream);}
+  .can-item h3{font-size:17.5px;color:var(--ink);margin-bottom:9px;line-height:1.5;}
+  .can-item p{font-size:14.5px;color:var(--ink-soft);line-height:1.9;}
+
+  /* flow */
+  .flow{background:linear-gradient(180deg,var(--cream-deep) 0%,var(--cream) 100%);}
+  .flow-grid{margin-top:54px;display:grid;grid-template-columns:repeat(4,1fr);gap:0;}
+  .flow-step{position:relative;padding:0 26px;}
+  .flow-step:not(:last-child)::after{content:"";position:absolute;top:30px;right:-1px;width:1px;height:calc(100% - 30px);background:var(--line);}
+  .flow-num{font-family:var(--serif);font-size:15px;color:#fff;background:var(--crimson);width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;letter-spacing:.04em;box-shadow:0 12px 26px -14px rgba(110,27,46,.6);}
+  .flow-step h3{font-size:17px;color:var(--ink);margin:22px 0 11px;line-height:1.5;}
+  .flow-step p{font-size:13.5px;color:var(--ink-soft);line-height:1.9;}
+
+  /* voice */
+  .voice{background:var(--paper);border-top:1px solid var(--line-soft);}
+  .voice-grid{margin-top:52px;display:grid;grid-template-columns:repeat(3,1fr);gap:28px;}
+  .voice-card{background:var(--cream);border:1px solid var(--line-soft);border-radius:8px;padding:34px 30px;position:relative;display:flex;flex-direction:column;}
+  .voice-card .q{font-family:var(--serif);font-size:40px;color:var(--gold-soft);line-height:.6;height:24px;}
+  .voice-card .txt{font-size:15px;color:var(--ink);line-height:2;margin:10px 0 24px;flex:1;}
+  .voice-meta{display:flex;align-items:center;gap:13px;border-top:1px solid var(--line-soft);padding-top:18px;}
+  .voice-meta img{width:46px;height:46px;border-radius:50%;object-fit:cover;filter:grayscale(100%);flex:0 0 auto;}
+  .voice-meta .who{font-size:12.5px;color:var(--ink-soft);line-height:1.6;}
+
+  /* contact */
+  .contact{background:var(--crimson);color:#fff;position:relative;overflow:hidden;}
+  .contact::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 80% -10%,rgba(176,134,40,.22),transparent 55%);}
+  .contact-in{position:relative;display:grid;grid-template-columns:1fr 1.05fr;gap:64px;align-items:center;}
+  .contact .lead h2{font-size:clamp(1.7rem,3.2vw,2.5rem);color:#fff;line-height:1.5;}
+  .contact .lead p{margin-top:20px;font-size:16px;color:rgba(255,255,255,.82);line-height:2;}
+  .contact .lead .rule{width:46px;height:1px;background:var(--gold-soft);margin:26px 0;}
+  .contact-form{background:var(--paper);border-radius:10px;padding:38px 36px;box-shadow:0 40px 80px -34px rgba(0,0,0,.5);}
+  .field{margin-bottom:20px;}
+  .field label{display:block;font-size:13px;color:var(--ink);font-weight:500;margin-bottom:8px;}
+  .field input,.field textarea{width:100%;font-family:var(--sans);font-size:14.5px;color:var(--ink);background:var(--cream);border:1px solid var(--line);border-radius:6px;padding:12px 14px;transition:border-color .2s,box-shadow .2s;}
+  .field input::placeholder,.field textarea::placeholder{color:#a89d8c;}
+  .field input:focus,.field textarea:focus{outline:none;border-color:var(--crimson);box-shadow:0 0 0 3px rgba(110,27,46,.12);}
+  .field textarea{resize:vertical;min-height:108px;line-height:1.8;}
+  .form-submit{width:100%;background:var(--crimson);color:#fff;font-family:var(--sans);font-size:15.5px;font-weight:500;border:none;border-radius:999px;padding:16px;cursor:pointer;transition:background .25s,transform .2s;display:flex;align-items:center;justify-content:center;gap:10px;}
+  .form-submit:hover{background:var(--crimson-deep);transform:translateY(-1px);}
+  .form-note{font-size:11.5px;color:var(--ink-soft);margin-top:16px;line-height:1.7;text-align:center;}
+
+  /* footer */
+  footer{background:var(--ink);color:#cdc4b6;padding:64px 0 36px;}
+  .foot-top{display:flex;justify-content:space-between;align-items:flex-start;gap:40px;flex-wrap:wrap;padding-bottom:34px;border-bottom:1px solid rgba(205,196,182,.16);}
+  .foot-brand .fl{font-family:var(--serif);font-size:21px;color:#fff;letter-spacing:.04em;}
+  .foot-brand .fl span{color:var(--gold-soft);}
+  .foot-brand .op{font-size:13px;color:#9b9183;margin-top:10px;}
+  .foot-links{display:flex;gap:26px;flex-wrap:wrap;}
+  .foot-links a{font-size:13px;color:#cdc4b6;transition:color .2s;}
+  .foot-links a:hover{color:var(--gold-soft);}
+  .foot-copy{margin-top:28px;font-size:12px;color:#8a8074;letter-spacing:.04em;}
+
+  /* responsive */
+  @media (max-width:900px){
+    .wrap{padding:0 24px;}
+    section{padding:72px 0;}
+    .nav-links{display:none;}
+    .nav-links.open{display:flex;position:absolute;top:74px;left:0;right:0;flex-direction:column;align-items:flex-start;gap:18px;background:var(--cream);padding:24px;border-bottom:1px solid var(--line);}
+    .nav-toggle{display:block;}
+    .hero-in{grid-template-columns:1fr;gap:44px;padding:54px 0 64px;}
+    .hero-media{order:-1;}
+    .hero-media img{height:380px;}
+    .hero-media .gild{right:20px;bottom:20px;}
+    .about-grid{grid-template-columns:1fr;}
+    .mem-grid{grid-template-columns:repeat(2,1fr);}
+    .can-grid{grid-template-columns:1fr;gap:26px;}
+    .flow-grid{grid-template-columns:repeat(2,1fr);gap:40px 0;}
+    .flow-step:nth-child(2)::after{display:none;}
+    .voice-grid{grid-template-columns:1fr;}
+    .contact-in{grid-template-columns:1fr;gap:40px;}
+  }
+  @media (max-width:560px){
+    .wrap{padding:0 20px;}
+    .hero h1{font-size:clamp(1.7rem,7.5vw,2.2rem);}
+    .hero-media img{height:300px;}
+    .mem-grid{grid-template-columns:1fr;}
+    .flow-grid{grid-template-columns:1fr;gap:34px;}
+    .flow-step{padding:0;}
+    .flow-step::after{display:none !important;}
+    .about-cell{padding:30px 26px;}
+    .contact-form{padding:28px 22px;}
+    .btn-primary{width:100%;justify-content:center;}
+    .foot-top{flex-direction:column;}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <a href="#" class="logo">Cxo<span>エージェント</span></a>
+    <nav class="nav-links" id="navlinks">
+      <a href="#about">私たちについて</a>
+      <a href="#can">できること</a>
+      <a href="#flow">ご相談の流れ</a>
+      <a href="#voice">声</a>
+      <a href="#faq">よくあるご質問</a>
+      <a href="#">コラム</a>
+      <a href="#contact" class="nav-cta">経営者と話してみる</a>
+    </nav>
+    <button class="nav-toggle" id="navtoggle" aria-label="メニュー">≡</button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-in">
+    <div class="hero-copy">
+      <div class="hero-label rv">CxOエージェント</div>
+      <h1 class="rv d1">
+        <span class="ln">“経営できる人”になる</span>
+        <span class="ln">キャリアを、<span class="crimson">経営者</span>と。</span>
+      </h1>
+      <p class="sub rv d2">経営を目指すあなたの次の一手を、<br>経営を経験した私たちと、本音で考える。</p>
+      <div class="hero-actions rv d3">
+        <a href="#contact" class="btn-primary">経営者と話してみる<span class="ar">→</span></a>
+        <span class="hero-note">🔒 匿名可・ご相談はすべてキャリアを考える場です。</span>
+      </div>
+    </div>
+    <div class="hero-media rv d2">
+      <div class="gild"></div>
+      <div class="frame">
+        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1600&q=80" alt="テーブルを囲んで対話する経営者たち">
+      </div>
+      <div class="hero-tag">経営者が集まり、経営者と話せる場。</div>
+    </div>
+  </div>
+</section>
+
+<section id="about" class="about">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="divider-gold"></div>
+      <div class="sec-label">なぜ私たちか</div>
+      <h2 class="sec-title">経営の現場にいる私たちだから、<br>話せることがある。</h2>
+    </div>
+    <div class="about-grid rv d1">
+      <div class="about-cell">
+        <div class="ttl"><span class="mk">01</span>現役の経営者・事業責任者</div>
+        <p>日々、事業を伸ばし、リスクを取り、意思決定を繰り返している私たちが、あなたのキャリアと向き合います。</p>
+      </div>
+      <div class="about-cell">
+        <div class="ttl"><span class="mk">02</span>本音で語れる対話</div>
+        <p>机上のアドバイスではなく、経営の最前線のリアルな課題も率直にお話しします。</p>
+      </div>
+      <div class="about-cell">
+        <div class="ttl"><span class="mk">03</span>転職につながる提案</div>
+        <p>単なる紹介やポジション提案ではなく、あなたのキャリアの可能性が広がる選択肢を考えます。</p>
+      </div>
+      <div class="about-cell">
+        <div class="ttl"><span class="mk">04</span>中長期のパートナー</div>
+        <p>今すぐの転職に限らず、将来の可能性を見据えた伴走を大切にしています。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="members">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="divider-gold"></div>
+      <div class="sec-label">私たち（現役経営者）</div>
+      <h2 class="sec-title">経営の最前線に立つ、<br>四人のパートナー。</h2>
+    </div>
+    <div class="mem-grid">
+      <div class="mem rv">
+        <div class="ph"><img src="https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?auto=format&fit=crop&w=600&q=80" alt="野上 隆徳"></div>
+        <div class="body">
+          <div class="name">野上 隆徳</div>
+          <div class="role"><span class="co">Beyondge株式会社</span>代表取締役</div>
+          <p class="desc">事業創出と組織変革を推進。デザイン×事業開発で新しい価値を生み出す。</p>
+        </div>
+      </div>
+      <div class="mem rv d1">
+        <div class="ph"><img src="https://images.unsplash.com/photo-1502920917128-1aa500764cbd?auto=format&fit=crop&w=600&q=80" alt="小高 康太"></div>
+        <div class="body">
+          <div class="name">小高 康太</div>
+          <div class="role"><span class="co">Beyondge株式会社</span>COO</div>
+          <p class="desc">オペレーションから事業をグロースさせる仕組みと組織づくりを得意とする。</p>
+        </div>
+      </div>
+      <div class="mem rv d2">
+        <div class="ph"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=80" alt="吉川 隼大"></div>
+        <div class="body">
+          <div class="name">吉川 隼大</div>
+          <div class="role"><span class="co">株式会社プレイバッカーズ</span>代表取締役</div>
+          <p class="desc">ルールにとらわれない発想で事業と組織を創造する仕掛け人。</p>
+        </div>
+      </div>
+      <div class="mem rv d3">
+        <div class="ph"><img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=600&q=80" alt="石川 拓也"></div>
+        <div class="body">
+          <div class="name">石川 拓也</div>
+          <div class="role"><span class="co">株式会社AntAI</span>代表取締役</div>
+          <p class="desc">テクノロジーで「正直な価値」を届ける事業づくりと戦略設計を支援する。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="can" class="can">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="divider-gold"></div>
+      <div class="sec-label">できること</div>
+      <h2 class="sec-title">経営者と話すことで、<br>動き出すものがある。</h2>
+    </div>
+    <div class="can-grid">
+      <div class="can-item rv">
+        <div class="can-ic">◇</div>
+        <div>
+          <h3>経営に近づくキャリア設計</h3>
+          <p>強みや価値観、経験をもとに、経営に近づくためのキャリアの選択肢を共に描きます。</p>
+        </div>
+      </div>
+      <div class="can-item rv d1">
+        <div class="can-ic">○</div>
+        <div>
+          <h3>経営者のネットワークから生まれる機会</h3>
+          <p>私たちのネットワークや協業現場から、通常出会えないプロジェクトや役割のチャンスが生まれます。</p>
+        </div>
+      </div>
+      <div class="can-item rv d1">
+        <div class="can-ic">△</div>
+        <div>
+          <h3>経営の視点で整理する次の一手</h3>
+          <p>モヤモヤを言語化し、経営の視点から意思決定に必要な情報と、具体的な次の一歩を見つけます。</p>
+        </div>
+      </div>
+      <div class="can-item rv d2">
+        <div class="can-ic">▽</div>
+        <div>
+          <h3>情報提供・ナレッジ共有</h3>
+          <p>経営や市場のリアルな情報、学びにつながるナレッジを継続的にお届けします。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="flow" class="flow">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="divider-gold"></div>
+      <div class="sec-label">ご相談の流れ</div>
+      <h2 class="sec-title">まずは、話すことから。</h2>
+    </div>
+    <div class="flow-grid">
+      <div class="flow-step rv">
+        <div class="flow-num">01</div>
+        <h3>経営者と話す</h3>
+        <p>まずは気軽に、あなたの想いや現在の状況をお聞かせください。</p>
+      </div>
+      <div class="flow-step rv d1">
+        <div class="flow-num">02</div>
+        <h3>現在地を整理する</h3>
+        <p>経験・強み・志向性を整理し、経営に近づく可能性を探ります。</p>
+      </div>
+      <div class="flow-step rv d2">
+        <div class="flow-num">03</div>
+        <h3>機会を見立てる</h3>
+        <p>あなたにフィットする役割やポジションの可能性を見立てます。</p>
+      </div>
+      <div class="flow-step rv d3">
+        <div class="flow-num">04</div>
+        <h3>次のアクションを決める</h3>
+        <p>実行プランを一緒に設計し、一歩を踏み出す伴走をします。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="voice" class="voice">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="divider-gold"></div>
+      <div class="sec-label">声</div>
+      <h2 class="sec-title">話してみて、<br>見えてきたこと。</h2>
+    </div>
+    <div class="voice-grid">
+      <div class="voice-card rv">
+        <div class="q">“</div>
+        <p class="txt">経営の視点で話してもらえて、自分の課題が明確になり、やるべきことが腹落ちしました。</p>
+        <div class="voice-meta">
+          <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=200&q=70" alt="">
+          <div class="who">30代・事業企画<br>IT・SaaS企業</div>
+        </div>
+      </div>
+      <div class="voice-card rv d1">
+        <div class="q">“</div>
+        <p class="txt">キャリアの選択肢が広がり、今の延長ではない挑戦に踏み出す勇気が持てました。</p>
+        <div class="voice-meta">
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=70" alt="">
+          <div class="who">30代・事業推進<br>メーカー</div>
+        </div>
+      </div>
+      <div class="voice-card rv d2">
+        <div class="q">“</div>
+        <p class="txt">モヤモヤしていた想いが言語化され、経営に近づくリアルな道筋が見えてきました。</p>
+        <div class="voice-meta">
+          <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=70" alt="">
+          <div class="who">20代・コンサルタント<br>コンサルティングファーム</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="contact">
+  <div class="wrap contact-in">
+    <div class="lead rv">
+      <h2>経営者と、本音で<br>キャリアを考えてみませんか。</h2>
+      <div class="rule"></div>
+      <p>まずはお気軽にご相談ください。</p>
+    </div>
+    <form class="contact-form rv d1" onsubmit="return false;">
+      <div class="field">
+        <label for="f-name">お名前</label>
+        <input id="f-name" type="text" placeholder="例）山田 太郎" autocomplete="name">
+      </div>
+      <div class="field">
+        <label for="f-mail">メールアドレス</label>
+        <input id="f-mail" type="email" placeholder="例）taro.yamada@example.com" autocomplete="email">
+      </div>
+      <div class="field">
+        <label for="f-org">現在の所属・役職</label>
+        <input id="f-org" type="text" placeholder="例）株式会社〇〇 / 事業企画">
+      </div>
+      <div class="field">
+        <label for="f-msg">ご相談内容</label>
+        <textarea id="f-msg" placeholder="ご相談したい内容や、現在の状況などを自由にご記入ください。"></textarea>
+      </div>
+      <button type="submit" class="form-submit">経営者と話してみる<span>→</span></button>
+      <p class="form-note">※ ご相談はすべてキャリアを考える場です。応募や選考に進むことはありません。</p>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <div class="fl">Cxo<span>エージェント</span></div>
+        <div class="op">運営：Beyondge株式会社</div>
+      </div>
+      <nav class="foot-links">
+        <a href="#">運営会社</a>
+        <a href="#">プライバシーポリシー</a>
+        <a href="#">利用規約</a>
+        <a href="#">特定商取引法に基づく表記</a>
+        <a href="#contact">お問い合わせ</a>
+      </nav>
+    </div>
+    <div class="foot-copy">© 2025 CxOエージェント All Rights Reserved.</div>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var toggle=document.getElementById('navtoggle');
+    var links=document.getElementById('navlinks');
+    if(toggle){toggle.addEventListener('click',function(){links.classList.toggle('open');});}
+    links&&links.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){links.classList.remove('open');});});
+
+    var els=document.querySelectorAll('.rv');
+    if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in');});return;}
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}
+      });
+    },{threshold:0.12,rootMargin:'0px 0px -8% 0px'});
+    els.forEach(function(e){io.observe(e);});
+  })();
+</script>
+</body>
+</html>

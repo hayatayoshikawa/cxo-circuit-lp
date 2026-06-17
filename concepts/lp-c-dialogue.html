@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="ja" class="js">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CxOエージェント — キャリアを、経営者と。</title>
+  <meta name="description" content="経営を目指すあなたの次の一手を、経営を経験した私たちと、本音で考える。運営：Beyondge株式会社">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <script>document.documentElement.className='js';</script>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --wine:#6E1B2E; --wine-d:#511325; --wine-l:#883246;
+      --cream:#F3ECDB; --cream2:#EDE4CF; --paper:#FBF7EF;
+      --ink:#22242B; --ink2:#16181E;
+      --gold:#B08628; --gold-l:#C7A04A;
+      --body:#4A4138; --mute:#8E8273;
+      --line:rgba(34,36,43,.13); --goldline:rgba(176,134,40,.45);
+      --mc:'Shippori Mincho',serif; --sans:'Noto Sans JP',sans-serif;
+    }
+    html,body{scroll-behavior:smooth}
+    body{font-family:var(--sans); background:var(--cream); color:var(--body);
+      overflow-x:hidden; line-height:1.85; -webkit-font-smoothing:antialiased}
+    a{text-decoration:none;color:inherit}
+    img{display:block;max-width:100%}
+    h1,h2,h3{font-family:var(--mc);font-weight:700;word-break:keep-all;line-height:1.42;color:var(--ink)}
+    ::selection{background:var(--wine);color:var(--cream)}
+
+    /* faint circuit/grid backdrop */
+    .grid-bg{position:absolute;inset:0;pointer-events:none;z-index:0;opacity:.5;
+      background-image:
+        linear-gradient(rgba(176,134,40,.05) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(176,134,40,.05) 1px,transparent 1px);
+      background-size:54px 54px}
+
+    /* reveal */
+    .js .rv{opacity:0;transform:translateY(26px);transition:opacity .85s cubic-bezier(.2,.8,.3,1),transform .85s cubic-bezier(.2,.8,.3,1)}
+    .js .rv.in{opacity:1;transform:none}
+    .d1{transition-delay:.08s}.d2{transition-delay:.18s}.d3{transition-delay:.28s}.d4{transition-delay:.38s}
+
+    /* section frame */
+    .sec{padding:clamp(72px,9vw,124px) clamp(20px,5vw,56px);position:relative;z-index:1}
+    .inner{max-width:1140px;margin:0 auto;position:relative;z-index:1}
+    .kicker{font-family:var(--mc);font-size:13px;letter-spacing:.34em;color:var(--wine);
+      text-transform:uppercase;display:inline-flex;align-items:center;gap:12px}
+    .kicker::before{content:"";width:28px;height:1px;background:var(--gold)}
+    .sec-h{font-size:clamp(25px,3.5vw,38px);margin:18px 0 0;letter-spacing:.01em}
+    .lead-rule{width:44px;height:1px;background:var(--gold);margin:20px 0 0}
+
+    /* NAV */
+    nav{position:fixed;inset:0 0 auto 0;height:68px;display:flex;align-items:center;
+      justify-content:space-between;padding:0 clamp(18px,5vw,52px);z-index:100;
+      background:rgba(243,236,219,.82);backdrop-filter:blur(11px);-webkit-backdrop-filter:blur(11px);
+      border-bottom:1px solid transparent;transition:border-color .3s,background .3s}
+    nav.scrolled{border-color:var(--goldline);background:rgba(243,236,219,.94)}
+    .brand{font-family:var(--mc);font-size:20px;font-weight:700;letter-spacing:.1em;color:var(--ink)}
+    .brand b{color:var(--wine);font-weight:700}
+    .nav-links{list-style:none;display:flex;gap:26px;align-items:center}
+    .nav-links a{font-family:var(--mc);font-size:14px;color:var(--body);transition:color .2s;position:relative}
+    .nav-links a::after{content:"";position:absolute;left:0;bottom:-5px;width:0;height:1px;background:var(--wine);transition:width .25s}
+    .nav-links a:hover{color:var(--wine)}
+    .nav-links a:hover::after{width:100%}
+    .nav-cta{font-family:var(--mc)!important;background:var(--wine);color:var(--cream)!important;
+      padding:10px 20px;border-radius:2px;font-size:13.5px;letter-spacing:.04em;
+      transition:background .25s,transform .25s}
+    .nav-cta::after{display:none}
+    .nav-cta:hover{background:var(--wine-d);transform:translateY(-1px)}
+    .nav-toggle{display:none;background:none;border:0;cursor:pointer;flex-direction:column;gap:5px}
+    .nav-toggle span{width:23px;height:2px;background:var(--ink);display:block;transition:.3s}
+
+    /* HERO */
+    .hero{min-height:100vh;display:grid;grid-template-columns:1.04fr .96fr;align-items:center;
+      gap:clamp(24px,4vw,60px);padding:108px clamp(20px,5vw,56px) 64px;position:relative;
+      max-width:1280px;margin:0 auto}
+    .hero-copy{position:relative;z-index:2}
+    .hero-label{font-family:var(--mc);font-size:13px;letter-spacing:.32em;color:var(--wine);
+      text-transform:uppercase;display:inline-flex;align-items:center;gap:12px;margin-bottom:26px}
+    .hero-label::before{content:"";width:30px;height:1px;background:var(--gold)}
+    .hero h1{font-size:clamp(34px,5.4vw,62px);line-height:1.32;letter-spacing:.015em;font-weight:800}
+    .hero h1 .em{color:var(--wine)}
+    .hero-sub{font-family:var(--mc);font-size:clamp(15px,1.7vw,18.5px);color:var(--body);
+      line-height:1.95;margin-top:26px;max-width:30em}
+    .hero-actions{margin-top:38px;display:flex;flex-wrap:wrap;align-items:center;gap:20px}
+    .btn{display:inline-flex;align-items:center;gap:11px;font-family:var(--mc);font-size:16px;
+      letter-spacing:.04em;background:var(--wine);color:var(--cream);padding:17px 36px;border-radius:2px;
+      transition:background .25s,transform .25s,box-shadow .25s;box-shadow:0 10px 28px -14px rgba(110,27,46,.6)}
+    .btn:hover{background:var(--wine-d);transform:translateY(-2px);box-shadow:0 16px 34px -14px rgba(110,27,46,.7)}
+    .btn .ar{transition:transform .25s}
+    .btn:hover .ar{transform:translateX(4px)}
+    .hero-note{font-size:13px;color:var(--mute);margin-top:24px;letter-spacing:.02em}
+
+    /* hero photo — angled frame */
+    .hero-photo{position:relative;z-index:1;align-self:center}
+    .hero-photo .frame{position:relative;
+      clip-path:polygon(8% 0,100% 0,92% 100%,0 100%);
+      transform:rotate(2deg);box-shadow:0 30px 60px -30px rgba(34,28,18,.55)}
+    .hero-photo img{width:100%;height:clamp(420px,58vw,580px);object-fit:cover;
+      filter:grayscale(.78) contrast(1.04) brightness(1.02) sepia(.06)}
+    .hero-photo .frame::after{content:"";position:absolute;inset:0;
+      background:linear-gradient(150deg,rgba(110,27,46,.06),rgba(34,28,18,.16));pointer-events:none}
+    .hero-photo .tag{position:absolute;left:-14px;bottom:36px;z-index:3;background:var(--paper);
+      padding:14px 22px;border-left:3px solid var(--wine);box-shadow:0 16px 36px -18px rgba(34,28,18,.4);
+      transform:rotate(-1deg)}
+    .hero-photo .tag b{font-family:var(--mc);display:block;font-weight:700;color:var(--ink);font-size:15px;letter-spacing:.04em}
+    .hero-photo .tag span{font-size:11.5px;color:var(--mute);letter-spacing:.1em}
+    .hero-photo .gline{position:absolute;top:-18px;right:18px;width:64px;height:64px;
+      border-top:1px solid var(--gold);border-right:1px solid var(--gold);opacity:.7;z-index:3}
+
+    /* ABOUT cards */
+    .about{background:var(--paper)}
+    .about-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;margin-top:54px;
+      background:var(--line);border:1px solid var(--line)}
+    .ac{background:var(--paper);padding:clamp(28px,3.4vw,44px);position:relative;transition:background .3s}
+    .ac:hover{background:var(--cream)}
+    .ac .no{font-family:var(--mc);font-size:13px;letter-spacing:.2em;color:var(--gold);font-weight:600}
+    .ac h3{font-size:21px;margin:14px 0 0;line-height:1.5}
+    .ac p{font-size:14.5px;color:var(--body);line-height:1.95;margin-top:14px}
+    .ac::before{content:"";position:absolute;left:clamp(28px,3.4vw,44px);bottom:clamp(28px,3.4vw,44px);
+      width:0;height:2px;background:var(--wine);transition:width .4s}
+    .ac:hover::before{width:38px}
+
+    /* MEMBERS */
+    .members{background:var(--cream)}
+    .mem-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(18px,2.2vw,28px);margin-top:52px}
+    .mc-card{background:var(--paper);border:1px solid var(--line);transition:transform .35s,box-shadow .35s}
+    .mc-card:hover{transform:translateY(-5px);box-shadow:0 22px 44px -24px rgba(34,28,18,.4)}
+    .mc-card .ph{position:relative;overflow:hidden;aspect-ratio:1/1.12}
+    .mc-card .ph img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.03);transition:filter .5s,transform .6s}
+    .mc-card:hover .ph img{filter:grayscale(.55) contrast(1.05);transform:scale(1.04)}
+    .mc-card .ph::after{content:"";position:absolute;inset:0;
+      background:linear-gradient(180deg,transparent 55%,rgba(34,28,18,.28))}
+    .mc-body{padding:20px 20px 24px}
+    .mc-body h3{font-size:18px;letter-spacing:.02em}
+    .mc-role{font-family:var(--mc);font-size:12.5px;color:var(--wine);margin-top:6px;letter-spacing:.03em}
+    .mc-body p{font-size:13px;color:var(--body);line-height:1.85;margin-top:12px}
+
+    /* CAN — editorial rows */
+    .can{background:var(--paper)}
+    .can-list{margin-top:46px;border-top:1px solid var(--line)}
+    .can-row{display:grid;grid-template-columns:auto 1fr;gap:clamp(20px,4vw,52px);align-items:start;
+      padding:clamp(26px,3.4vw,40px) 0;border-bottom:1px solid var(--line);transition:padding-left .3s}
+    .can-row:hover{padding-left:14px}
+    .can-row .ic{width:54px;height:54px;border:1px solid var(--goldline);border-radius:50%;
+      display:flex;align-items:center;justify-content:center;color:var(--wine);flex-shrink:0}
+    .can-row .ic svg{width:24px;height:24px}
+    .can-row h3{font-size:clamp(19px,2.2vw,23px);line-height:1.5}
+    .can-row p{font-size:15px;color:var(--body);line-height:1.95;margin-top:10px;max-width:54em}
+
+    /* FLOW */
+    .flow{background:var(--ink);color:#E9E2D2;position:relative;overflow:hidden}
+    .flow .grid-bg{opacity:.32;background-image:
+      linear-gradient(rgba(199,160,74,.12) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(199,160,74,.12) 1px,transparent 1px)}
+    .flow .kicker{color:var(--gold-l)}
+    .flow .kicker::before{background:var(--gold-l)}
+    .flow .sec-h{color:var(--paper)}
+    .flow .lead-rule{background:var(--gold-l)}
+    .flow-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(20px,2.4vw,32px);margin-top:54px}
+    .fc{position:relative;padding-top:30px}
+    .fc .num{font-family:var(--mc);font-size:clamp(40px,5vw,58px);font-weight:700;color:var(--wine-l);line-height:1}
+    .fc .num b{color:var(--gold-l);font-weight:700}
+    .fc h3{font-size:19px;color:var(--paper);margin:18px 0 0;line-height:1.5}
+    .fc p{font-size:14px;color:#C8BFAC;line-height:1.9;margin-top:12px}
+    .fc::before{content:"";position:absolute;top:0;left:0;width:34px;height:2px;background:var(--gold-l)}
+
+    /* VOICE */
+    .voice{background:var(--cream)}
+    .v-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,2.4vw,30px);margin-top:52px}
+    .vc{background:var(--paper);border:1px solid var(--line);padding:clamp(26px,2.8vw,36px);
+      position:relative;transition:transform .35s,box-shadow .35s}
+    .vc:hover{transform:translateY(-4px);box-shadow:0 22px 44px -26px rgba(34,28,18,.4)}
+    .vc .q{font-family:var(--mc);font-size:46px;color:var(--goldline);line-height:.6;height:24px}
+    .vc blockquote{font-family:var(--mc);font-size:16.5px;color:var(--ink);line-height:1.95;margin-top:8px}
+    .vc .who{display:flex;align-items:center;gap:13px;margin-top:24px;padding-top:20px;border-top:1px solid var(--line)}
+    .vc .who img{width:46px;height:46px;border-radius:50%;object-fit:cover;filter:grayscale(1) contrast(1.03);flex-shrink:0}
+    .vc .who span{font-size:12.5px;color:var(--mute);line-height:1.5}
+
+    /* CONTACT */
+    .contact{background:var(--paper);position:relative;overflow:hidden}
+    .contact-wrap{display:grid;grid-template-columns:1fr 1fr;gap:clamp(36px,5vw,72px);align-items:start;
+      max-width:1080px;margin:0 auto;position:relative;z-index:1}
+    .contact h2{font-size:clamp(26px,3.4vw,40px);line-height:1.5;margin-top:18px}
+    .contact .c-sub{font-family:var(--mc);font-size:17px;color:var(--body);margin-top:22px;line-height:1.9}
+    .c-aside-line{width:44px;height:1px;background:var(--gold);margin:26px 0}
+    .c-aside p{font-size:14px;color:var(--mute);line-height:1.95}
+    form{background:var(--cream);border:1px solid var(--line);padding:clamp(26px,3vw,40px)}
+    .fld{margin-bottom:20px}
+    .fld label{display:block;font-family:var(--mc);font-size:13.5px;color:var(--ink);margin-bottom:9px;letter-spacing:.04em}
+    .fld input,.fld textarea{width:100%;font-family:var(--sans);font-size:14.5px;color:var(--ink);
+      background:var(--paper);border:1px solid var(--line);border-radius:2px;padding:13px 15px;transition:border-color .2s,box-shadow .2s}
+    .fld input:focus,.fld textarea:focus{outline:none;border-color:var(--wine);box-shadow:0 0 0 3px rgba(110,27,46,.1)}
+    .fld textarea{resize:vertical;min-height:118px;line-height:1.8}
+    .fld input::placeholder,.fld textarea::placeholder{color:#A99E8C}
+    .submit{width:100%;border:0;cursor:pointer;font-family:var(--mc);font-size:16px;letter-spacing:.04em;
+      background:var(--wine);color:var(--cream);padding:17px;border-radius:2px;
+      display:inline-flex;align-items:center;justify-content:center;gap:11px;
+      transition:background .25s,transform .2s}
+    .submit:hover{background:var(--wine-d);transform:translateY(-2px)}
+    .form-note{font-size:12.5px;color:var(--mute);line-height:1.8;margin-top:16px}
+
+    /* FOOTER */
+    footer{background:var(--ink2);color:#B7AE9C;padding:clamp(54px,6vw,76px) clamp(20px,5vw,56px) 38px}
+    .ft-inner{max-width:1140px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:space-between;gap:32px}
+    .ft-brand .b{font-family:var(--mc);font-size:21px;font-weight:700;letter-spacing:.1em;color:var(--paper)}
+    .ft-brand .b b{color:var(--gold-l)}
+    .ft-brand p{font-size:13px;margin-top:12px;letter-spacing:.04em}
+    .ft-links{list-style:none;display:flex;flex-wrap:wrap;gap:14px 26px;align-items:center}
+    .ft-links a{font-size:13.5px;color:#C8BFAC;transition:color .2s}
+    .ft-links a:hover{color:var(--gold-l)}
+    .ft-copy{max-width:1140px;margin:42px auto 0;padding-top:26px;border-top:1px solid rgba(199,160,74,.18);
+      font-size:12px;letter-spacing:.06em;color:#8C8373}
+
+    @media(max-width:1024px){
+      .mem-grid{grid-template-columns:repeat(2,1fr)}
+      .flow-grid{grid-template-columns:repeat(2,1fr);gap:36px}
+    }
+    @media(max-width:900px){
+      .nav-links{display:none}
+      .nav-toggle{display:flex}
+      .hero{grid-template-columns:1fr;min-height:auto;padding-top:104px;gap:48px}
+      .hero-photo{order:2;max-width:560px;margin:0 auto;width:100%}
+      .hero-photo .frame{transform:rotate(1deg)}
+      .hero-photo img{height:clamp(340px,62vw,460px)}
+      .about-grid{grid-template-columns:1fr}
+      .v-grid{grid-template-columns:1fr;max-width:560px;margin-left:auto;margin-right:auto}
+      .contact-wrap{grid-template-columns:1fr;gap:38px}
+    }
+    @media(max-width:560px){
+      .hero h1{font-size:clamp(28px,8.5vw,40px);line-height:1.4}
+      .hero-photo .frame{clip-path:polygon(5% 0,100% 0,95% 100%,0 100%);transform:none}
+      .hero-photo img{height:300px}
+      .hero-photo .tag{left:8px;bottom:18px}
+      .hero-photo .gline{display:none}
+      .mem-grid{grid-template-columns:1fr;max-width:340px;margin-left:auto;margin-right:auto}
+      .flow-grid{grid-template-columns:1fr}
+      .can-row{grid-template-columns:1fr;gap:14px}
+      .btn,.hero .btn{width:100%;justify-content:center}
+    }
+    @media (prefers-reduced-motion: reduce){
+      html{scroll-behavior:auto}
+      .js .rv{opacity:1;transform:none;transition:none}
+      *{transition-duration:.01ms!important;animation-duration:.01ms!important}
+    }
+  </style>
+</head>
+<body>
+
+  <nav id="nav">
+    <a href="#" class="brand">Cx<b>O</b>エージェント</a>
+    <ul class="nav-links">
+      <li><a href="#about">私たちについて</a></li>
+      <li><a href="#can">できること</a></li>
+      <li><a href="#flow">ご相談の流れ</a></li>
+      <li><a href="#voice">声</a></li>
+      <li><a href="#faq">よくあるご質問</a></li>
+      <li><a href="#">コラム</a></li>
+      <li><a href="#contact" class="nav-cta">経営者と話してみる</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+  </nav>
+
+  <header class="hero">
+    <div class="grid-bg"></div>
+    <div class="hero-copy">
+      <span class="hero-label">CxOエージェント</span>
+      <h1>
+        <span class="em">“経営できる人”</span>になる<br>
+        キャリアを、<span class="em">経営者</span>と。
+      </h1>
+      <p class="hero-sub">経営を目指すあなたの次の一手を、<br>経営を経験した私たちと、本音で考える。</p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn">経営者と話してみる<span class="ar">→</span></a>
+      </div>
+      <p class="hero-note">🔒 匿名可・ご相談はすべてキャリアを考える場です。</p>
+    </div>
+    <div class="hero-photo rv">
+      <span class="gline"></span>
+      <div class="frame">
+        <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=1600&q=80" alt="経営者と対話する様子">
+      </div>
+      <div class="tag"><b>本音で、対話する。</b><span>DIALOGUE WITH LEADERS</span></div>
+    </div>
+  </header>
+
+  <section class="sec about" id="about">
+    <div class="inner">
+      <span class="kicker rv">Why us</span>
+      <h2 class="sec-h rv">経営の現場にいる私たちだから、<br>話せることがある。</h2>
+      <div class="about-grid">
+        <div class="ac rv d1">
+          <span class="no">01</span>
+          <h3>現役の経営者・事業責任者</h3>
+          <p>日々、事業を伸ばし、リスクを取り、意思決定を繰り返している私たちが、あなたのキャリアと向き合います。</p>
+        </div>
+        <div class="ac rv d2">
+          <span class="no">02</span>
+          <h3>本音で語れる対話</h3>
+          <p>机上のアドバイスではなく、経営の最前線のリアルな課題も率直にお話しします。</p>
+        </div>
+        <div class="ac rv d3">
+          <span class="no">03</span>
+          <h3>転職につながる提案</h3>
+          <p>単なる紹介やポジション提案ではなく、あなたのキャリアの可能性が広がる選択肢を考えます。</p>
+        </div>
+        <div class="ac rv d4">
+          <span class="no">04</span>
+          <h3>中長期のパートナー</h3>
+          <p>今すぐの転職に限らず、将来の可能性を見据えた伴走を大切にしています。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec members">
+    <div class="grid-bg"></div>
+    <div class="inner">
+      <span class="kicker rv">Members</span>
+      <h2 class="sec-h rv">私たち（現役経営者）</h2>
+      <div class="lead-rule rv"></div>
+      <div class="mem-grid">
+        <article class="mc-card rv d1">
+          <div class="ph"><img src="https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?auto=format&fit=crop&w=600&q=80" alt="野上 隆徳"></div>
+          <div class="mc-body">
+            <h3>野上 隆徳</h3>
+            <p class="mc-role">Beyondge株式会社 代表取締役</p>
+            <p>事業創出と組織変革を推進。デザイン×事業開発で新しい価値を生み出す。</p>
+          </div>
+        </article>
+        <article class="mc-card rv d2">
+          <div class="ph"><img src="https://images.unsplash.com/photo-1502920917128-1aa500764cbd?auto=format&fit=crop&w=600&q=80" alt="小高 康太"></div>
+          <div class="mc-body">
+            <h3>小高 康太</h3>
+            <p class="mc-role">Beyondge株式会社 COO</p>
+            <p>オペレーションから事業をグロースさせる仕組みと組織づくりを得意とする。</p>
+          </div>
+        </article>
+        <article class="mc-card rv d3">
+          <div class="ph"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=80" alt="吉川 隼大"></div>
+          <div class="mc-body">
+            <h3>吉川 隼大</h3>
+            <p class="mc-role">株式会社プレイバッカーズ 代表取締役</p>
+            <p>ルールにとらわれない発想で事業と組織を創造する仕掛け人。</p>
+          </div>
+        </article>
+        <article class="mc-card rv d4">
+          <div class="ph"><img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=600&q=80" alt="石川 拓也"></div>
+          <div class="mc-body">
+            <h3>石川 拓也</h3>
+            <p class="mc-role">株式会社AntAI 代表取締役</p>
+            <p>テクノロジーで「正直な価値」を届ける事業づくりと戦略設計を支援する。</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec can" id="can">
+    <div class="inner">
+      <span class="kicker rv">What we can do</span>
+      <h2 class="sec-h rv">できること</h2>
+      <div class="lead-rule rv"></div>
+      <div class="can-list">
+        <div class="can-row rv">
+          <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 3l1.8 5.3L19 9l-4 3.4L16.2 18 12 14.9 7.8 18 9 12.4 5 9l5.2-.7L12 3z" stroke-linejoin="round"/></svg></div>
+          <div>
+            <h3>経営に近づくキャリア設計</h3>
+            <p>強みや価値観、経験をもとに、経営に近づくためのキャリアの選択肢を共に描きます。</p>
+          </div>
+        </div>
+        <div class="can-row rv">
+          <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="7" cy="8" r="2.6"/><circle cx="17" cy="8" r="2.6"/><circle cx="12" cy="16.5" r="2.6"/><path d="M9.3 9.6l1.6 4.5M14.7 9.6l-1.6 4.5M9.2 8h5.6"/></svg></div>
+          <div>
+            <h3>経営者のネットワークから生まれる機会</h3>
+            <p>私たちのネットワークや協業現場から、通常出会えないプロジェクトや役割のチャンスが生まれます。</p>
+          </div>
+        </div>
+        <div class="can-row rv">
+          <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M9 18h6M10 21h4" stroke-linecap="round"/><path d="M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2h5c0-.8.4-1.5 1-2A6 6 0 0 0 12 3z"/></svg></div>
+          <div>
+            <h3>経営の視点で整理する次の一手</h3>
+            <p>モヤモヤを言語化し、経営の視点から意思決定に必要な情報と、具体的な次の一歩を見つけます。</p>
+          </div>
+        </div>
+        <div class="can-row rv">
+          <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M5 4h9l5 5v11H5V4z" stroke-linejoin="round"/><path d="M14 4v5h5M8 13h8M8 16.5h5" stroke-linecap="round"/></svg></div>
+          <div>
+            <h3>情報提供・ナレッジ共有</h3>
+            <p>経営や市場のリアルな情報、学びにつながるナレッジを継続的にお届けします。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec flow" id="flow">
+    <div class="grid-bg"></div>
+    <div class="inner">
+      <span class="kicker rv">How it works</span>
+      <h2 class="sec-h rv">ご相談の流れ</h2>
+      <div class="lead-rule rv"></div>
+      <div class="flow-grid">
+        <div class="fc rv d1">
+          <div class="num">0<b>1</b></div>
+          <h3>経営者と話す</h3>
+          <p>まずは気軽に、あなたの想いや現在の状況をお聞かせください。</p>
+        </div>
+        <div class="fc rv d2">
+          <div class="num">0<b>2</b></div>
+          <h3>現在地を整理する</h3>
+          <p>経験・強み・志向性を整理し、経営に近づく可能性を探ります。</p>
+        </div>
+        <div class="fc rv d3">
+          <div class="num">0<b>3</b></div>
+          <h3>機会を見立てる</h3>
+          <p>あなたにフィットする役割やポジションの可能性を見立てます。</p>
+        </div>
+        <div class="fc rv d4">
+          <div class="num">0<b>4</b></div>
+          <h3>次のアクションを決める</h3>
+          <p>実行プランを一緒に設計し、一歩を踏み出す伴走をします。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec voice" id="voice">
+    <div class="inner">
+      <span class="kicker rv">Voice</span>
+      <h2 class="sec-h rv">声</h2>
+      <div class="lead-rule rv"></div>
+      <div class="v-grid">
+        <figure class="vc rv d1">
+          <div class="q">“</div>
+          <blockquote>経営の視点で話してもらえて、自分の課題が明確になり、やるべきことが腹落ちしました。</blockquote>
+          <figcaption class="who">
+            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=200&q=70" alt="相談者">
+            <span>30代・事業企画<br>IT・SaaS企業</span>
+          </figcaption>
+        </figure>
+        <figure class="vc rv d2">
+          <div class="q">“</div>
+          <blockquote>キャリアの選択肢が広がり、今の延長ではない挑戦に踏み出す勇気が持てました。</blockquote>
+          <figcaption class="who">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=70" alt="相談者">
+            <span>30代・事業推進<br>メーカー</span>
+          </figcaption>
+        </figure>
+        <figure class="vc rv d3">
+          <div class="q">“</div>
+          <blockquote>モヤモヤしていた想いが言語化され、経営に近づくリアルな道筋が見えてきました。</blockquote>
+          <figcaption class="who">
+            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=70" alt="相談者">
+            <span>20代・コンサルタント<br>コンサルティングファーム</span>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec contact" id="contact">
+    <div class="grid-bg"></div>
+    <div class="contact-wrap">
+      <div class="c-aside">
+        <span class="kicker rv">Contact</span>
+        <h2 class="rv">経営者と、本音で<br>キャリアを考えて<br>みませんか。</h2>
+        <p class="c-sub rv">まずはお気軽にご相談ください。</p>
+        <div class="c-aside-line rv"></div>
+        <p class="rv">ご相談はすべて、これからのキャリアを<br>一緒に考えるための時間です。匿名でのご相談も承ります。</p>
+      </div>
+      <form onsubmit="return false;" class="rv">
+        <div class="fld">
+          <label for="f-name">お名前</label>
+          <input id="f-name" type="text" placeholder="例）山田 太郎" autocomplete="name">
+        </div>
+        <div class="fld">
+          <label for="f-mail">メールアドレス</label>
+          <input id="f-mail" type="email" placeholder="例）taro.yamada@example.com" autocomplete="email">
+        </div>
+        <div class="fld">
+          <label for="f-org">現在の所属・役職</label>
+          <input id="f-org" type="text" placeholder="例）株式会社〇〇 / 事業企画">
+        </div>
+        <div class="fld">
+          <label for="f-msg">ご相談内容</label>
+          <textarea id="f-msg" placeholder="ご相談したい内容や、現在の状況などを自由にご記入ください。"></textarea>
+        </div>
+        <button type="submit" class="submit">経営者と話してみる<span>→</span></button>
+        <p class="form-note">※ ご相談はすべてキャリアを考える場です。応募や選考に進むことはありません。</p>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    <div class="ft-inner">
+      <div class="ft-brand">
+        <div class="b">Cx<b>O</b>エージェント</div>
+        <p>運営：Beyondge株式会社</p>
+      </div>
+      <ul class="ft-links">
+        <li><a href="#">運営会社</a></li>
+        <li><a href="#">プライバシーポリシー</a></li>
+        <li><a href="#">利用規約</a></li>
+        <li><a href="#">特定商取引法に基づく表記</a></li>
+        <li><a href="#contact">お問い合わせ</a></li>
+      </ul>
+    </div>
+    <div class="ft-copy">© 2025 CxOエージェント All Rights Reserved.</div>
+  </footer>
+
+  <script>
+    (function(){
+      var nav=document.getElementById('nav');
+      var onScroll=function(){ nav.classList.toggle('scrolled', window.scrollY>20); };
+      onScroll(); window.addEventListener('scroll',onScroll,{passive:true});
+
+      var toggle=document.getElementById('navToggle');
+      if(toggle){ toggle.addEventListener('click',function(){
+        var l=document.querySelector('.nav-links');
+        if(!l) return;
+        var open=l.style.display==='flex';
+        l.style.display=open?'':'flex';
+        if(!open){ l.style.position='fixed'; l.style.top='68px'; l.style.left='0'; l.style.right='0';
+          l.style.flexDirection='column'; l.style.background='rgba(243,236,219,.98)';
+          l.style.padding='22px 26px'; l.style.gap='18px'; l.style.borderBottom='1px solid rgba(176,134,40,.45)'; l.style.zIndex='99'; }
+      }); }
+
+      var prefersReduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var rv=document.querySelectorAll('.rv');
+      if(prefersReduce || !('IntersectionObserver' in window)){
+        rv.forEach(function(el){ el.classList.add('in'); });
+        return;
+      }
+      var io=new IntersectionObserver(function(entries){
+        entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+      },{threshold:0.12,rootMargin:'0px 0px -8% 0px'});
+      rv.forEach(function(el){ io.observe(el); });
+    })();
+  </script>
+</body>
+</html>
