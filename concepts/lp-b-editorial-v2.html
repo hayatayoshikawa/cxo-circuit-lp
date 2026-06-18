@@ -166,6 +166,17 @@
   .about-row h3{font-size:20px;margin:0 0 10px;line-height:1.6;font-weight:800;}
   .about-row p{margin:0;font-size:15.5px;line-height:2.1;color:var(--body);max-width:40em;}
 
+  /* ---------- VALUES（CXOエージェントとは？／3価値） ---------- */
+  .value-list{display:grid;gap:0;border-top:1px solid var(--line);}
+  .value-row{display:grid;grid-template-columns:120px 1fr;gap:44px;padding:50px 0;border-bottom:1px solid var(--line);align-items:baseline;}
+  .value-num{font-family:var(--display);font-size:clamp(42px,5vw,68px);color:var(--crimson);line-height:1;letter-spacing:-.02em;}
+  .value-body h3{font-size:clamp(22px,2.6vw,30px);margin:0 0 16px;line-height:1.45;}
+  .value-body p{margin:0;font-size:16px;line-height:2.05;color:var(--body);max-width:34em;}
+  @media(max-width:560px){
+    .value-row{grid-template-columns:1fr;gap:8px;padding:36px 0;}
+    .value-num{font-size:38px;}
+  }
+
   /* ---------- MEMBERS ---------- */
   .members{display:grid;grid-template-columns:repeat(2,1fr);gap:0;border-top:1px solid var(--line);}
   .member{
@@ -334,8 +345,7 @@
   <div class="wrap nav-inner">
     <a href="#" class="logo">CxO Agent<small>シーエックスオー エージェント</small></a>
     <nav class="nav-links" id="navlinks">
-      <a href="#about">私たちについて</a>
-      <a href="#can">できること</a>
+      <a href="#about">CXOエージェントとは</a>
       <a href="#flow">ご相談の流れ</a>
       <a href="#voice">声</a>
       <a href="#faq">よくあるご質問</a>
@@ -376,40 +386,33 @@
     </div>
   </section>
 
-  <!-- ABOUT -->
+  <!-- ABOUT = CXOエージェントとは？（提供価値3つ） -->
   <section id="about" class="alt">
     <div class="wrap">
       <div class="sec-head rv">
-        <span class="eyebrow">Why us</span>
-        <h2>経営の現場にいる私たちだから、<br>話せることがある。</h2>
+        <span class="eyebrow">About us</span>
+        <h2>CXOエージェントとは？</h2>
       </div>
-      <div class="about-list">
-        <div class="about-row rv">
-          <div class="idx">01</div>
-          <div>
-            <h3>現役の経営者・事業責任者</h3>
-            <p>日々、事業を伸ばし、リスクを取り、意思決定を繰り返している私たちが、あなたのキャリアと向き合います。</p>
+      <div class="value-list">
+        <div class="value-row rv">
+          <span class="value-num">01</span>
+          <div class="value-body">
+            <h3>現役の経営者と、直接話せる。</h3>
+            <p>担当はエージェントではなく、いま自ら会社を経営している人間です。机上のアドバイスではなく、経営の本音で相談に乗ります。</p>
           </div>
         </div>
-        <div class="about-row rv">
-          <div class="idx">02</div>
-          <div>
-            <h3>本音で語れる対話</h3>
-            <p>机上のアドバイスではなく、経営の最前線のリアルな課題も率直にお話しします。</p>
+        <div class="value-row rv">
+          <span class="value-num">02</span>
+          <div class="value-body">
+            <h3>キャリア面談で、経営ポジションへ。</h3>
+            <p>経営者とのキャリア面談を通じて、CFO・COO・CTOなど経営ポジションを目指すキャリアアップを、一緒に設計します。</p>
           </div>
         </div>
-        <div class="about-row rv">
-          <div class="idx">03</div>
-          <div>
-            <h3>転職につながる提案</h3>
-            <p>単なる紹介やポジション提案ではなく、あなたのキャリアの可能性が広がる選択肢を考えます。</p>
-          </div>
-        </div>
-        <div class="about-row rv">
-          <div class="idx">04</div>
-          <div>
-            <h3>中長期のパートナー</h3>
-            <p>今すぐの転職に限らず、将来の可能性を見据えた伴走を大切にしています。</p>
+        <div class="value-row rv">
+          <span class="value-num">03</span>
+          <div class="value-body">
+            <h3>経営者の縁から、生まれる機会。</h3>
+            <p>経営者同士のつながりを通じて、表には出ない経営の場・ポジション（求人）をご紹介します。</p>
           </div>
         </div>
       </div>
@@ -455,38 +458,6 @@
             <p class="role"><span class="jp">株式会社AntAI　代表取締役</span></p>
             <p class="bio">テクノロジーで「正直な価値」を届ける事業づくりと戦略設計を支援する。</p>
           </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CAN -->
-  <section id="can" class="alt">
-    <div class="wrap">
-      <div class="sec-head rv">
-        <span class="eyebrow">What we do</span>
-        <h2>できること。</h2>
-      </div>
-      <div class="can-grid rv">
-        <div class="can-cell feature">
-          <span class="num">01</span>
-          <h3>経営に近づくキャリア設計</h3>
-          <p>強みや価値観、経験をもとに、経営に近づくためのキャリアの選択肢を共に描きます。</p>
-        </div>
-        <div class="can-cell">
-          <span class="num">02</span>
-          <h3>経営者のネットワークから生まれる機会</h3>
-          <p>私たちのネットワークや協業現場から、通常出会えないプロジェクトや役割のチャンスが生まれます。</p>
-        </div>
-        <div class="can-cell">
-          <span class="num">03</span>
-          <h3>経営の視点で整理する次の一手</h3>
-          <p>モヤモヤを言語化し、経営の視点から意思決定に必要な情報と、具体的な次の一歩を見つけます。</p>
-        </div>
-        <div class="can-cell">
-          <span class="num">04</span>
-          <h3>情報提供・ナレッジ共有</h3>
-          <p>経営や市場のリアルな情報、学びにつながるナレッジを継続的にお届けします。</p>
         </div>
       </div>
     </div>
